@@ -42,6 +42,9 @@ public class Level_1 extends AbstractScreen {
     private String playerChoice;
 
 
+
+
+
     public Level_1(final platformer app) {
 
         //super(app);
@@ -74,15 +77,15 @@ public class Level_1 extends AbstractScreen {
         //viewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //
         CharacterSelectionScreen choice = new CharacterSelectionScreen(app);
-        playerChoice = choice.sendString();
+
         System.out.println(playerChoice);
         final CharacterAnimation mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
         final CharacterAnimation archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
         final CharacterAnimation warrior = CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
 
-        mage.CreateAnimation(mage.Filename, mage.numCols);
-           stage.addActor(mage);
-//      mage.draw(stage)
+//        mage.CreateAnimation(mage.Filename, mage.numCols);
+//           stage.addActor(mage);
+
       }
 
 
