@@ -8,41 +8,38 @@ import com.mygdx.game.platformer;
  */
 public abstract class AbstractScreen implements Screen {
 
-    private platformer app;
+  private platformer app;
 
-    public AbstractScreen(platformer app) {
-        this.app = app;
-    }
+  public AbstractScreen(platformer app) {
+    this.app = app;
+  }
 
-    protected AbstractScreen() {
-    }
+  protected AbstractScreen() {}
 
-    public abstract void create();
+  public abstract void create();
 
-    public abstract void render();
+  public abstract void render();
 
-    @Override
-    public abstract void dispose();
+  @Override
+  public abstract void dispose();
 
-    @Override
-    public abstract void hide();
+  @Override
+  public abstract void hide();
 
-    @Override
-    public abstract void pause();
+  @Override
+  public abstract void pause();
 
+  public abstract void update(float delta);
 
-    public abstract void update(float delta);
+  @Override
+  public abstract void render(float delta);
 
-    @Override
-    public abstract void render(float delta);
+  @Override
+  public abstract void resize(int width, int height);
 
-    @Override
-    public abstract void resize(int width, int height);
+  @Override
+  public abstract void resume();
 
-    @Override
-    public abstract void resume();
-
-    @Override
-    public abstract void show();
-
+  @Override
+  public abstract void show();
 }
