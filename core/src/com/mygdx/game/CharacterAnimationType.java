@@ -14,7 +14,6 @@ public enum CharacterAnimationType {
 
     MAGEATTACK1,
     MAGEATTACK2,
-
     WARRIORATTACK1,
 
     WARRIORATTACK2,
@@ -24,7 +23,6 @@ public enum CharacterAnimationType {
 
     EVILWIZARD,
     EVILWIZARDATTACK,
-
     FIREWORMIDLE,
     FIREWORMATTACK,
     FIREWORMATTACK2;

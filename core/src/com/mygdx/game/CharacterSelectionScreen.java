@@ -30,14 +30,16 @@ public class CharacterSelectionScreen extends AbstractScreen {
     String playerChoice;
     TextButton MageB,ArcherB,WarriorB;
 
-
     boolean MageButtonPressed = false;
     boolean ArcherButtonPressed = false;
     boolean WarriorButtonPressed = false;
-
     boolean ConfirmFalse = false;
     private platformer app;
     private  Level_1 level1Screen;
+
+    final CharacterAnimation mage;
+    final CharacterAnimation archer;
+    final CharacterAnimation warrior;
 
     public CharacterSelectionScreen(final platformer app)
     {
@@ -53,28 +55,29 @@ public class CharacterSelectionScreen extends AbstractScreen {
         WarriorB = new TextButton("Warrior", skin, "default");
         TextButton ConfirmB = new TextButton("Confirm", skin, "default");
 
-        Texture background = new Texture(Gdx.files.internal("assets/sprites/Reference-Image.png"));
+      //  Texture background = new Texture(Gdx.files.internal("assets/sprites/Reference-Image.png"));
 
-
+// this code is related to the ParallaxBackground class
         Array<Texture> textures = new Array<Texture>();
         for(int i = 1; i <=8;i++){
             textures.add(new Texture(Gdx.files.internal("layers/"+i+".png")));
             textures.get(textures.size-1).setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
         }
-
         ParallaxBackground parallaxBackground = new ParallaxBackground(textures);
         parallaxBackground.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         parallaxBackground.setSpeed(1);
         stage.addActor(parallaxBackground);
+// ends around here
 
         stage.addActor(ConfirmB);
         stage.addActor(MageB);
         stage.addActor(ArcherB);
         stage.addActor(WarriorB);
         //setting up the character sprites
-        final CharacterAnimation mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
-        final CharacterAnimation archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
-        final CharacterAnimation warrior = CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
+      mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
+        archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
+        warrior = CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
+         CharacterAnimation characterSELECTION;
 
         // final Character mageattack = Character.factory(MAGEATTACk);
 
@@ -85,13 +88,9 @@ public class CharacterSelectionScreen extends AbstractScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
                 mage.CreateAnimation(mage.Filename, mage.numCols);
-
+                mage.DrawCharacter(stage);
                 warrior.remove();
                 archer.remove();
-
-                stage.addActor(mage);
-
-                MageButtonPressed = true;
 
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -102,13 +101,9 @@ public class CharacterSelectionScreen extends AbstractScreen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
                 archer.CreateAnimation(archer.Filename, archer.numCols);
-
                 mage.remove();
                 warrior.remove();
-
                 stage.addActor(archer);
-                ArcherButtonPressed = true;
-
                 return super.touchDown(event, x, y, pointer, button);
             }
 
@@ -123,7 +118,8 @@ public class CharacterSelectionScreen extends AbstractScreen {
                 mage.remove();
                 archer.remove();
                 stage.addActor(warrior);
-                WarriorButtonPressed = true;
+                //System.out.println("Pressed");
+
                 return super.touchDown(event, x, y, pointer, button);
             }
 
@@ -142,6 +138,7 @@ public class CharacterSelectionScreen extends AbstractScreen {
             }
 
         });
+
 
 
         Table tableLevel1 = new Table();
@@ -170,6 +167,7 @@ public class CharacterSelectionScreen extends AbstractScreen {
         scroll.setScrollingDisabled(false,false);
         ConfirmB.setPosition(Gdx.graphics.getWidth() / 2f + 150f,Gdx.graphics.getHeight() / 2f - 205f);
         ConfirmB.setSize(115f,50f);
+
     }
 
     @Override
@@ -187,18 +185,16 @@ public class CharacterSelectionScreen extends AbstractScreen {
     {
         String mage1,archer1,warrior1;
 
-        if (MageButtonPressed == true && ConfirmFalse == true) {
+        if (MageButtonPressed && ConfirmFalse == true) {
             mage1 = "Mage";
             return mage1;
-
-        } else if (ArcherButtonPressed == true && ConfirmFalse == true) {
+        } else if (ArcherButtonPressed && ConfirmFalse == true) {
             archer1 = "archer";
             return archer1;
-        } else if (WarriorButtonPressed == true && ConfirmFalse == true){
+        } else if (WarriorButtonPressed && ConfirmFalse == true){
             warrior1 = "Warrior";
             return warrior1;
         }
-
         return "No choice";
     }
 

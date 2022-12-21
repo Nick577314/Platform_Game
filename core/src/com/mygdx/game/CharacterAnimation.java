@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 
 class CharacterAnimation extends Actor {
     static int Frame_Cols,Frame_Rows = 1;
     static Texture sprite1;
-
+    private Stage stage;
     String Filename;
     int numCols;
     float Width,Height,Xpos,Ypos;
@@ -96,6 +97,8 @@ class CharacterAnimation extends Actor {
         batch.draw(currentFrame, Xpos, Ypos, Width, Height);
 
     }
+
+
 
 
 }

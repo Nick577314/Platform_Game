@@ -32,15 +32,14 @@ public class Level_1 extends AbstractScreen {
 
     SpriteBatch batch;
     private platformer app;
-    Sprite bottom_layer;
-    Sprite middle_layer;
-    Sprite top_layer;
+    private CharacterAnimation playerAnimation;
   private ScreenViewport viewport;
     private Camera camera;
 
     // Get the window width and height in pixels
     int windowWidth = 320;
     int windowHeight = 180;
+    private String playerChoice;
 
 
     public Level_1(final platformer app) {
@@ -48,8 +47,8 @@ public class Level_1 extends AbstractScreen {
         //super(app);
         this.app = app;
         // Create a SpriteBatch object
-        stage = new Stage();
         batch = new SpriteBatch();
+        stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         Texture region1 = new Texture(Gdx.files.internal("background_layer_1.png"));
@@ -59,10 +58,6 @@ public class Level_1 extends AbstractScreen {
         layer1 = new Sprite(region1);
         layer2 = new Sprite(region2);
         layer3 = new Sprite(region3);
-
-//        layer1.setSize(320, 180);
-//        layer2.setSize(320, 180);
-//        layer3.setSize(320, 180);
 
         layer1.setScale(windowWidth / layer1.getWidth(), windowHeight / layer1.getHeight());
         layer2.setScale(windowWidth / layer2.getWidth(), windowHeight / layer2.getHeight());
@@ -78,28 +73,18 @@ public class Level_1 extends AbstractScreen {
         layer3.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
         //viewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //
-//        if(playerChoice == "Mage"){
-//            //enemyAnimation.remove();
-//            playerAnimation = CharacterAnimation.factory(WIZARDIDLE);
-//            playerAttackAnimation = CharacterAnimation.factory(WIZARDATTACK1);
-//            playerAnimation.CreateAnimation(playerAnimation.Filename, playerAnimation.numCols);
-//            playerStage.addActor(playerAnimation);
-//        }
-//        else if(playerChoice == "archer"){
-//            //player = Archer;
-//            playerAnimation = CharacterAnimation.factory(ARCHERIDLE);
-//            playerAttackAnimation = CharacterAnimation.factory(ARCHERATTACK);
-//            playerAnimation.CreateAnimation(playerAnimation.Filename, playerAnimation.numCols);
-//            playerStage.addActor(playerAnimation);
-//        }
-//        else if(playerChoice == "Warrior"){
-//            //player = Warrior;
-//            playerAnimation = CharacterAnimation.factory(WARRIORIDLE);
-//            playerAttackAnimation = CharacterAnimation.factory(WARRIORATTACK1);
-//            playerAnimation.CreateAnimation(playerAnimation.Filename, playerAnimation.numCols);
-//            playerStage.addActor(playerAnimation);
-//        }
-    }
+        CharacterSelectionScreen choice = new CharacterSelectionScreen(app);
+        playerChoice = choice.sendString();
+        System.out.println(playerChoice);
+        final CharacterAnimation mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
+        final CharacterAnimation archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
+        final CharacterAnimation warrior = CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
+
+        mage.CreateAnimation(mage.Filename, mage.numCols);
+           stage.addActor(mage);
+//      mage.draw(stage)
+      }
+
 
 
 
@@ -140,17 +125,23 @@ public class Level_1 extends AbstractScreen {
 
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         // Set the viewport size
-        batch.setProjectionMatrix(stage.getCamera().combined);
-//
-        batch.begin();
-        layer1.draw(batch);
-        layer2.draw(batch);
-        layer3.draw(batch);
-        batch.end();
+//        batch.setProjectionMatrix(stage.getCamera().combined);
+//        batch.begin();
+//        layer1.draw(batch);
+//        layer2.draw(batch);
+//        layer3.draw(batch);
+
+        stage.act();
+        stage.draw();
+//        batch.end();
+
+
 
     }
 
