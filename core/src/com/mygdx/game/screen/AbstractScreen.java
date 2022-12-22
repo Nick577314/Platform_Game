@@ -1,16 +1,16 @@
 package com.mygdx.game.screen;
 
 import com.badlogic.gdx.Screen;
-import com.mygdx.game.platformer;
+import com.mygdx.game.Platformer;
 
 /**
  * @author hydrozoa
  */
 public abstract class AbstractScreen implements Screen {
 
-  private platformer app;
+  private Platformer app;
 
-  public AbstractScreen(platformer app) {
+  public AbstractScreen(Platformer app) {
     this.app = app;
   }
 

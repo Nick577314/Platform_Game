@@ -8,22 +8,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class EnemyAnimation extends Actor {
-  static int Frame_Cols, Frame_Rows = 1;
+  static int frameCols, frameRows = 1;
   static Texture sprite1;
-  String Filename;
+  String fileName;
   int numCols;
-  float Width, Height, Xpos, Ypos;
+  float width, height, xPos, yPos;
   static Animation<TextureRegion> spriteAnimation;
   static float stateTime;
   TextureRegion currentFrame;
   // ... creating animation etc...
-  EnemyAnimation(String Filename, int numCols, float Width, float Height, float Xpos, float Ypos) {
-    this.Filename = Filename;
+  EnemyAnimation(String fileName, int numCols, float width, float height, float xPos, float yPos) {
+    this.fileName = fileName;
     this.numCols = numCols;
-    this.Width = Width;
-    this.Height = Height;
-    this.Xpos = Xpos;
-    this.Ypos = Ypos;
+    this.width = width;
+    this.height = height;
+    this.xPos = xPos;
+    this.yPos = yPos;
   }
 
   public static EnemyAnimation factory(CharacterAnimationType which) {
@@ -49,17 +49,17 @@ public class EnemyAnimation extends Actor {
     }
   }
 
-  public static void CreateAnimation(String Filename, int numCols) {
-    sprite1 = new Texture(Gdx.files.internal(Filename));
-    Frame_Cols = numCols;
+  public static void CreateAnimation(String fileName, int numCols) {
+    sprite1 = new Texture(Gdx.files.internal(fileName));
+    frameCols = numCols;
     TextureRegion[][] tmp =
         TextureRegion.split(
-            sprite1, sprite1.getWidth() / Frame_Cols, sprite1.getHeight() / Frame_Rows);
+            sprite1, sprite1.getWidth() / frameCols, sprite1.getHeight() / frameRows);
 
-    TextureRegion[] spriteIdle = new TextureRegion[Frame_Cols * Frame_Rows];
+    TextureRegion[] spriteIdle = new TextureRegion[frameCols * frameRows];
     int index = 0;
-    for (int i = 0; i < Frame_Rows; i++) {
-      for (int j = 0; j < Frame_Cols; j++) {
+    for (int i = 0; i < frameRows; i++) {
+      for (int j = 0; j < frameCols; j++) {
         spriteIdle[index++] = tmp[i][j];
       }
       spriteAnimation = new Animation<TextureRegion>(0.045f, spriteIdle);
@@ -81,6 +81,6 @@ public class EnemyAnimation extends Actor {
       currentFrame.flip(true, false);
     }
 
-    batch.draw(currentFrame, Xpos, Ypos, Width, Height);
+    batch.draw(currentFrame, xPos, yPos, width, height);
   }
 }

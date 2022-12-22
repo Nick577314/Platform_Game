@@ -12,6 +12,6 @@ public class DesktopLauncher {
     config.setTitle("plateformgame");
 
     // config.setWindowedMode(1980, 1080);
-    new Lwjgl3Application(new platformer(), config);
+    new Lwjgl3Application(new Platformer(), config);
   }
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-public class platformer extends Game {
+public class Platformer extends Game {
 
   private static CharacterSelectionScreen screen;
   private static Level_1 level1Screen;

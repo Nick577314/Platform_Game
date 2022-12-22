@@ -12,7 +12,7 @@ public class ParallaxBackground extends Actor {
   private Array<Texture> layers;
   private final int LAYER_SPEED_DIFFERENCE = 2;
 
-  float x, y, width, heigth, scaleX, scaleY;
+  float x, y, width, height, scaleX, scaleY;
   int originX, originY, rotation, srcX, srcY;
   boolean flipX, flipY;
 
@@ -28,7 +28,7 @@ public class ParallaxBackground extends Actor {
 
     x = y = originX = originY = rotation = srcY = 0;
     width = Gdx.graphics.getWidth();
-    heigth = Gdx.graphics.getHeight();
+    height = Gdx.graphics.getHeight();
     scaleX = scaleY = 1;
     flipX = flipY = false;
   }
@@ -51,7 +51,7 @@ public class ParallaxBackground extends Actor {
           originX,
           originY,
           width,
-          heigth,
+          height,
           scaleX,
           scaleY,
           rotation,
