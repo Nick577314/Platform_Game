@@ -13,10 +13,10 @@ public class Entity {
     RIGHT
   }
 
-  Rectangle bounds = new Rectangle();
-  Vector2 position = new Vector2();
-  Vector2 speed = new Vector2();
-  Direction facing;
+  private Rectangle bounds = new Rectangle();
+  private Vector2 position = new Vector2();
+  private Vector2 speed = new Vector2();
+  private Direction facing;
 
   public Entity(
       int maxHp,
