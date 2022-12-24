@@ -37,6 +37,19 @@ public class Entity {
     this.facing = facing;
   }
 
+  public void attack(Entity target) {
+    target.setCurrentHp(target.getCurrentHp() - this.attackPower);
+  }
+
+  public void turnAround() {
+    switch (this.facing) {
+      case LEFT:
+        this.facing = Direction.RIGHT;
+      case RIGHT:
+        this.facing = Direction.LEFT;
+    }
+  }
+
   public int getCurrentHp() {
     return currentHp;
   }
