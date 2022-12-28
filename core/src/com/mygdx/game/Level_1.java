@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import static com.mygdx.game.CharacterAnimationType.*;
+import static com.mygdx.game.animations.CharacterAnimationType.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.animations.CharacterAnimation;
+import com.mygdx.game.animations.CharacterAnimationType;
 import com.mygdx.game.screen.AbstractScreen;
 
 public class Level_1 extends AbstractScreen {

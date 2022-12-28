@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.animations.CharacterAnimation;
+import com.mygdx.game.animations.CharacterAnimationType;
 import com.mygdx.game.screen.AbstractScreen;
 
 public class CharacterSelectionScreen extends AbstractScreen {
