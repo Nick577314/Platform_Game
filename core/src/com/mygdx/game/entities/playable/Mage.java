@@ -16,7 +16,7 @@ public class Mage extends Player {
     super(maxHp, attackPower, width, height, position, speed, facing);
   }
 
-  public CharacterAnimation factory(States characterState) {
+  public static CharacterAnimation factory(States characterState) {
     switch (characterState) {
       case IDLE:
         return new CharacterAnimation("assets/sprites/mage/idle.png", 6);

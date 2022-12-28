@@ -1,7 +1,8 @@
-package com.mygdx.game;
+package com.mygdx.game.animations;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,11 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.animations.CharacterAnimation;
-import com.mygdx.game.animations.CharacterAnimationType;
-import com.mygdx.game.screen.AbstractScreen;
+import com.mygdx.game.Level_1;
+import com.mygdx.game.ParallaxBackground;
+import com.mygdx.game.Platformer;
+import com.mygdx.game.entities.playable.*;
 
-public class CharacterSelectionScreen extends AbstractScreen {
+public class CharacterSelectionScreen implements Screen {
   public SpriteBatch batch, batch2, batch3;
   private Stage stage;
   private ParallaxBackground parallaxBackground;
@@ -31,9 +33,9 @@ public class CharacterSelectionScreen extends AbstractScreen {
   private Platformer app;
   private Level_1 level1Screen;
 
-  final CharacterAnimation mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
-  final CharacterAnimation archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
-  final CharacterAnimation warrior = CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
+  CharacterAnimation mage = Mage.factory(Mage.States.IDLE);
+  CharacterAnimation archer = Archer.factory(Archer.States.IDLE);
+  CharacterAnimation warrior = Warrior.factory(Warrior.States.IDLE);
   CharacterAnimation selectedCharacter;
   CharacterAnimation[] characterArray = {mage, warrior, archer};
   boolean ConfirmCharacter1, ConfirmCharacter2, ConfirmCharacter3;
@@ -78,7 +80,7 @@ public class CharacterSelectionScreen extends AbstractScreen {
 
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            //                selectedCharacter = mage;
+
             selectedCharacter = mage;
             drawCharacter();
             ConfirmCharacter1 = true;
@@ -149,28 +151,9 @@ public class CharacterSelectionScreen extends AbstractScreen {
     ConfirmB.setSize(115f, 50f);
   }
 
-  @Override
   public void create() {}
 
-  @Override
   public void render() {}
-
-  //    public String sendString()
-  //    {
-  //        String mage1,archer1,warrior1;
-  //
-  //        if (MageButtonPressed && ConfirmFalse == true) {
-  //            mage1 = "Mage";
-  //            return mage1;
-  //        } else if (ArcherButtonPressed && ConfirmFalse == true) {
-  //            archer1 = "archer";
-  //            return archer1;
-  //        } else if (WarriorButtonPressed && ConfirmFalse == true){
-  //            warrior1 = "Warrior";
-  //            return warrior1;
-  //        }
-  //        return "No choice";
-  //    }
 
   @Override
   public void dispose() {}
@@ -184,7 +167,6 @@ public class CharacterSelectionScreen extends AbstractScreen {
   @Override
   public void pause() {}
 
-  @Override
   public void update(float delta) {}
 
   @Override
@@ -208,7 +190,7 @@ public class CharacterSelectionScreen extends AbstractScreen {
 
     for (CharacterAnimation character : characterArray) {
       if (character.equals(selectedCharacter)) {
-        character.CreateAnimation(character.fileName, character.numCols);
+        character.CreateAnimation(character.fileName, character.numSprites);
         stage.addActor(character);
         continue;
       }

@@ -88,6 +88,6 @@ public class CharacterAnimation extends Actor {
   public void draw(Batch batch, float parentAlpha) {
     super.draw(batch, parentAlpha);
 
-    batch.draw(currentFrame, xPos, yPos, width, height);
+    batch.draw(currentFrame, 100, 200, 150, 150);
   }
 }

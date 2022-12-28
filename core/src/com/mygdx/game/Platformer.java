@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.game.animations.CharacterSelectionScreen;
 
 public class Platformer extends Game {
 

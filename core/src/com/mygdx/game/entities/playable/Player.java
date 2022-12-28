@@ -6,7 +6,7 @@ import com.mygdx.game.entities.Entity;
 
 public abstract class Player extends Entity {
 
-  protected enum States {
+  public enum States {
     IDLE,
     RUN,
     JUMP,
@@ -15,7 +15,7 @@ public abstract class Player extends Entity {
     DEATH
   }
 
-  public abstract CharacterAnimation factory(States characterState);
+  // public abstract CharacterAnimation factory(States characterState);
 
   public Player(
       int maxHp,

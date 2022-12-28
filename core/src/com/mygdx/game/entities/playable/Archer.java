@@ -15,7 +15,7 @@ public class Archer extends Player {
     super(maxHp, attackPower, width, height, position, speed, facing);
   }
 
-  public CharacterAnimation factory(States characterState) {
+  public static CharacterAnimation factory(States characterState) {
     switch (characterState) {
       case IDLE:
         return new CharacterAnimation("assets/sprites/archer/idle.png", 10);

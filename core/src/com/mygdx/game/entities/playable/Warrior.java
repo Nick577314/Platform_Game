@@ -15,10 +15,10 @@ public class Warrior extends Player {
     super(maxHp, attackPower, width, height, position, speed, facing);
   }
 
-  public CharacterAnimation factory(States characterState) {
+  public static CharacterAnimation factory(States characterState) {
     switch (characterState) {
       case IDLE:
-        return new CharacterAnimation("assets/sprites/warrior/idle.png", 7);
+        return new CharacterAnimation("assets/sprites/warrior/idle.png", 10);
       case RUN:
         return new CharacterAnimation("TODO", 6);
       case JUMP:
