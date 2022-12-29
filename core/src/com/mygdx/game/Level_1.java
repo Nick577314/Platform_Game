@@ -3,16 +3,16 @@ package com.mygdx.game;
 import static com.mygdx.game.animations.CharacterAnimationType.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.animations.CharacterAnimation;
-import com.mygdx.game.animations.CharacterAnimationType;
-import com.mygdx.game.screen.AbstractScreen;
+import com.mygdx.game.hud.Hud;
 
-public class Level_1 extends AbstractScreen {
+public class Level_1 implements Screen {
   private Texture region1;
   private Texture region2;
   private Texture region3;
@@ -25,6 +25,7 @@ public class Level_1 extends AbstractScreen {
   // Set the position and size of each layer
 
   SpriteBatch batch;
+  private Hud hud;
   private Platformer app;
   private CharacterAnimation playerAnimation;
   private ScreenViewport viewport;
@@ -41,6 +42,7 @@ public class Level_1 extends AbstractScreen {
     this.app = app;
     // Create a SpriteBatch object
     batch = new SpriteBatch();
+    hud = new Hud(batch);
     stage = new Stage();
     Gdx.input.setInputProcessor(stage);
 
@@ -66,23 +68,23 @@ public class Level_1 extends AbstractScreen {
     layer3.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
     // viewport.setScreenBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     //
-    CharacterSelectionScreen choice = new CharacterSelectionScreen(app);
+    //    CharacterSelectionScreen choice = new CharacterSelectionScreen(app);
 
     System.out.println(playerChoice);
-    final CharacterAnimation mage = CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
-    final CharacterAnimation archer = CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
-    final CharacterAnimation warrior =
-        CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
+    //    final CharacterAnimation mage =
+    // CharacterAnimation.factory(CharacterAnimationType.WIZARDIDLE);
+    //    final CharacterAnimation archer =
+    // CharacterAnimation.factory(CharacterAnimationType.ARCHERIDLE);
+    //    final CharacterAnimation warrior =
+    //        CharacterAnimation.factory(CharacterAnimationType.WARRIORIDLE);
 
     //        mage.CreateAnimation(mage.Filename, mage.numCols);
     //           stage.addActor(mage);
 
   }
 
-  @Override
   public void create() {}
 
-  @Override
   public void render() {
     // Begin the batch
     // In the render method, begin the batch
@@ -98,7 +100,6 @@ public class Level_1 extends AbstractScreen {
   @Override
   public void pause() {}
 
-  @Override
   public void update(float delta) {}
 
   @Override
@@ -113,6 +114,13 @@ public class Level_1 extends AbstractScreen {
     //        layer1.draw(batch);
     //        layer2.draw(batch);
     //        layer3.draw(batch);
+
+    batch.setProjectionMatrix(
+        hud.getStage()
+            .getCamera()
+            .combined); // set the spriteBatch to draw what our stageViewport sees
+    hud.getStage().act(delta); // act the Hud
+    hud.getStage().draw(); // draw the Hud
 
     stage.act();
     stage.draw();
