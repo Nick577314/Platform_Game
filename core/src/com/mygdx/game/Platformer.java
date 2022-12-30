@@ -14,17 +14,7 @@ public class Platformer extends Game {
   public void create() {
     screen = new CharacterSelectionScreen(this);
     this.setScreen(screen);
-
-    //		level1Screen = new Level_1(this);
-    //		this.setScreen(level1Screen);
-
-    // Set the initial screen
-    // setScreen(screen);
   }
-
-  //	public static void goToLevel1Screen(Level_1 level1Screen) {
-  //		setScreen(platformer.level1Screen);
-  //	}
 
   @Override
   public void render() {
