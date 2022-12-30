@@ -18,13 +18,10 @@ public abstract class Player extends Entity {
   // public abstract CharacterAnimation factory(States characterState);
 
   public Player(
-      int maxHp,
-      int attackPower,
-      float width,
-      float height,
       Vector2 position,
-      Vector2 speed,
       Direction facing) {
-    super(maxHp, attackPower, width, height, position, speed, facing);
+    super(position, facing);
   }
+
+//  TODO: set HP, speed, attackPower, etc. manually in subclasses instead of passing them to the constructor
 }

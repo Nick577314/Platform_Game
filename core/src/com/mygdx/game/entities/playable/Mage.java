@@ -4,16 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.animations.*;
 
 public class Mage extends Player {
-
   public Mage(
-      int maxHp,
-      int attackPower,
-      float width,
-      float height,
       Vector2 position,
-      Vector2 speed,
       Direction facing) {
-    super(maxHp, attackPower, width, height, position, speed, facing);
+    super(position, facing);
+    maxHp = 3;
+    currentHp = maxHp;
+    // Placeholder values
+    attackPower = 0;
+    bounds.width = 0;
+    bounds.height = 0;
+    speed = new Vector2(0, 0);
   }
 
   public static CharacterAnimation factory(States characterState) {

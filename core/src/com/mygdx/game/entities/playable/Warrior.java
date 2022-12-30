@@ -5,14 +5,16 @@ import com.mygdx.game.animations.*;
 
 public class Warrior extends Player {
   public Warrior(
-      int maxHp,
-      int attackPower,
-      float width,
-      float height,
-      Vector2 position,
-      Vector2 speed,
-      Direction facing) {
-    super(maxHp, attackPower, width, height, position, speed, facing);
+          Vector2 position,
+          Direction facing) {
+    super(position, facing);
+    maxHp = 4;
+    currentHp = maxHp;
+    // Placeholder values
+    attackPower = 0;
+    bounds.width = 0;
+    bounds.height = 0;
+    speed = new Vector2(0, 0);
   }
 
   public static CharacterAnimation factory(States characterState) {

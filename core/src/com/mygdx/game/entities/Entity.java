@@ -3,9 +3,9 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Entity {
+public abstract class Entity {
   // Combat stats
-  private int currentHp, maxHp, attackPower;
+  protected int currentHp, maxHp, attackPower;
 
   // Position & movement stats
   public enum Direction {
@@ -13,27 +13,16 @@ public class Entity {
     RIGHT
   }
 
-  private Rectangle bounds = new Rectangle();
-  private Vector2 position = new Vector2();
-  private Vector2 speed = new Vector2();
-  private Direction facing;
+  protected Rectangle bounds = new Rectangle();
+  protected Vector2 position = new Vector2();
+  protected Vector2 speed = new Vector2();
+  protected Direction facing;
 
   public Entity(
-      int maxHp,
-      int attackPower,
-      float width,
-      float height,
       Vector2 position,
-      Vector2 speed,
       Direction facing) {
     // Spawn with max HP
-    this.currentHp = maxHp;
-    this.maxHp = maxHp;
-    this.attackPower = attackPower;
-    this.bounds.width = width;
-    this.bounds.height = height;
     this.position = position;
-    this.speed = speed;
     this.facing = facing;
   }
 
