@@ -8,13 +8,6 @@ import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.animations.*;
 
 public class Mage extends Player {
-  KeyboardInput input;
-  TextureRegion currentFrame;
-
-  Animation<TextureRegion> animation1;
-
-  static float stateTime = 0f;
-
   public Mage(
       Vector2 position,
       Direction facing) {
@@ -25,7 +18,7 @@ public class Mage extends Player {
     attackPower = 0;
     bounds.width = 0;
     bounds.height = 0;
-    speed = new Vector2(200, 0);
+    speed = new Vector2(350, 0);
   }
 
   public Animation<TextureRegion> animationFactory(States characterState) {
@@ -45,16 +38,5 @@ public class Mage extends Player {
       default:
         throw new CharacterAnimationTypeException("Animation not yet implemented");
     }
-  }
-
-  public TextureRegion getCurrentFrame() {
-    stateTime += Gdx.graphics.getDeltaTime();
-    animation1 = animationFactory(state);
-
-    currentFrame = animation1.getKeyFrame(stateTime, true);
-    if (facing == Direction.LEFT) {
-      currentFrame.flip(true, false);
-    }
-    return currentFrame;
   }
 }

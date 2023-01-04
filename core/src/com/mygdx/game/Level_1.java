@@ -10,13 +10,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.animations.CharacterSelectionScreen;
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.playable.Mage;
-import com.mygdx.game.entities.playable.Player;
+import com.mygdx.game.entities.*;
+import com.mygdx.game.entities.playable.*;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.hud.Hud;
 
@@ -40,7 +36,7 @@ public class Level_1 implements Screen {
 
     float Xposition, Yposition;
     float speed = 20.0f;
-    Mage testcharacter;
+    Player testChar;
     Player.States currentState = Player.States.IDLE;
     KeyboardInput INPUT;
     // CharacterAnimation mage1;
@@ -48,9 +44,12 @@ public class Level_1 implements Screen {
     public Level_1(final Platformer app) {
         // super(app);
         this.app = app;
+
+        testChar = new Archer(new Vector2(100, 100), Entity.Direction.RIGHT);
+
         // Create a SpriteBatch object
         batch = new SpriteBatch();
-        hud = new Hud(batch);
+        hud = new Hud(batch, testChar);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         map = new TmxMapLoader().load("assets/maps/test_map.tmx");
@@ -62,11 +61,8 @@ public class Level_1 implements Screen {
         Vector2 position = new Vector2(100, 100);
         Vector2 speed = new Vector2(200, 0);
         System.out.println(playerChoice);
-        testcharacter =
-                new Mage(
-                        new Vector2(100, 100),
-                        Entity.Direction.RIGHT);
-        INPUT = new KeyboardInput(testcharacter);
+
+        INPUT = new KeyboardInput(testChar);
     }
 
     @Override
@@ -91,11 +87,10 @@ public class Level_1 implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        ScreenUtils.clear(1, 1, 1, 0);
         // calls movement for character
         INPUT.keyboardMovement(delta);
         batch.begin();
-        batch.draw(testcharacter.getCurrentFrame(), testcharacter.getX(), testcharacter.getY());
+        batch.draw(testChar.getCurrentFrame(), testChar.getX(), testChar.getY());
         batch.end();
         stage.act(delta);
 
