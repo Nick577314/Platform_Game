@@ -17,16 +17,16 @@ public abstract class Entity {
     RIGHT
   }
 
+  protected Vector2 acceleration = new Vector2(0, -300);
   protected Rectangle bounds = new Rectangle();
   protected Vector2 position = new Vector2();
-  protected Vector2 speed = new Vector2();
+  protected Vector2 velocity = new Vector2();
+
   protected Direction facing;
   protected Animation<TextureRegion> animation;
   static int frameCols, frameRows = 1;
 
-  public Entity(
-      Vector2 position,
-      Direction facing) {
+  public Entity(Vector2 position, Direction facing) {
     // Spawn with max HP
     this.position = position;
     this.facing = facing;
@@ -60,6 +60,14 @@ public abstract class Entity {
       case RIGHT:
         this.facing = Direction.LEFT;
     }
+  }
+
+  public Vector2 getAcceleration() {
+    return acceleration;
+  }
+
+  public void setAcceleration(Vector2 acceleration) {
+    this.acceleration = acceleration;
   }
 
   public float getX() {
@@ -120,12 +128,12 @@ public abstract class Entity {
     this.position = position;
   }
 
-  public Vector2 getSpeed() {
-    return speed;
+  public Vector2 getVelocity() {
+    return velocity;
   }
 
-  public void setSpeed(Vector2 speed) {
-    this.speed = speed;
+  public void setVelocity(Vector2 velocity) {
+    this.velocity = velocity;
   }
 
   public Direction getFacing() {

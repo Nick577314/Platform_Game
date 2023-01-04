@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
 
@@ -19,12 +20,14 @@ public class KeyboardInput implements InputProcessor {
     if (Gdx.input.isKeyPressed(Input.Keys.W)) {
       // Handle W key press event
       characterClass.setState(Player.States.JUMP);
+
     } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
       // Handle A key press event
       characterClass.setState(Player.States.RUN);
       characterClass.setFacing(Entity.Direction.LEFT);
 
-    } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+    } else if (characterClass.getVelocity().y < 0) {
+
       characterClass.setState(Player.States.FALL);
     } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
       // Handle D key press event
@@ -38,13 +41,18 @@ public class KeyboardInput implements InputProcessor {
     if (characterClass.getState() == Player.States.RUN) {
 
       if (characterClass.getFacing() == Entity.Direction.LEFT) {
+        characterClass.setPrevX(characterClass.getX());
+        characterClass.setX(characterClass.getX() - characterClass.getVelocity().x * delta);
 
-        characterClass.setX(characterClass.getX() - characterClass.getSpeed().x * delta);
       } else {
-        characterClass.setX(characterClass.getX() + characterClass.getSpeed().x * delta);
+        characterClass.setPrevX(characterClass.getX());
+        characterClass.setX(characterClass.getX() + characterClass.getVelocity().x * delta);
       }
-    } else if (characterClass.getState() == Player.States.JUMP) {
-      //      characterClass.setY(characterClass.getY() - characterClass.getSpeed().y * delta);
+    } else if (characterClass.getState() == Player.States.JUMP && characterClass.isOnGround()) {
+      characterClass.setOnGround(false);
+      characterClass.setPosition(
+          new Vector2(characterClass.getPosition().x, characterClass.getPosition().y + 1));
+      characterClass.setVelocity(new Vector2(300, 400 + characterClass.getVelocity().y * delta));
     }
   }
 
