@@ -12,7 +12,7 @@ public class DesktopLauncher {
         config.setResizable(false);
         config.setTitle("Platformer");
 
-        config.setWindowedMode(Platformer.V_WIDTH, Platformer.V_HEIGHT);
+        config.setWindowedMode(1280, 720);
         new Lwjgl3Application(new Platformer(), config);
     }
 }

@@ -24,7 +24,7 @@ public class Hud {
     private final Cell<Label> collectedKeys, allKeys;
 
     public Hud(SpriteBatch spriteBatch) {
-        FitViewport stageViewport = new FitViewport(Platformer.V_WIDTH, Platformer.V_HEIGHT);
+        FitViewport stageViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         hudStage = new Stage(stageViewport, spriteBatch);
 
         hudTable = new Table();
