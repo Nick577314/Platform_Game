@@ -23,8 +23,10 @@ public abstract class Player extends Entity {
     IDLE,
     RUN,
     JUMP,
+    FALL,
     ATTACK_A,
     ATTACK_B,
+    DAMAGE,
     DEATH
   }
 
@@ -41,6 +43,7 @@ public abstract class Player extends Entity {
           Vector2 position,
           Direction facing) {
     super(position, facing);
+    speed = new Vector2(350, 0);
     input = new KeyboardInput(player);
     Gdx.input.setInputProcessor(input);
     state = States.IDLE;

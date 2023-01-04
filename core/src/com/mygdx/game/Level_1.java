@@ -45,7 +45,7 @@ public class Level_1 implements Screen {
         // super(app);
         this.app = app;
 
-        testChar = new Archer(new Vector2(100, 100), Entity.Direction.RIGHT);
+        testChar = new Mage(new Vector2(100, 100), Entity.Direction.RIGHT);
 
         // Create a SpriteBatch object
         batch = new SpriteBatch();

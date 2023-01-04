@@ -32,9 +32,9 @@ public abstract class Entity {
     this.facing = facing;
   }
 
-  public static Animation<TextureRegion> CreateAnimation(String fileName, int numCols) {
+  public static Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
     Texture sprite1 = new Texture(Gdx.files.internal(fileName));
-    frameCols = numCols;
+    frameCols = numFrames;
     TextureRegion[][] tmp =
         TextureRegion.split(
             sprite1, sprite1.getWidth() / frameCols, sprite1.getHeight() / frameRows);

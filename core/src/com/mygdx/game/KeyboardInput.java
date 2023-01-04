@@ -25,7 +25,7 @@ public class KeyboardInput implements InputProcessor {
       characterClass.setFacing(Entity.Direction.LEFT);
 
     } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-      // Handle S key press event
+      characterClass.setState(Player.States.FALL);
     } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
       // Handle D key press event
       characterClass.setState(Player.States.RUN);

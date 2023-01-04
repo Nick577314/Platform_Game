@@ -25,7 +25,6 @@ public class Archer extends Player {
     attackPower = 0;
     bounds.width = 0;
     bounds.height = 0;
-    speed = new Vector2(0, 0);
   }
 
   public Animation<TextureRegion> animationFactory(States characterState) {
@@ -33,26 +32,22 @@ public class Archer extends Player {
       case IDLE:
         return CreateAnimation("assets/sprites/archer/idle.png", 10);
       case RUN:
-        return CreateAnimation("TODO", 6);
+        return CreateAnimation("assets/sprites/archer/run.png", 8);
       case JUMP:
-        return CreateAnimation("TODO", 6);
+        return CreateAnimation("assets/sprites/archer/jump.png", 2);
+      case FALL:
+        return CreateAnimation("assets/sprites/archer/fall.png", 2);
       case ATTACK_A:
         return CreateAnimation("assets/sprites/archer/attack1.png", 8);
       case ATTACK_B:
+        // May be removed in the future if it is decided that Archer will have only one attack
         return CreateAnimation("TODO", 8);
+      case DAMAGE:
+        return CreateAnimation("assets/sprites/archer/damage.png", 3);
       case DEATH:
         return CreateAnimation("assets/sprites/archer/death.png", 7);
       default:
         throw new CharacterAnimationTypeException("Animation not yet implemented");
     }
-  }
-
-  public TextureRegion getCurrentFrame() {
-
-    stateTime += Gdx.graphics.getDeltaTime();
-    animation1 = animationFactory(state);
-    currentFrame = animation1.getKeyFrame(stateTime, true);
-
-    return currentFrame;
   }
 }
