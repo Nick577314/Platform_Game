@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.animations.CharacterAnimation;
 import com.mygdx.game.hud.Hud;
 
@@ -28,7 +30,7 @@ public class Level_1 implements Screen {
   private Hud hud;
   private Platformer app;
   private CharacterAnimation playerAnimation;
-  private ScreenViewport viewport;
+  private Viewport viewport;
   private Camera camera;
 
   // Get the window width and height in pixels
@@ -58,7 +60,7 @@ public class Level_1 implements Screen {
     layer2.setScale(windowWidth / layer2.getWidth(), windowHeight / layer2.getHeight());
     layer3.setScale(windowWidth / layer3.getWidth(), windowHeight / layer3.getHeight());
 
-    viewport = new ScreenViewport();
+    viewport = new FitViewport(16, 9);
     camera = new OrthographicCamera();
     viewport.setCamera(camera);
     viewport.setWorldSize(viewport.getWorldWidth(), viewport.getWorldHeight());

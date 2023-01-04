@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.Platformer;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class Hud {
     private final Cell<Label> collectedKeys, allKeys;
 
     public Hud(SpriteBatch spriteBatch) {
-        FitViewport stageViewport = new FitViewport(500, 500);
+        FitViewport stageViewport = new FitViewport(Platformer.V_WIDTH, Platformer.V_HEIGHT);
         hudStage = new Stage(stageViewport, spriteBatch);
 
         hudTable = new Table();
@@ -38,7 +39,7 @@ public class Hud {
         for (int i = 0; i < health; i++) {
             Image heart = new Image(heartTexture);
             healthBar.add(
-                    hudTable.add(heart).width(25).height(30).pad(2)
+                    hudTable.add(heart).size(30).pad(2)
             );
         }
 
@@ -49,7 +50,7 @@ public class Hud {
         key.setOrigin(key.getWidth() / 2, key.getHeight() / 2);
         key.rotateBy(-15);
 
-        hudTable.add(key).width(25).height(30).pad(2).right().expandX();
+        hudTable.add(key).size(30).pad(2).right().expandX();
 
         // Draw collected keys label
         Label[] keyLabels = {
@@ -57,7 +58,7 @@ public class Hud {
         };
 
         for (Label label : keyLabels) {
-            label.setFontScaleY(1.5f);
+            label.setFontScale(1.5f);
         }
 
         collectedKeys = hudTable.add(keyLabels[0]).right().pad(3);
