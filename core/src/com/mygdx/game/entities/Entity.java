@@ -73,6 +73,24 @@ public class Entity {
     }
   }
 
+  public float getX() {
+    return position.x;
+  }
+
+  public float getY() {
+    return position.y;
+  }
+
+  public void setX(float X) {
+    position.x = X;
+  }
+  ;
+
+  public void setY(float Y) {
+    position.y = Y;
+  }
+  ;
+
   public int getCurrentHp() {
     return currentHp;
   }

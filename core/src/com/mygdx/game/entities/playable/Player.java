@@ -20,6 +20,13 @@ public abstract class Player extends Entity {
     DEATH
   }
 
+  public void setState(Player.States setState) {
+    this.state = setState;
+  }
+
+  public States getState() {
+    return this.state;
+  }
   // public abstract CharacterAnimation factory(States characterState);
 
   public Player(

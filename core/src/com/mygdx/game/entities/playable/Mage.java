@@ -31,9 +31,9 @@ public class Mage extends Player {
       case IDLE:
         return CreateAnimation("assets/sprites/mage/idle.png", 6);
       case RUN:
-        return CreateAnimation("assets/sprites/mage/run.png", 6);
+        return CreateAnimation("assets/sprites/mage/run.png", 8);
       case JUMP:
-        return CreateAnimation("assets/sprites/mage/jump.png", 6);
+        return CreateAnimation("assets/sprites/mage/jump.png", 2);
       case ATTACK_A:
         return CreateAnimation("assets/sprite/mage/attack1.png", 8);
       case ATTACK_B:
@@ -48,7 +48,11 @@ public class Mage extends Player {
   public TextureRegion getCurrentFrame() {
     stateTime += Gdx.graphics.getDeltaTime();
     animation1 = animationFactory(state);
-    currentFrame = animation1.getKeyFrame(stateTime, false);
+
+    currentFrame = animation1.getKeyFrame(stateTime, true);
+    if (facing == Direction.LEFT) {
+      currentFrame.flip(true, false);
+    }
     return currentFrame;
   }
 }

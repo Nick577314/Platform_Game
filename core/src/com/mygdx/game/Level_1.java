@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.animations.CharacterSelectionScreen;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Mage;
+import com.mygdx.game.entities.playable.Player;
 
 public class Level_1 implements Screen {
   private Texture region1, region2, region3;
@@ -34,13 +35,16 @@ public class Level_1 implements Screen {
   private OrthogonalTiledMapRenderer renderer;
   private OrthographicCamera camera;
 
+  float Xposition, Yposition;
+  float speed = 20.0f;
   Mage testcharacter;
+  Player.States currentState = Player.States.IDLE;
+  KeyboardInput INPUT;
   // CharacterAnimation mage1;
-  public Level_1(final Platformer app) {
 
+  public Level_1(final Platformer app) {
     // super(app);
     this.app = app;
-
     // Create a SpriteBatch object
     batch = new SpriteBatch();
     stage = new Stage();
@@ -52,9 +56,18 @@ public class Level_1 implements Screen {
 
     CharacterSelectionScreen choice = new CharacterSelectionScreen(app);
     Vector2 position = new Vector2(100, 100);
-    Vector2 speed = new Vector2(50, 0);
+    Vector2 speed = new Vector2(200, 0);
     System.out.println(playerChoice);
-    testcharacter = new Mage(100, 100, 100, 100, position, speed, Entity.Direction.RIGHT);
+    testcharacter =
+        new Mage(
+            100,
+            100,
+            100,
+            100,
+            new Vector2(100, 100),
+            new Vector2(200, 50),
+            Entity.Direction.RIGHT);
+    INPUT = new KeyboardInput(testcharacter);
   }
 
   @Override
@@ -75,15 +88,15 @@ public class Level_1 implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     ScreenUtils.clear(1, 1, 1, 0);
+    // calls movement for character
+    INPUT.keyboardMovement(delta);
     batch.begin();
-    batch.draw(testcharacter.getCurrentFrame(), 100, 100);
-
+    batch.draw(testcharacter.getCurrentFrame(), testcharacter.getX(), testcharacter.getY());
+    batch.end();
     stage.act(delta);
     stage.draw();
-
     renderer.setView(camera);
     renderer.render();
-    batch.end();
   }
 
   @Override
