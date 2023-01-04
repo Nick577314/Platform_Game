@@ -26,28 +26,30 @@ public class EnemyAnimation extends Actor {
     this.yPos = yPos;
   }
 
-  public static EnemyAnimation factory(CharacterAnimationType which) {
-    switch (which) {
-      case MAGEIDLE:
-        return new EnemyAnimation("sprites/Mage.png", 8, 400f, 400f, 300, 10);
-      case MAGEATTACK1:
-        return new EnemyAnimation("spriteAttackAnimations/mageAttack1.png", 8, 400f, 400f, 300, 10);
-      case MAGEATTACK2:
-        return new EnemyAnimation("spriteAttackAnimations/mageAttack2.png", 8, 250f, 250f, 300, 20);
-      case FIREWORMIDLE:
-        return new EnemyAnimation("assets/sprites/firewormidle.png", 9, 250f, 250f, 300, 20);
-      case EVILWIZARD:
-        return new EnemyAnimation("sprites/EvilWizard.png", 8, 250f, 250f, 300, 20);
-      case EVILWIZARDATTACK:
-        return new EnemyAnimation(
-            "spriteAttackAnimations/EvilWizardAttack.png", 8, 250f, 250f, 300, 20);
-      case FIREWORMATTACK:
-        return new EnemyAnimation(
-            "assets/spriteAttackAnimations/firewormattack.png", 16, 250f, 250f, 300, 20);
-      default:
-        throw new CharacterAnimationTypeException("Animation not yet implemented");
-    }
-  }
+  //  public static EnemyAnimation factory(CharacterAnimationType which) {
+  //    switch (which) {
+  //      case MAGEIDLE:
+  //        return new EnemyAnimation("sprites/Mage.png", 8, 400f, 400f, 300, 10);
+  //      case MAGEATTACK1:
+  //        return new EnemyAnimation("spriteAttackAnimations/mageAttack1.png", 8, 400f, 400f, 300,
+  // 10);
+  //      case MAGEATTACK2:
+  //        return new EnemyAnimation("spriteAttackAnimations/mageAttack2.png", 8, 250f, 250f, 300,
+  // 20);
+  //      case FIREWORMIDLE:
+  //        return new EnemyAnimation("assets/sprites/firewormidle.png", 9, 250f, 250f, 300, 20);
+  //      case EVILWIZARD:
+  //        return new EnemyAnimation("sprites/EvilWizard.png", 8, 250f, 250f, 300, 20);
+  //      case EVILWIZARDATTACK:
+  //        return new EnemyAnimation(
+  //            "spriteAttackAnimations/EvilWizardAttack.png", 8, 250f, 250f, 300, 20);
+  //      case FIREWORMATTACK:
+  //        return new EnemyAnimation(
+  //            "assets/spriteAttackAnimations/firewormattack.png", 16, 250f, 250f, 300, 20);
+  //      default:
+  //        throw new CharacterAnimationTypeException("Animation not yet implemented");
+  //    }
+  //  }
 
   public static void CreateAnimation(String fileName, int numCols) {
     sprite1 = new Texture(Gdx.files.internal(fileName));
