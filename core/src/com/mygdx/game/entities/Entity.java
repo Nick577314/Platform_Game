@@ -13,39 +13,30 @@ public abstract class Entity {
 
     // Position & movement stats
     public enum Direction {
-        LEFT,
-        RIGHT
+        LEFT, RIGHT
     }
 
-    protected Vector2 acceleration = new Vector2(0, -300);protected Rectangle bounds = new Rectangle();
-    protected Vector2 position = new Vector2();
+    protected Vector2 acceleration = new Vector2(0, -300);
+    protected Rectangle bounds = new Rectangle();
+    protected Vector2 position;
     protected Vector2 velocity = new Vector2();
     protected Direction facing;
-    protected Animation<TextureRegion> animation;
-    static int frameCols, frameRows = 1;
 
-    public Entity(
-            Vector2 position,
-            Direction facing) {
+    public Entity(Vector2 position, Direction facing) {
         this.position = position;
         this.facing = facing;
     }
 
     public static Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
-        Texture sprite1 = new Texture(Gdx.files.internal(fileName));
-        frameCols = numFrames;
-        TextureRegion[][] tmp =
-                TextureRegion.split(
-                        sprite1, sprite1.getWidth() / frameCols, sprite1.getHeight() / frameRows);
+        Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
+        TextureRegion[][] tmp = TextureRegion.split(spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
 
-        TextureRegion[] spriteIdle = new TextureRegion[frameCols * frameRows];
+        TextureRegion[] spriteTextureRegion = new TextureRegion[numFrames];
         int index = 0;
-        for (int i = 0; i < frameRows; i++) {
-            for (int j = 0; j < frameCols; j++) {
-                spriteIdle[index++] = tmp[i][j];
-            }
+        for (int i = 0; i < numFrames; i++) {
+            spriteTextureRegion[index++] = tmp[0][i];
         }
-        return new Animation<TextureRegion>(0.045f, spriteIdle);
+        return new Animation<>(0.075f, spriteTextureRegion);
     }
 
     public void attack(Entity target) {
@@ -125,13 +116,13 @@ public abstract class Entity {
         this.velocity = velocity;
     }
 
-  public Vector2 getAcceleration() {
-    return acceleration;
-  }
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
 
-  public void setAcceleration(Vector2 acceleration) {
-    this.acceleration = acceleration;
-  }
+    public void setAcceleration(Vector2 acceleration) {
+        this.acceleration = acceleration;
+    }
 
     public Direction getFacing() {
         return facing;
