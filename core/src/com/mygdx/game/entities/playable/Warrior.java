@@ -30,21 +30,21 @@ public class Warrior extends Player {
   public Animation<TextureRegion> animationFactory(State characterState) {
     switch (characterState) {
       case IDLE:
-        return CreateAnimation("assets/sprites/warrior/idle.png", 10);
+        return CreateAnimation("assets/sprites/warrior/idle.png", 10, 0.075f);
       case RUN:
-        return CreateAnimation("assets/sprites/warrior/run.png", 8);
+        return CreateAnimation("assets/sprites/warrior/run.png", 8, 0.075f);
       case JUMP:
-        return CreateAnimation("assets/sprites/warrior/jump.png", 3);
+        return CreateAnimation("assets/sprites/warrior/jump.png", 3, 0.075f);
       case FALL:
-        return CreateAnimation("assets/sprites/warrior/fall.png", 3);
+        return CreateAnimation("assets/sprites/warrior/fall.png", 3, 0.075f);
       case ATTACK_A:
-        return CreateAnimation("assets/sprites/warrior/attack1.png", 8);
+        return CreateAnimation("assets/sprites/warrior/attack1.png", 8, 0.075f);
       case ATTACK_B:
-        return CreateAnimation("assets/sprites/warrior/attack2.png", 8);
+        return CreateAnimation("assets/sprites/warrior/attack2.png", 8, 0.075f);
       case DAMAGE:
-        return CreateAnimation("assets/sprites/warrior/damage.png", 3);
+        return CreateAnimation("assets/sprites/warrior/damage.png", 3, 0.075f);
       case DEATH:
-        return CreateAnimation("assets/sprites/warrior/death.png", 7);
+        return CreateAnimation("assets/sprites/warrior/death.png", 7, 0.075f);
       default:
         throw new CharacterAnimationTypeException("Animation not yet implemented");
     }

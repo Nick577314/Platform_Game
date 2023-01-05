@@ -27,7 +27,7 @@ public abstract class Entity {
         this.facing = facing;
     }
 
-    public static Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
+    public static Animation<TextureRegion> CreateAnimation(String fileName, int numFrames, float frameDuration) {
         Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
         TextureRegion[][] tmp = TextureRegion.split(spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
 
@@ -36,7 +36,7 @@ public abstract class Entity {
         for (int i = 0; i < numFrames; i++) {
             spriteTextureRegion[index++] = tmp[0][i];
         }
-        return new Animation<>(0.075f, spriteTextureRegion);
+        return new Animation<>(frameDuration, spriteTextureRegion);
     }
 
     public void attack(Entity target) {
