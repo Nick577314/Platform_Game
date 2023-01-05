@@ -98,23 +98,27 @@ public class Level_1 implements Screen {
             testChar.getPosition().y,
             testChar.getBounds().x,
             testChar.getBounds().y));
-    INPUT.keyboardMovement(delta);
+    INPUT.keyboardMovement();
     batch.begin();
-    batch.draw(testChar.getCurrentFrame(), testChar.getX(), testChar.getY());
+    batch.draw(testChar.getCurrentFrame(), testChar.getPosition().x, testChar.getPosition().y);
     batch.draw(ground, 0, 0, boundary.getWidth(), boundary.getHeight());
     batch.end();
     stage.act(delta);
+
+    // TODO: change collision system to use map geometry
 
     if (testChar.getBounds().overlaps(boundary) && !testChar.isOnGround()) {
 
       testChar.setVelocity(new Vector2(testChar.getVelocity().x, 0));
 
       testChar.setOnGround(true);
-
     } else if (!testChar.isOnGround()) {
       //          testChar.calcVelocity(delta);
       testChar.gravity(delta);
     }
+
+    testChar.setX(testChar.getPosition().x + testChar.getVelocity().x * delta);
+    testChar.setY(testChar.getPosition().y + testChar.getVelocity().y * delta);
 
     batch.setProjectionMatrix(
         hud.getStage()

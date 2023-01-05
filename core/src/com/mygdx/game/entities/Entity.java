@@ -16,7 +16,7 @@ public abstract class Entity {
         LEFT, RIGHT
     }
 
-    protected Vector2 acceleration = new Vector2(0, -300);
+    protected Vector2 acceleration = new Vector2(0, -981);
     protected Rectangle bounds = new Rectangle();
     protected Vector2 position;
     protected Vector2 velocity = new Vector2();
@@ -92,16 +92,8 @@ public abstract class Entity {
         this.position = position;
     }
 
-    public float getX() {
-        return position.x;
-    }
-
     public void setX(float x) {
         this.position.x = x;
-    }
-
-    public float getY() {
-        return position.y;
     }
 
     public void setY(float y) {
@@ -114,6 +106,14 @@ public abstract class Entity {
 
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
+    }
+
+    public void setXVelocity(float velocity) {
+        this.velocity.x = velocity;
+    }
+
+    public void setYVelocity(float velocity) {
+        this.velocity.y = velocity;
     }
 
     public Vector2 getAcceleration() {

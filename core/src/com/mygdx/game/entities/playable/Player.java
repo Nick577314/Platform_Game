@@ -13,7 +13,7 @@ public abstract class Player extends Entity {
     KeyboardInput input;
     Hud hud;
     static float stateTime = 0f;
-    public boolean onGround = true;
+    public boolean onGround = false;
 
     public enum State {
         IDLE, RUN, JUMP, FALL, ATTACK_A, ATTACK_B, DAMAGE, DEATH
@@ -24,7 +24,7 @@ public abstract class Player extends Entity {
     public Player(Vector2 position, Direction facing) {
         super(position, facing);
         bounds = new Rectangle(position.x, position.y, 200, 200);
-        velocity = new Vector2(350, 0);
+        velocity = new Vector2(0, 0);
 
         input = new KeyboardInput(this);
         Gdx.input.setInputProcessor(input);
@@ -69,10 +69,16 @@ public abstract class Player extends Entity {
 
     public void calcVelocity(float delta) {
         velocity.y = velocity.y + acceleration.y * delta;
+
+        if (velocity.y < 0) {
+            state = State.FALL;
+        } else if (velocity.y > 0) {
+            state = State.JUMP;
+        }
     }
 
     public void gravity(float delta) {
         calcVelocity(delta);
-        setY(getY() + getVelocity().y * delta);
+        position.y += velocity.y * delta;
     }
 }
