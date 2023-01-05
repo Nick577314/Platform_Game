@@ -1,6 +1,5 @@
 package com.mygdx.game.entities.playable;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -27,7 +26,7 @@ public class Archer extends Player {
     bounds.height = 0;
   }
 
-  public Animation<TextureRegion> animationFactory(States characterState) {
+  public Animation<TextureRegion> animationFactory(State characterState) {
     switch (characterState) {
       case IDLE:
         return CreateAnimation("assets/sprites/archer/idle.png", 10);

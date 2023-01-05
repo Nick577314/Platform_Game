@@ -19,36 +19,34 @@ public class KeyboardInput implements InputProcessor {
 
     if (Gdx.input.isKeyPressed(Input.Keys.W)) {
       // Handle W key press event
-      characterClass.setState(Player.States.JUMP);
+      characterClass.setState(Player.State.JUMP);
 
     } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
       // Handle A key press event
-      characterClass.setState(Player.States.RUN);
+      characterClass.setState(Player.State.RUN);
       characterClass.setFacing(Entity.Direction.LEFT);
 
     } else if (characterClass.getVelocity().y < 0) {
 
-      characterClass.setState(Player.States.FALL);
+      characterClass.setState(Player.State.FALL);
     } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
       // Handle D key press event
-      characterClass.setState(Player.States.RUN);
+      characterClass.setState(Player.State.RUN);
       characterClass.setFacing(Entity.Direction.RIGHT);
 
     } else {
-      characterClass.setState(Player.States.IDLE);
+      characterClass.setState(Player.State.IDLE);
     }
     // Update the character's position based on the current state and speed
-    if (characterClass.getState() == Player.States.RUN) {
+    if (characterClass.getState() == Player.State.RUN) {
 
       if (characterClass.getFacing() == Entity.Direction.LEFT) {
-        characterClass.setPrevX(characterClass.getX());
         characterClass.setX(characterClass.getX() - characterClass.getVelocity().x * delta);
 
       } else {
-        characterClass.setPrevX(characterClass.getX());
         characterClass.setX(characterClass.getX() + characterClass.getVelocity().x * delta);
       }
-    } else if (characterClass.getState() == Player.States.JUMP && characterClass.isOnGround()) {
+    } else if (characterClass.getState() == Player.State.JUMP && characterClass.isOnGround()) {
       characterClass.setOnGround(false);
       characterClass.setPosition(
           new Vector2(characterClass.getPosition().x, characterClass.getPosition().y + 1));

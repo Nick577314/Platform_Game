@@ -1,10 +1,8 @@
 package com.mygdx.game.entities.playable;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.animations.*;
 
 public class Mage extends Player {
@@ -20,7 +18,7 @@ public class Mage extends Player {
         bounds.height = 0;
     }
 
-    public Animation<TextureRegion> animationFactory(States characterState) {
+    public Animation<TextureRegion> animationFactory(State characterState) {
         switch (characterState) {
             case IDLE:
                 return CreateAnimation("assets/sprites/mage/idle.png", 6);

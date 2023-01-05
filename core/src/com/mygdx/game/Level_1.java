@@ -38,7 +38,7 @@ public class Level_1 implements Screen {
   float Xposition, Yposition;
   float speed = 20.0f;
   Player testChar;
-  Player.States currentState = Player.States.IDLE;
+  Player.State currentState = Player.State.IDLE;
   KeyboardInput INPUT;
   // CharacterAnimation mage1;
 
