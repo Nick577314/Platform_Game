@@ -56,6 +56,32 @@ public abstract class Player extends Entity {
   public void update() {
     x = body.getPosition().x * PPM;
     y = body.getPosition().y * PPM;
+    updateCharacterAnimation();
+  }
+
+  public void updateCharacterAnimation() {
+
+    if (body.getLinearVelocity().y == 0) {
+      if (VelX > 0) {
+        setFacing(Direction.RIGHT);
+        setState(State.RUN);
+        return;
+      }
+      if (VelX < 0) {
+        setFacing(Direction.LEFT);
+        setState(State.RUN);
+        return;
+      }
+      setState(State.IDLE);
+      return;
+    }
+    if (body.getLinearVelocity().y > 0) {
+
+      setState(State.JUMP);
+    }
+    if (body.getLinearVelocity().y < 0) {
+      setState(State.FALL);
+    }
   }
 
   public float getX() {

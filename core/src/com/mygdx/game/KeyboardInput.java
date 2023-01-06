@@ -16,9 +16,9 @@ public class KeyboardInput implements InputProcessor {
 
   public void keyboardMovement() {
 
-    float VelX = 0;
-    if (Gdx.input.isKeyJustPressed(Input.Keys.W) && player.jumpCounter < 2) {
-      player.setState(Player.State.JUMP);
+    player.VelX = 0;
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.jumpCounter < 2) {
+      // player.setState(Player.State.JUMP);
       float force = player.getBody().getMass() * 18;
       player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
       player
@@ -26,6 +26,7 @@ public class KeyboardInput implements InputProcessor {
           .applyLinearImpulse(new Vector2(0, force), player.getBody().getPosition(), true);
       player.jumpCounter++;
       player.setOnGround(false);
+
       // player.setPosition(new Vector2(player.getPosition().x, player.getPosition().y + 10));
       // Without the following line, the player gets stuck when jumping
       // (May have to do with ground collisions)
@@ -33,18 +34,12 @@ public class KeyboardInput implements InputProcessor {
       // player.setYVelocity(400);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-      player.setState(Player.State.RUN);
-      VelX = -1;
-      // player.setXVelocity(-300);
-      player.setFacing(Player.Direction.LEFT);
+
+      player.VelX = -1;
     }
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-      player.setState(Player.State.RUN);
-      VelX = 1;
-      player.setFacing(Player.Direction.RIGHT);
-    } else if (player.isOnGround()) {
 
-      player.setState(Player.State.IDLE);
+      player.VelX = 1;
     }
     // resets the jump counter
     if (player.getBody().getLinearVelocity().y == 0) {
@@ -53,7 +48,7 @@ public class KeyboardInput implements InputProcessor {
     player
         .getBody()
         .setLinearVelocity(
-            VelX * player.speed,
+            player.VelX * player.getSpeed(),
             player.getBody().getLinearVelocity().y < 25
                 ? player.getBody().getLinearVelocity().y
                 : 25);

@@ -21,7 +21,7 @@ public abstract class Entity {
   protected float y;
   public float VelX;
   protected float VelY;
-  public float speed;
+  protected float speed;
   protected float width, height;
   protected int spriteWidth;
 
@@ -63,6 +63,10 @@ public abstract class Entity {
 
   public Body getBody() {
     return body;
+  }
+
+  public float getSpeed() {
+    return speed;
   }
 
   public void attack(Entity target) {
