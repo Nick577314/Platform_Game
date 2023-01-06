@@ -3,21 +3,9 @@ package com.mygdx.game.entities.playable;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.KeyboardInput;
-import com.mygdx.game.animations.*;
 
 public class Warrior extends Player {
-
-  KeyboardInput input;
-  TextureRegion currentFrame;
-
-  Animation<TextureRegion> animation1;
-
-  static float stateTime = 0f;
-
-  public Warrior(
-          Vector2 position,
-          Direction facing) {
+  public Warrior(Vector2 position, Direction facing) {
     super(position, facing);
     maxHp = 4;
     currentHp = maxHp;
@@ -46,7 +34,10 @@ public class Warrior extends Player {
       case DEATH:
         return CreateAnimation("assets/sprites/warrior/death.png", 7, 0.075f);
       default:
-        throw new CharacterAnimationTypeException("Animation not yet implemented");
+        throw new RuntimeException(
+            String.format(
+                "Animation %s does not exist on class %s",
+                characterState, this.getClass().toString()));
     }
   }
 }

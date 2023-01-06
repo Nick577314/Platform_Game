@@ -1,4 +1,4 @@
-package com.mygdx.game.animations;
+package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,9 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Level_1;
-import com.mygdx.game.ParallaxBackground;
-import com.mygdx.game.Platformer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.*;
 
@@ -98,9 +95,9 @@ public class CharacterSelectionScreen implements Screen {
 
     Vector2 position = new Vector2(100, 100);
     Vector2 speed = new Vector2(50, 0);
-    mage = new Mage(new Vector2(0,0), Entity.Direction.RIGHT);
-    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
-    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
+    mage = new Mage(new Vector2(0, 0), Entity.Direction.RIGHT);
+    archer = new Archer(new Vector2(0, 0), Entity.Direction.RIGHT);
+    warrior = new Warrior(new Vector2(0, 0), Entity.Direction.RIGHT);
 
     //      System.out.println("HI I'M HERE before addlistener ");
     MageB.addListener(

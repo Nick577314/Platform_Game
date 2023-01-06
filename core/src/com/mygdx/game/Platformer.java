@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.game.animations.CharacterSelectionScreen;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.hud.Hud;
 

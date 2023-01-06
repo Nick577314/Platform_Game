@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.animations.CharacterSelectionScreen;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.playable.*;
 import com.mygdx.game.hud.Hud;
