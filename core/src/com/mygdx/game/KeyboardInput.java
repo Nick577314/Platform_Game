@@ -8,73 +8,94 @@ import com.mygdx.game.entities.playable.Player;
 
 public class KeyboardInput implements InputProcessor {
 
-    private final Player player;
+  private final Player player;
 
-    public KeyboardInput(Player characterClass) {
-        this.player = characterClass;
+  public KeyboardInput(Player characterClass) {
+    this.player = characterClass;
+  }
+
+  public void keyboardMovement() {
+
+    float VelX = 0;
+    if (Gdx.input.isKeyJustPressed(Input.Keys.W) && player.jumpCounter < 2) {
+      player.setState(Player.State.JUMP);
+      float force = player.getBody().getMass() * 18;
+      player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
+      player
+          .getBody()
+          .applyLinearImpulse(new Vector2(0, force), player.getBody().getPosition(), true);
+      player.jumpCounter++;
+      player.setOnGround(false);
+      // player.setPosition(new Vector2(player.getPosition().x, player.getPosition().y + 10));
+      // Without the following line, the player gets stuck when jumping
+      // (May have to do with ground collisions)
+      // player.setY(player.getPosition().y + 10);
+      // player.setYVelocity(400);
     }
-
-    public void keyboardMovement() {
-
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && player.isOnGround()) {
-            player.setState(Player.State.JUMP);
-            player.setOnGround(false);
-            player.setPosition(new Vector2(player.getPosition().x, player.getPosition().y + 10));
-            // Without the following line, the player gets stuck when jumping
-            // (May have to do with ground collisions)
-            player.setY(player.getPosition().y + 10);
-            player.setYVelocity(400);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            if (player.isOnGround()) player.setState(Player.State.RUN);
-            player.setXVelocity(-300);
-            player.setFacing(Player.Direction.LEFT);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            if (player.isOnGround()) player.setState(Player.State.RUN);
-            player.setXVelocity(300);
-            player.setFacing(Player.Direction.RIGHT);
-        } else if (player.isOnGround()) {
-            player.setState(Player.State.IDLE);
-            player.setVelocity(new Vector2(0, player.getVelocity().y));
-        }
+    if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+      player.setState(Player.State.RUN);
+      VelX = -1;
+      // player.setXVelocity(-300);
+      player.setFacing(Player.Direction.LEFT);
     }
+    if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+      player.setState(Player.State.RUN);
+      VelX = 1;
+      player.setFacing(Player.Direction.RIGHT);
+    } else if (player.isOnGround()) {
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
+      player.setState(Player.State.IDLE);
     }
+    // resets the jump counter
+    if (player.getBody().getLinearVelocity().y == 0) {
+      player.jumpCounter = 0;
+    }
+    player
+        .getBody()
+        .setLinearVelocity(
+            VelX * player.speed,
+            player.getBody().getLinearVelocity().y < 25
+                ? player.getBody().getLinearVelocity().y
+                : 25);
+  }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+  @Override
+  public boolean keyDown(int keycode) {
+    return false;
+  }
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+  @Override
+  public boolean keyUp(int keycode) {
+    return false;
+  }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+  @Override
+  public boolean keyTyped(char character) {
+    return false;
+  }
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+  @Override
+  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
 
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
+  @Override
+  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    return false;
+  }
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
+  @Override
+  public boolean touchDragged(int screenX, int screenY, int pointer) {
+    return false;
+  }
 
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
-    }
+  @Override
+  public boolean mouseMoved(int screenX, int screenY) {
+    return false;
+  }
+
+  @Override
+  public boolean scrolled(float amountX, float amountY) {
+    return false;
+  }
 }

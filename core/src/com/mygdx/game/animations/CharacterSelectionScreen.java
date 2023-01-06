@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,7 +17,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Level_1;
 import com.mygdx.game.ParallaxBackground;
 import com.mygdx.game.Platformer;
-import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.*;
 
 public class CharacterSelectionScreen implements Screen {
@@ -98,9 +98,9 @@ public class CharacterSelectionScreen implements Screen {
 
     Vector2 position = new Vector2(100, 100);
     Vector2 speed = new Vector2(50, 0);
-    mage = new Mage(new Vector2(0,0), Entity.Direction.RIGHT);
-    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
-    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
+    //    mage = new Mage(new Vector2(0,0), Entity.Direction.RIGHT);
+    //    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
+    //    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
 
     //      System.out.println("HI I'M HERE before addlistener ");
     MageB.addListener(
@@ -147,7 +147,7 @@ public class CharacterSelectionScreen implements Screen {
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             dispose();
-            Level_1 level1Screen = new Level_1(app);
+            Level_1 level1Screen = new Level_1(new OrthographicCamera());
             app.setScreen(level1Screen);
             return super.touchDown(event, x, y, pointer, button);
           }

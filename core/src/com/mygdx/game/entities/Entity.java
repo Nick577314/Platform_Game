@@ -3,132 +3,138 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class Entity {
-    // Combat stats
-    protected int currentHp, maxHp, attackPower;
+  // Combat stats
+  protected int currentHp, maxHp, attackPower;
 
-    // Position & movement stats
-    public enum Direction {
-        LEFT, RIGHT
+  // Position & movement stats
+  public enum Direction {
+    LEFT,
+    RIGHT
+  }
+
+  protected float x;
+  protected float y;
+  public float VelX;
+  protected float VelY;
+  public float speed;
+  protected float width, height;
+  protected int spriteWidth;
+
+  protected int spriteHeight;
+  protected Direction facing;
+  protected Body body;
+
+  public Entity(float width, float height, Direction facing, Body body) {
+
+    this.x = body.getPosition().x;
+    this.y = body.getPosition().y;
+    this.facing = facing;
+    this.width = width;
+    this.height = height;
+    this.body = body;
+    this.VelX = 0f;
+    this.VelY = 0f;
+    this.speed = 0;
+  }
+
+  public Animation<TextureRegion> CreateAnimation(
+      String fileName, int numFrames, float frameDuration) {
+    Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
+    TextureRegion[][] tmp =
+        TextureRegion.split(
+            spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
+
+    TextureRegion[] spriteTextureRegion = new TextureRegion[numFrames];
+    int index = 0;
+    for (int i = 0; i < numFrames; i++) {
+      spriteTextureRegion[index++] = tmp[0][i];
     }
 
-    protected Vector2 acceleration = new Vector2(0, -981);
-    protected Rectangle bounds = new Rectangle();
-    protected Vector2 position;
-    protected Vector2 velocity = new Vector2();
-    protected Direction facing;
+    spriteWidth = spriteTextureRegion[0].getRegionWidth();
+    spriteHeight = spriteTextureRegion[0].getRegionHeight();
 
-    public Entity(Vector2 position, Direction facing) {
-        this.position = position;
-        this.facing = facing;
+    return new Animation<>(frameDuration, spriteTextureRegion);
+  }
+
+  public Body getBody() {
+    return body;
+  }
+
+  public void attack(Entity target) {
+    target.setCurrentHp(target.getCurrentHp() - this.attackPower);
+  }
+
+  public void turnAround() {
+    switch (this.facing) {
+      case LEFT:
+        this.facing = Direction.RIGHT;
+      case RIGHT:
+        this.facing = Direction.LEFT;
     }
+  }
 
-    public static Animation<TextureRegion> CreateAnimation(String fileName, int numFrames, float frameDuration) {
-        Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
-        TextureRegion[][] tmp = TextureRegion.split(spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
+  public float getWidth() {
+    return width;
+  }
 
-        TextureRegion[] spriteTextureRegion = new TextureRegion[numFrames];
-        int index = 0;
-        for (int i = 0; i < numFrames; i++) {
-            spriteTextureRegion[index++] = tmp[0][i];
-        }
-        return new Animation<>(frameDuration, spriteTextureRegion);
-    }
+  public float getHeight() {
+    return height;
+  }
 
-    public void attack(Entity target) {
-        target.setCurrentHp(target.getCurrentHp() - this.attackPower);
-    }
+  public abstract void update();
 
-    public void turnAround() {
-        switch (this.facing) {
-            case LEFT:
-                this.facing = Direction.RIGHT;
-            case RIGHT:
-                this.facing = Direction.LEFT;
-        }
-    }
+  public abstract void render(SpriteBatch batch);
 
-    public int getCurrentHp() {
-        return currentHp;
-    }
+  public int getCurrentHp() {
+    return currentHp;
+  }
 
-    public void setCurrentHp(int currentHp) {
-        this.currentHp = currentHp;
-    }
+  public void setCurrentHp(int currentHp) {
+    this.currentHp = currentHp;
+  }
 
-    public int getMaxHp() {
-        return maxHp;
-    }
+  public int getMaxHp() {
+    return maxHp;
+  }
 
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
+  public void setMaxHp(int maxHp) {
+    this.maxHp = maxHp;
+  }
 
-    public int getAttackPower() {
-        return attackPower;
-    }
+  public int getAttackPower() {
+    return attackPower;
+  }
 
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
+  public void setAttackPower(int attackPower) {
+    this.attackPower = attackPower;
+  }
 
-    public Rectangle getBounds() {
-        return bounds;
-    }
+  public void setX(float x) {
+    this.x = x;
+  }
 
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
+  public void setY(float y) {
+    this.y = y;
+  }
 
-    public Vector2 getPosition() {
-        return position;
-    }
+  public Direction getFacing() {
+    return facing;
+  }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
+  public void setFacing(Direction facing) {
+    this.facing = facing;
+  }
 
-    public void setX(float x) {
-        this.position.x = x;
-    }
+  public int getSpriteWidth() {
+    return spriteWidth;
+  }
 
-    public void setY(float y) {
-        this.position.y = y;
-    }
-
-    public Vector2 getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(Vector2 velocity) {
-        this.velocity = velocity;
-    }
-
-    public void setXVelocity(float velocity) {
-        this.velocity.x = velocity;
-    }
-
-    public void setYVelocity(float velocity) {
-        this.velocity.y = velocity;
-    }
-
-    public Vector2 getAcceleration() {
-        return acceleration;
-    }
-
-    public void setAcceleration(Vector2 acceleration) {
-        this.acceleration = acceleration;
-    }
-
-    public Direction getFacing() {
-        return facing;
-    }
-
-    public void setFacing(Direction facing) {
-        this.facing = facing;
-    }
+  public int getSpriteHeight() {
+    return spriteHeight;
+  }
 }

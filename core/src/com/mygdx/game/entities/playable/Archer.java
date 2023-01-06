@@ -1,8 +1,9 @@
 package com.mygdx.game.entities.playable;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.animations.*;
 
@@ -14,17 +15,16 @@ public class Archer extends Player {
 
   static float stateTime = 0f;
 
-  public Archer(
-          Vector2 position,
-          Direction facing) {
-    super(position, facing);
+  public Archer(float width, float height, Direction facing, Body body) {
+    super(width, height, facing, body);
     maxHp = 2;
     currentHp = maxHp;
     // Placeholder values
     attackPower = 0;
-    bounds.width = 0;
-    bounds.height = 0;
   }
+
+  @Override
+  public void render(SpriteBatch batch) {}
 
   public Animation<TextureRegion> animationFactory(State characterState) {
     switch (characterState) {

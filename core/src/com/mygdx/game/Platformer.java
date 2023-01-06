@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.game.animations.CharacterSelectionScreen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.hud.Hud;
 
@@ -12,16 +12,27 @@ public class Platformer extends Game {
 
   private static Screen screen;
   private static Level_1 level1Screen;
-
   private static Hud hud;
+  public OrthographicCamera orthographicCamera;
+  public static Platformer INSTANCE;
+  private int widthScreen, heightScreen;
 
-  KeyboardInput INPUT;
   Mage testcharacter;
+
+  public Platformer() {
+    INSTANCE = this;
+  }
 
   @Override
   public void create() {
-    screen = new CharacterSelectionScreen(this);
-    this.setScreen(screen);
+    // From tutorial by Small Pixel Games on YouTube
+    this.widthScreen = Gdx.graphics.getWidth();
+    this.heightScreen = Gdx.graphics.getHeight();
+    this.orthographicCamera = new OrthographicCamera();
+    this.orthographicCamera.setToOrtho(false, widthScreen, heightScreen);
+    setScreen(new Level_1(orthographicCamera)); // supposed to pass in camera instead of 'this'
+    //    screen = new CharacterSelectionScreen(this);
+    //    this.setScreen(screen);
   }
 
   @Override

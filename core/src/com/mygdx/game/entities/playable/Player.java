@@ -1,84 +1,109 @@
 package com.mygdx.game.entities.playable;
 
+import static com.mygdx.game.helpers.Constants.PPM;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.hud.Hud;
 
 public abstract class Player extends Entity {
-    KeyboardInput input;
-    Hud hud;
-    static float stateTime = 0f;
-    public boolean onGround = false;
+  KeyboardInput input;
+  Hud hud;
+  static float stateTime = 0f;
+  float x;
+  float y;
+  public boolean onGround = false;
 
-    public enum State {
-        IDLE, RUN, JUMP, FALL, ATTACK_A, ATTACK_B, DAMAGE, DEATH
-    }
+  public enum State {
+    IDLE,
+    RUN,
+    JUMP,
+    FALL,
+    ATTACK_A,
+    ATTACK_B,
+    DAMAGE,
+    DEATH
+  }
 
-    State state = State.IDLE;
+  State state = State.IDLE;
+  public int jumpCounter;
 
-    public Player(Vector2 position, Direction facing) {
-        super(position, facing);
-        bounds = new Rectangle(position.x, position.y, 200, 200);
-        velocity = new Vector2(0, 0);
+  public Player(float width, float height, Direction facing, Body body) {
+    super(width, height, facing, body);
+    // bounds = new Rectangle(position.x, position.y, 200, 200);
+    this.speed = 5f;
+    input = new KeyboardInput(this);
+    Gdx.input.setInputProcessor(input);
+    this.jumpCounter = 0;
+  }
 
-        input = new KeyboardInput(this);
-        Gdx.input.setInputProcessor(input);
-    }
+  public abstract Animation<TextureRegion> animationFactory(State characterState);
 
-    public abstract Animation<TextureRegion> animationFactory(State characterState);
+  public TextureRegion getCurrentFrame() {
+    stateTime += Gdx.graphics.getDeltaTime();
+    final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, true);
 
-    public TextureRegion getCurrentFrame() {
-        stateTime += Gdx.graphics.getDeltaTime();
-        final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, true);
+    if (facing == Direction.LEFT) currentFrame.flip(true, false);
 
-        if (facing == Direction.LEFT) currentFrame.flip(true, false);
+    return currentFrame;
+  }
 
-        return currentFrame;
-    }
+  @Override
+  public void update() {
+    x = body.getPosition().x * PPM;
+    y = body.getPosition().y * PPM;
+  }
 
-    public void setState(State setState) {
-        this.state = setState;
-    }
+  public float getX() {
+    return x;
+  }
 
-    public State getState() {
-        return this.state;
-    }
+  public float getY() {
+    return y;
+  }
 
-    public boolean isOnGround() {
-        return onGround;
-    }
+  public void setState(State setState) {
+    this.state = setState;
+  }
 
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
-    }
+  public State getState() {
+    return this.state;
+  }
 
-    public void setHud(Hud newHud) {
-        hud = newHud;
-    }
+  public boolean isOnGround() {
+    return onGround;
+  }
 
-    public void takeDamage(int damage) {
-        currentHp -= damage;
-        // TODO: throw exception if hud not set
-        hud.updateHealth(currentHp);
-    }
+  public void setOnGround(boolean onGround) {
+    this.onGround = onGround;
+  }
 
-    public void calcVelocity(float delta) {
-        velocity.y = velocity.y + acceleration.y * delta;
+  public void setHud(Hud newHud) {
+    hud = newHud;
+  }
 
-        if (velocity.y < 0) {
-            state = State.FALL;
-        } else if (velocity.y > 0) {
-            state = State.JUMP;
-        }
-    }
+  public void takeDamage(int damage) {
+    currentHp -= damage;
+    // TODO: throw exception if hud not set
+    hud.updateHealth(currentHp);
+  }
 
-    public void gravity(float delta) {
-        calcVelocity(delta);
-        position.y += velocity.y * delta;
-    }
+  //    public void calcVelocity(float delta) {
+  //        velocity.y = velocity.y + acceleration.y * delta;
+  //
+  //        if (velocity.y < 0) {
+  //            state = State.FALL;
+  //        } else if (velocity.y > 0) {
+  //            state = State.JUMP;
+  //        }
+  //    }
+
+  //    public void gravity(float delta) {
+  //        calcVelocity(delta);
+  //        position.y += velocity.y * delta;
+  //    }
 }
