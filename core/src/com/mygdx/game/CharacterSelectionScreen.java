@@ -1,4 +1,4 @@
-package com.mygdx.game.animations;
+package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,9 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Level_1;
-import com.mygdx.game.ParallaxBackground;
-import com.mygdx.game.Platformer;
 import com.mygdx.game.entities.playable.*;
 
 public class CharacterSelectionScreen implements Screen {

@@ -17,6 +17,7 @@ public class Platformer extends Game {
   public static Platformer INSTANCE;
   private int widthScreen, heightScreen;
 
+  KeyboardInput INPUT;
   Mage testcharacter;
 
   public Platformer() {

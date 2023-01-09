@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.animations.*;
 
 public class Mage extends Player {
   public Mage(float width, float height, Direction facing, Body body) {
@@ -37,7 +36,10 @@ public class Mage extends Player {
       case DEATH:
         return CreateAnimation("assets/sprite/mage/death.png", 7, 0.075f);
       default:
-        throw new CharacterAnimationTypeException("Animation not yet implemented");
+        throw new RuntimeException(
+            String.format(
+                "Animation %s does not exist on class %s",
+                characterState, this.getClass().toString()));
     }
   }
 }

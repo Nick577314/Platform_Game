@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.KeyboardInput;
-import com.mygdx.game.animations.*;
 
 public class Archer extends Player {
   KeyboardInput input;
@@ -46,7 +45,10 @@ public class Archer extends Player {
       case DEATH:
         return CreateAnimation("assets/sprites/archer/death.png", 7, 0.075f);
       default:
-        throw new CharacterAnimationTypeException("Animation not yet implemented");
+        throw new RuntimeException(
+            String.format(
+                "Animation %s does not exist on class %s",
+                characterState, this.getClass().toString()));
     }
   }
 }

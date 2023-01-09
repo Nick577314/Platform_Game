@@ -15,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.entities.*;
 import com.mygdx.game.entities.playable.*;
 import com.mygdx.game.helpers.mapHelper;
 import com.mygdx.game.hud.Hud;
