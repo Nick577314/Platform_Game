@@ -19,6 +19,7 @@ public class BodyBuilder {
     shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
+    fixtureDef.friction = 0;
     body.createFixture(fixtureDef);
     shape.dispose();
     return body;

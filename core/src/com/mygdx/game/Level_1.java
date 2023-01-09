@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.playable.*;
-import com.mygdx.game.helpers.mapHelper;
+import com.mygdx.game.helpers.MapHelper;
 import com.mygdx.game.hud.Hud;
 
 public class Level_1 extends ScreenAdapter {
@@ -30,7 +30,7 @@ public class Level_1 extends ScreenAdapter {
 
   private TiledMap map;
   private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-  private mapHelper mapHelper;
+  private MapHelper mapHelper;
   Player player;
   Player.State currentState = Player.State.IDLE;
   KeyboardInput INPUT;
@@ -47,7 +47,7 @@ public class Level_1 extends ScreenAdapter {
     // part of the YouTube Tutorial
     this.world = new World(new Vector2(0, -50f), false);
     this.box2DDebugRenderer = new Box2DDebugRenderer();
-    this.mapHelper = new mapHelper(this);
+    this.mapHelper = new MapHelper(this);
     this.orthogonalTiledMapRenderer = mapHelper.setupMap();
     // calls the hud
     hud = new Hud(batch, player);

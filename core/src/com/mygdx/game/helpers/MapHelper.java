@@ -19,11 +19,11 @@ import com.mygdx.game.Level_1;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Mage;
 
-public class mapHelper {
+public class MapHelper {
   private TiledMap tiledMap;
   private Level_1 level1;
 
-  public mapHelper(Level_1 level1) {
+  public MapHelper(Level_1 level1) {
     this.level1 = level1;
   }
 
