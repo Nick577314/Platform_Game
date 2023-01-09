@@ -86,7 +86,7 @@ public class Level_1 extends ScreenAdapter {
     cameraUpdate();
     batch.setProjectionMatrix(camera.combined);
     orthogonalTiledMapRenderer.setView(camera);
-    player.update();
+    player.updatePosition();
   }
 
   @Override

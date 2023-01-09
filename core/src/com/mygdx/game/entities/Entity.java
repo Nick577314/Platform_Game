@@ -1,5 +1,7 @@
 package com.mygdx.game.entities;
 
+import static com.mygdx.game.helpers.Constants.PPM;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -17,15 +19,29 @@ public abstract class Entity {
     RIGHT
   }
 
+  // Must be overridden by child classes
+  public enum State {
+    IDLE,
+    RUN,
+    JUMP,
+    FALL,
+    ATTACK_A,
+    ATTACK_B,
+    DAMAGE,
+    DEATH
+  }
+
   protected float x;
   protected float y;
-  public float VelX;
+
+  protected float VelX;
   protected float VelY;
   protected float speed;
-  protected float width, height;
-  protected int spriteWidth;
-
-  protected int spriteHeight;
+  protected float width;
+  protected float height;
+  protected int spriteWidth, spriteHeight;
+  protected float stateTime = 0f;
+  protected State state;
   protected Direction facing;
   protected Body body;
 
@@ -45,6 +61,7 @@ public abstract class Entity {
   public Animation<TextureRegion> CreateAnimation(
       String fileName, int numFrames, float frameDuration) {
     Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
+    // split() returns a 2D array even if the sprite sheet is 1D
     TextureRegion[][] tmp =
         TextureRegion.split(
             spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
@@ -61,16 +78,64 @@ public abstract class Entity {
     return new Animation<>(frameDuration, spriteTextureRegion);
   }
 
+  public abstract Animation<TextureRegion> animationFactory(State characterState);
+
+  public TextureRegion getCurrentFrame() {
+    stateTime += Gdx.graphics.getDeltaTime();
+    final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, true);
+
+    if (facing == Direction.LEFT) currentFrame.flip(true, false);
+
+    return currentFrame;
+  }
+
+  public void updateCharacterAnimation() {
+
+    if (body.getLinearVelocity().y == 0) {
+      if (VelX > 0) {
+        setFacing(Direction.RIGHT);
+        setState(State.RUN);
+        return;
+      }
+      if (VelX < 0) {
+        setFacing(Direction.LEFT);
+        setState(State.RUN);
+        return;
+      }
+      setState(State.IDLE);
+      return;
+    }
+    if (body.getLinearVelocity().y > 0) {
+
+      setState(State.JUMP);
+    }
+    if (body.getLinearVelocity().y < 0) {
+      setState(State.FALL);
+    }
+  }
+
+  public void attack(Entity target) {
+    target.takeDamage(this.attackPower);
+  }
+
+  public void takeDamage(int damage) {
+    currentHp -= damage;
+  }
+
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
   public Body getBody() {
     return body;
   }
 
   public float getSpeed() {
     return speed;
-  }
-
-  public void attack(Entity target) {
-    target.setCurrentHp(target.getCurrentHp() - this.attackPower);
   }
 
   public float getWidth() {
@@ -81,7 +146,11 @@ public abstract class Entity {
     return height;
   }
 
-  public abstract void update();
+  public void updatePosition() {
+    x = body.getPosition().x * PPM;
+    y = body.getPosition().y * PPM;
+    updateCharacterAnimation();
+  }
 
   public abstract void render(SpriteBatch batch);
 
@@ -117,6 +186,22 @@ public abstract class Entity {
     this.y = y;
   }
 
+  public float getVelX() {
+    return VelX;
+  }
+
+  public void setVelX(float velX) {
+    VelX = velX;
+  }
+
+  public float getVelY() {
+    return VelY;
+  }
+
+  public void setVelY(float velY) {
+    VelY = velY;
+  }
+
   public Direction getFacing() {
     return facing;
   }
@@ -131,5 +216,13 @@ public abstract class Entity {
 
   public int getSpriteHeight() {
     return spriteHeight;
+  }
+
+  public void setState(State setState) {
+    this.state = setState;
+  }
+
+  public State getState() {
+    return this.state;
   }
 }

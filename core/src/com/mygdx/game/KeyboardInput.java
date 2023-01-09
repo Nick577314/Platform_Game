@@ -16,39 +16,31 @@ public class KeyboardInput implements InputProcessor {
 
   public void keyboardMovement() {
 
-    player.VelX = 0;
-    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.jumpCounter < 2) {
-      // player.setState(Player.State.JUMP);
+    player.setVelX(0);
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.getJumpsRemaining() > 0) {
       float force = player.getBody().getMass() * 18;
       player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
       player
           .getBody()
           .applyLinearImpulse(new Vector2(0, force), player.getBody().getPosition(), true);
-      player.jumpCounter++;
-      player.setOnGround(false);
-
-      // player.setPosition(new Vector2(player.getPosition().x, player.getPosition().y + 10));
-      // Without the following line, the player gets stuck when jumping
-      // (May have to do with ground collisions)
-      // player.setY(player.getPosition().y + 10);
-      // player.setYVelocity(400);
+      player.decrementJumpCounter();
     }
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 
-      player.VelX = -1;
+      player.setVelX(-1);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 
-      player.VelX = 1;
+      player.setVelX(1);
     }
     // resets the jump counter
     if (player.getBody().getLinearVelocity().y == 0) {
-      player.jumpCounter = 0;
+      player.resetJumpCounter();
     }
     player
         .getBody()
         .setLinearVelocity(
-            player.VelX * player.getSpeed(),
+            player.getVelX() * player.getSpeed(),
             player.getBody().getLinearVelocity().y < 25
                 ? player.getBody().getLinearVelocity().y
                 : 25);
