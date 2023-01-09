@@ -5,7 +5,6 @@ import static com.mygdx.game.helpers.Constants.PPM;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -23,30 +22,21 @@ import com.mygdx.game.hud.Hud;
 
 public class Level_1 extends ScreenAdapter {
   private final OrthographicCamera camera;
-  private Texture region1, region2, region3;
-  private Sprite layer1, layer2, layer3;
-
   private Stage stage;
   // Set the position and size of each layer
   SpriteBatch batch;
   private Hud hud;
   private Platformer app;
   private Viewport viewport;
-  // Get the window width and height in pixels
-  int windowWidth = 320;
-  int windowHeight = 180;
-  private String playerChoice;
+
   private TiledMap map;
   private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-  private com.mygdx.game.helpers.mapHelper mapHelper;
-  float Xposition, Yposition;
-  float speed = 20.0f;
-  Player testChar, player;
+  private mapHelper mapHelper;
+  Player player;
   Player.State currentState = Player.State.IDLE;
   KeyboardInput INPUT;
   // CharacterAnimation mage1;
   Rectangle boundary;
-  Texture ground;
   private World world;
   private Box2DDebugRenderer box2DDebugRenderer;
 
@@ -62,15 +52,11 @@ public class Level_1 extends ScreenAdapter {
     this.orthogonalTiledMapRenderer = mapHelper.setupMap();
     // calls the hud
     hud = new Hud(batch, player);
-    //    testChar = new Mage(new Vector2(100, 400), Entity.Direction.RIGHT);
-    //    ground = new Texture("assets/ground.png");
+
     // Create a SpriteBatch object
     stage = new Stage();
     Gdx.input.setInputProcessor(stage);
     boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
-    //    Vector2 position = new Vector2(100, 100);
-    //    Vector2 speed = new Vector2(200, 0);
-    //    System.out.println(playerChoice);
 
     INPUT = new KeyboardInput(player);
   }
@@ -124,19 +110,6 @@ public class Level_1 extends ScreenAdapter {
     box2DDebugRenderer.render(world, camera.combined.scl(PPM));
 
     // TODO: change collision system to use map geometry
-
-    //    if (testChar.getBounds().overlaps(boundary) && !testChar.isOnGround()) {
-    //
-    //      testChar.setVelocity(new Vector2(testChar.getVelocity().x, 0));
-    //
-    //      testChar.setOnGround(true);
-    //    } else if (!testChar.isOnGround()) {
-    //      //          testChar.calcVelocity(delta);
-    //      testChar.gravity(delta);
-    //    }
-    //
-    //    testChar.setX(testChar.getPosition().x + testChar.getVelocity().x * delta);
-    //    testChar.setY(testChar.getPosition().y + testChar.getVelocity().y * delta);
 
     batch.setProjectionMatrix(
         hud.getStage()
