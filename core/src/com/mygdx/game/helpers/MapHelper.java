@@ -54,8 +54,7 @@ public class MapHelper {
                   false,
                   level1.getWorld());
 
-          level1.setPlayer(
-              new Mage(rectangle.getWidth(), rectangle.getHeight(), Entity.Direction.RIGHT, body));
+          level1.setPlayer(new Mage(Entity.Direction.RIGHT, body));
         }
       }
     }

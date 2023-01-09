@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Mage extends Player {
-  public Mage(float width, float height, Direction facing, Body body) {
-    super(width, height, facing, body);
+  public Mage(Direction facing, Body body) {
+    super(facing, body);
     maxHp = 3;
     currentHp = maxHp;
     // Placeholder values

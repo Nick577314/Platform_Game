@@ -37,21 +37,17 @@ public abstract class Entity {
   protected float VelX;
   protected float VelY;
   protected float speed;
-  protected float width;
-  protected float height;
   protected int spriteWidth, spriteHeight;
   protected float stateTime = 0f;
   protected State state;
   protected Direction facing;
   protected Body body;
 
-  public Entity(float width, float height, Direction facing, Body body) {
+  public Entity(Direction facing, Body body) {
 
     this.x = body.getPosition().x;
     this.y = body.getPosition().y;
     this.facing = facing;
-    this.width = width;
-    this.height = height;
     this.body = body;
     this.VelX = 0f;
     this.VelY = 0f;
@@ -136,14 +132,6 @@ public abstract class Entity {
 
   public float getSpeed() {
     return speed;
-  }
-
-  public float getWidth() {
-    return width;
-  }
-
-  public float getHeight() {
-    return height;
   }
 
   public void updatePosition() {

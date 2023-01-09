@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Warrior extends Player {
 
-  public Warrior(float width, float height, Direction facing, Body body) {
-    super(width, height, facing, body);
+  public Warrior(Direction facing, Body body) {
+    super(facing, body);
     maxHp = 4;
     currentHp = maxHp;
     // Placeholder values

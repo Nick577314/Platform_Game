@@ -102,7 +102,7 @@ public class Level_1 extends ScreenAdapter {
     batch.draw(
         player.getCurrentFrame(),
         player.getX() - player.getSpriteWidth() / 2f,
-        player.getY() - player.getSpriteHeight() / 2f);
+        player.getY() - player.getSpriteHeight() / 2f + 10);
     batch.end();
 
     // From the tutorial for map collision

@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Archer extends Player {
 
-  public Archer(float width, float height, Direction facing, Body body) {
-    super(width, height, facing, body);
+  public Archer(Direction facing, Body body) {
+    super(facing, body);
     maxHp = 2;
     currentHp = maxHp;
     // Placeholder values

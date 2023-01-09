@@ -11,8 +11,8 @@ public abstract class Player extends Entity {
   Hud hud;
   int maxJumps, jumpsRemaining;
 
-  public Player(float width, float height, Direction facing, Body body) {
-    super(width, height, facing, body);
+  public Player(Direction facing, Body body) {
+    super(facing, body);
     this.speed = 5f;
     this.state = State.IDLE;
     this.maxJumps = 2;
