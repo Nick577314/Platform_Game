@@ -31,6 +31,7 @@ public class MapHelper {
     // import the test map
     tiledMap = new TmxMapLoader().load("assets/maps/map1.tmx");
     parseMapObjects(tiledMap.getLayers().get("platforms").getObjects());
+    parseMapObjects(tiledMap.getLayers().get("entities").getObjects());
     return new OrthogonalTiledMapRenderer(tiledMap);
   }
 

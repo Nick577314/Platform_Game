@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="12">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="14">
  <tileset firstgid="1" source="tileset.tsx"/>
- <layer id="1" name="Tile Layer 1" width="30" height="30">
+ <layer id="1" name="visual" width="30" height="30">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -35,7 +35,10 @@
 9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
 </data>
  </layer>
- <objectgroup id="2" name="platforms" visible="0">
+ <objectgroup id="3" name="entities">
+  <object id="12" name="player" x="197.333" y="837.333" width="32" height="64"/>
+ </objectgroup>
+ <objectgroup id="2" name="platforms">
   <object id="1" x="0" y="896">
    <polygon points="0,0 480,0 480,64 0,64"/>
   </object>
@@ -44,9 +47,6 @@
   </object>
   <object id="4" x="576" y="896">
    <polygon points="0,0 384,0 384,64 0,64"/>
-  </object>
-  <object id="5" x="672" y="768">
-   <polyline points="0,0 0,32 224,32 224,0 0,0"/>
   </object>
   <object id="6" x="896" y="672">
    <polygon points="0,0 64,0 64,32 0,32"/>
@@ -57,6 +57,8 @@
   <object id="8" x="352" y="608">
    <polygon points="0,0 0,-32 -128,-32 -128,0"/>
   </object>
-  <object id="11" name="player" x="192" y="832" width="32" height="64"/>
+  <object id="13" x="672" y="768">
+   <polygon points="0,0 0,32 224,32 224,0"/>
+  </object>
  </objectgroup>
 </map>
