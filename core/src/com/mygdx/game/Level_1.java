@@ -45,7 +45,7 @@ public class Level_1 extends ScreenAdapter {
     this.batch = new SpriteBatch();
 
     // part of the YouTube Tutorial
-    this.world = new World(new Vector2(0, -25f), false);
+    this.world = new World(new Vector2(0, -50f), false);
     this.box2DDebugRenderer = new Box2DDebugRenderer();
     this.mapHelper = new mapHelper(this);
     this.orthogonalTiledMapRenderer = mapHelper.setupMap();

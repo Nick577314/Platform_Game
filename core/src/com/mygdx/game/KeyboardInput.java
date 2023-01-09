@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
 
 public class KeyboardInput implements InputProcessor {
@@ -18,7 +19,7 @@ public class KeyboardInput implements InputProcessor {
 
     player.setVelX(0);
     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.getJumpsRemaining() > 0) {
-      float force = player.getBody().getMass() * 18;
+      float force = player.getBody().getMass() * 20;
       player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
       player
           .getBody()
@@ -26,14 +27,13 @@ public class KeyboardInput implements InputProcessor {
       player.decrementJumpCounter();
     }
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-      player.setVelX(-1);
+      player.setFacing(Entity.Direction.LEFT);
+      player.setVelX(-1.5f);
     }
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-
-      player.setVelX(1);
+      player.setFacing(Entity.Direction.RIGHT);
+      player.setVelX(1.5f);
     }
-    // resets the jump counter
     if (player.getBody().getLinearVelocity().y == 0) {
       player.resetJumpCounter();
     }
