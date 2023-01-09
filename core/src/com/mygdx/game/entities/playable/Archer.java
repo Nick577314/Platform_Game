@@ -4,15 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.mygdx.game.KeyboardInput;
 
 public class Archer extends Player {
-  KeyboardInput input;
-  TextureRegion currentFrame;
-
-  Animation<TextureRegion> animation1;
-
-  static float stateTime = 0f;
 
   public Archer(float width, float height, Direction facing, Body body) {
     super(width, height, facing, body);

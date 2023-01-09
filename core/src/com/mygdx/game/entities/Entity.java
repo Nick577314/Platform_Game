@@ -73,15 +73,6 @@ public abstract class Entity {
     target.setCurrentHp(target.getCurrentHp() - this.attackPower);
   }
 
-  public void turnAround() {
-    switch (this.facing) {
-      case LEFT:
-        this.facing = Direction.RIGHT;
-      case RIGHT:
-        this.facing = Direction.LEFT;
-    }
-  }
-
   public float getWidth() {
     return width;
   }
