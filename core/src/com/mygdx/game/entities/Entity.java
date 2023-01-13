@@ -62,10 +62,7 @@ public abstract class Entity {
             spriteSheet, spriteSheet.getWidth() / numFrames, spriteSheet.getHeight());
 
     TextureRegion[] spriteTextureRegion = new TextureRegion[numFrames];
-    int index = 0;
-    for (int i = 0; i < numFrames; i++) {
-      spriteTextureRegion[index++] = tmp[0][i];
-    }
+    System.arraycopy(tmp[0], 0, spriteTextureRegion, 0, numFrames);
 
     spriteWidth = spriteTextureRegion[0].getRegionWidth();
     spriteHeight = spriteTextureRegion[0].getRegionHeight();

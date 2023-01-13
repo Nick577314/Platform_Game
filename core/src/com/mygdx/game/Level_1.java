@@ -15,9 +15,11 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.*;
 import com.mygdx.game.helpers.MapHelper;
 import com.mygdx.game.hud.Hud;
+import java.util.ArrayList;
 
 public class Level_1 extends ScreenAdapter {
   private final OrthographicCamera camera;
@@ -38,6 +40,8 @@ public class Level_1 extends ScreenAdapter {
   Rectangle boundary;
   private World world;
   private Box2DDebugRenderer box2DDebugRenderer;
+
+  public ArrayList<Entity> entitiesToDraw = new ArrayList<>();
 
   public Level_1(OrthographicCamera camera) {
     //    this.app = app;
@@ -86,7 +90,10 @@ public class Level_1 extends ScreenAdapter {
     cameraUpdate();
     batch.setProjectionMatrix(camera.combined);
     orthogonalTiledMapRenderer.setView(camera);
-    player.updatePosition();
+    // player.updatePosition();
+    for (Entity entity : entitiesToDraw) {
+      entity.updatePosition();
+    }
   }
 
   @Override
@@ -99,10 +106,12 @@ public class Level_1 extends ScreenAdapter {
     // calls movement for character
     INPUT.keyboardMovement();
     batch.begin();
-    batch.draw(
-        player.getCurrentFrame(),
-        player.getX() - player.getSpriteWidth() / 2f,
-        player.getY() - player.getSpriteHeight() / 2f + 10);
+    for (Entity entity : entitiesToDraw) {
+      batch.draw(
+          entity.getCurrentFrame(),
+          entity.getX() - entity.getSpriteWidth() / 2f,
+          entity.getY() - entity.getSpriteHeight() / 2f + 10);
+    }
     batch.end();
 
     // From the tutorial for map collision
@@ -128,6 +137,7 @@ public class Level_1 extends ScreenAdapter {
   public void setPlayer(Player player) {
 
     this.player = player;
+    entitiesToDraw.add(player);
   }
 
   @Override

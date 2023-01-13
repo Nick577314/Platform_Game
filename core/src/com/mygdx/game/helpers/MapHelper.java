@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.Level_1;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.enemies.EvilWizard;
 import com.mygdx.game.entities.playable.Mage;
 
 public class MapHelper {
@@ -39,6 +40,7 @@ public class MapHelper {
     for (MapObject mapObject : mapObjects) {
       if (mapObject instanceof PolygonMapObject) {
         createStaticBody((PolygonMapObject) mapObject);
+        continue;
       }
       if (mapObject instanceof RectangleMapObject) {
         Rectangle rectangle = (((RectangleMapObject) mapObject).getRectangle());
@@ -55,6 +57,19 @@ public class MapHelper {
                   level1.getWorld());
 
           level1.setPlayer(new Mage(Entity.Direction.RIGHT, body));
+        }
+        if (rectangleName.equals("EvilWizard")) {
+
+          Body body =
+              BodyBuilder.createBody(
+                  rectangle.getX() + rectangle.getWidth() / 2,
+                  rectangle.getY() + rectangle.getHeight() / 2,
+                  rectangle.getWidth(),
+                  rectangle.getHeight(),
+                  false,
+                  level1.getWorld());
+          level1.entitiesToDraw.add(new EvilWizard(Entity.Direction.LEFT, body));
+          // level1.setPlayer(new Mage(Entity.Direction.RIGHT, body));
         }
       }
     }
