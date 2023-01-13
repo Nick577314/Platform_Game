@@ -32,10 +32,7 @@ public class Mage extends Player {
       case DEATH:
         return CreateAnimation("sprites/players/mage/death.png", 7, 0.075f);
       default:
-        throw new RuntimeException(
-            String.format(
-                "Animation %s does not exist on class %s",
-                characterState, this.getClass().toString()));
+        return CreateAnimation("sprites/missing_texture.png", 1, 1f);
     }
   }
 }

@@ -25,10 +25,7 @@ public class EvilWizard extends Enemy {
       case DEATH:
         return CreateAnimation("sprites/enemies/evil_wizard/mage/death.png", 5, 0.075f);
       default:
-        throw new RuntimeException(
-            String.format(
-                "Animation %s does not exist on class %s",
-                characterState, this.getClass().toString()));
+        return CreateAnimation("sprites/missing_texture.png", 1, 1f);
     }
   }
 }
