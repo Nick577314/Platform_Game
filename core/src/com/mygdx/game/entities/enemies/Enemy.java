@@ -5,7 +5,7 @@ import com.mygdx.game.entities.Entity;
 
 public abstract class Enemy extends Entity {
 
-  public Enemy(float x, float y, Direction facing, Body body) {
+  public Enemy(Direction facing, Body body) {
     super(facing, body);
   }
 }
