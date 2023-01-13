@@ -15,21 +15,20 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.mygdx.game.Level_1;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Mage;
 
 public class MapHelper {
   private TiledMap tiledMap;
-  private Level_1 level1;
+  private Level level;
 
-  public MapHelper(Level_1 level1) {
-    this.level1 = level1;
+  public MapHelper(Level level1) {
+    this.level = level1;
   }
 
   public OrthogonalTiledMapRenderer setupMap() {
     // import the test map
-    tiledMap = new TmxMapLoader().load("assets/maps/map1.tmx");
+    tiledMap = new TmxMapLoader().load(level.getMapFile());
     parseMapObjects(tiledMap.getLayers().get("platforms").getObjects());
     parseMapObjects(tiledMap.getLayers().get("entities").getObjects());
     return new OrthogonalTiledMapRenderer(tiledMap);
@@ -52,9 +51,9 @@ public class MapHelper {
                   rectangle.getWidth(),
                   rectangle.getHeight(),
                   false,
-                  level1.getWorld());
+                  level.getWorld());
 
-          level1.setPlayer(new Mage(Entity.Direction.RIGHT, body));
+          level.setPlayer(new Mage(Entity.Direction.RIGHT, body));
         }
       }
     }
@@ -63,7 +62,7 @@ public class MapHelper {
   private void createStaticBody(PolygonMapObject polygonMapObject) {
     BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyDef.BodyType.StaticBody;
-    Body body = level1.getWorld().createBody(bodyDef);
+    Body body = level.getWorld().createBody(bodyDef);
     Shape shape = createPolgyonShape(polygonMapObject);
     body.createFixture(shape, 1000);
     shape.dispose();
