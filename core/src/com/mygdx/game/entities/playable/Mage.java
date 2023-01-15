@@ -11,6 +11,7 @@ public class Mage extends Player {
     currentHp = maxHp;
     // Placeholder values
     attackPower = 0;
+    scaleFactor = 0.85f;
   }
 
   public Animation<TextureRegion> animationFactory(State characterState) {

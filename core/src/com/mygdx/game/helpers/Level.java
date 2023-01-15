@@ -121,8 +121,10 @@ public abstract class Level extends ScreenAdapter {
     for (Entity entity : entitiesToDraw) {
       batch.draw(
           entity.getCurrentFrame(),
-          entity.getX() - entity.getSpriteWidth() / 2f,
-          entity.getY() - entity.getSpriteHeight() / 2f + 10);
+          entity.getX() - entity.getSpriteWidth() / 2f * entity.getScaleFactor(),
+          entity.getY() - entity.getSpriteHeight() / 2f * entity.getScaleFactor(),
+          entity.getSpriteWidth() * entity.getScaleFactor(),
+          entity.getSpriteHeight() * entity.getScaleFactor());
     }
     batch.end();
 

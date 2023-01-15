@@ -37,6 +37,7 @@ public abstract class Entity {
   protected float VelY;
   protected float speed;
   protected int spriteWidth, spriteHeight;
+  protected float scaleFactor = 1f;
   protected float stateTime = 0f;
   protected State state;
   protected Direction facing;
@@ -198,6 +199,10 @@ public abstract class Entity {
 
   public int getSpriteHeight() {
     return spriteHeight;
+  }
+
+  public float getScaleFactor() {
+    return scaleFactor;
   }
 
   public void setState(State setState) {

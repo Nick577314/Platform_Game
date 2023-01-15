@@ -9,6 +9,7 @@ public class EvilWizard extends Enemy {
   public EvilWizard(Direction facing, Body body) {
     super(facing, body);
     state = State.IDLE;
+    scaleFactor = 1.25f;
   }
 
   @Override
