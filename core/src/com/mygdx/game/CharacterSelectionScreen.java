@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -145,8 +144,9 @@ public class CharacterSelectionScreen implements Screen {
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             dispose();
-            Level_1 level1Screen = new Level_1(new OrthographicCamera());
-            app.setScreen(level1Screen);
+            // TODO: fix this code that is broken after the restructuring of Level
+            // Level_1 level1Screen = new Level_1(new OrthographicCamera());
+            // app.setScreen(level1Screen);
             return super.touchDown(event, x, y, pointer, button);
           }
         });

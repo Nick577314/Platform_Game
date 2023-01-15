@@ -21,7 +21,7 @@ public abstract class Player extends Entity {
     Gdx.input.setInputProcessor(input);
   }
 
-  public void checkMovement() {
+  public void updateMovement() {
     input.update();
   }
 
