@@ -52,10 +52,11 @@ public class MapLoader {
                 rectangle.getY() + rectangle.getHeight() / 2,
                 rectangle.getWidth(),
                 rectangle.getHeight(),
-                false,
+                BodyDef.BodyType.KinematicBody,
                 level.getWorld());
 
         if (rectangleName.equals("player")) {
+          body.setType(BodyDef.BodyType.DynamicBody);
           Player player = new Mage(Entity.Direction.RIGHT, body);
           level.addEntity(player);
           level.setPlayer(player);

@@ -9,9 +9,9 @@ public class BodyBuilder {
   float width, height;
 
   public static Body createBody(
-      float x, float y, float width, float height, boolean isStatic, World world) {
+      float x, float y, float width, float height, BodyDef.BodyType bodyType, World world) {
     BodyDef bodyDef = new BodyDef();
-    bodyDef.type = isStatic ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
+    bodyDef.type = bodyType;
     bodyDef.position.set(x / PPM, y / PPM);
     bodyDef.fixedRotation = true;
     Body body = world.createBody(bodyDef);
