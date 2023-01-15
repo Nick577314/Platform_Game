@@ -44,7 +44,6 @@ public abstract class Entity {
   protected Body body;
 
   public Entity(Direction facing, Body body) {
-
     this.x = body.getPosition().x;
     this.y = body.getPosition().y;
     this.facing = facing;
@@ -99,7 +98,6 @@ public abstract class Entity {
       return;
     }
     if (body.getLinearVelocity().y > 0) {
-
       setState(State.JUMP);
     }
     if (body.getLinearVelocity().y < 0) {

@@ -45,7 +45,7 @@ public abstract class Level extends ScreenAdapter {
 
   protected String mapFile;
 
-  public ArrayList<Entity> entitiesToDraw = new ArrayList<>();
+  private final ArrayList<Entity> entities = new ArrayList<>();
 
   public Level(OrthographicCamera camera, String mapFile) {
 
@@ -76,9 +76,7 @@ public abstract class Level extends ScreenAdapter {
   }
 
   public void setPlayer(Player player) {
-
     this.player = player;
-    this.entitiesToDraw.add(player);
   }
 
   private void cameraUpdate() {
@@ -95,7 +93,7 @@ public abstract class Level extends ScreenAdapter {
     batch.setProjectionMatrix(camera.combined);
     orthogonalTiledMapRenderer.setView(camera);
     // player.updatePosition();
-    for (Entity entity : entitiesToDraw) {
+    for (Entity entity : entities) {
       entity.updatePosition();
     }
   }
@@ -103,7 +101,6 @@ public abstract class Level extends ScreenAdapter {
   @Override
   public void dispose() {
     map.dispose();
-
     batch.dispose();
   }
 
@@ -117,7 +114,7 @@ public abstract class Level extends ScreenAdapter {
     // calls movement for character
     INPUT.keyboardMovement();
     batch.begin();
-    for (Entity entity : entitiesToDraw) {
+    for (Entity entity : entities) {
       batch.draw(
           entity.getCurrentFrame(),
           entity.getX() - entity.getSpriteWidth() / 2f * entity.getScaleFactor(),
@@ -145,7 +142,10 @@ public abstract class Level extends ScreenAdapter {
 
   @Override
   public void resize(int width, int height) {
-
     stage.getViewport().update(width, height, true);
+  }
+
+  public void addEntity(Entity entity) {
+    entities.add(entity);
   }
 }

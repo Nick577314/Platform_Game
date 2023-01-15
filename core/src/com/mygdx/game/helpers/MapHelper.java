@@ -18,19 +18,18 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.EvilWizard;
 import com.mygdx.game.entities.playable.Mage;
+import com.mygdx.game.entities.playable.Player;
 import com.mygdx.game.levels.Level;
 
 public class MapHelper {
-  private TiledMap tiledMap;
-  private Level level;
+  private final Level level;
 
-  public MapHelper(Level level1) {
-    this.level = level1;
+  public MapHelper(Level level) {
+    this.level = level;
   }
 
   public OrthogonalTiledMapRenderer setupMap() {
-    // import the test map
-    tiledMap = new TmxMapLoader().load(level.getMapFile());
+    TiledMap tiledMap = new TmxMapLoader().load(level.getMapFile());
     parseMapObjects(tiledMap.getLayers().get("platforms").getObjects());
     parseMapObjects(tiledMap.getLayers().get("entities").getObjects());
     return new OrthogonalTiledMapRenderer(tiledMap);
@@ -56,8 +55,11 @@ public class MapHelper {
                   false,
                   level.getWorld());
 
-          level.setPlayer(new Mage(Entity.Direction.RIGHT, body));
+          Player player = new Mage(Entity.Direction.RIGHT, body);
+          level.addEntity(player);
+          level.setPlayer(player);
         }
+        // TODO: create generic way to initialize enemies
         if (rectangleName.equals("EvilWizard")) {
 
           Body body =
@@ -68,7 +70,7 @@ public class MapHelper {
                   rectangle.getHeight(),
                   false,
                   level.getWorld());
-          level.entitiesToDraw.add(new EvilWizard(Entity.Direction.LEFT, body));
+          level.addEntity(new EvilWizard(Entity.Direction.LEFT, body));
         }
       }
     }
