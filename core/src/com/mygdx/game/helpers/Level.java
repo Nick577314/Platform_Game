@@ -37,9 +37,7 @@ public abstract class Level extends ScreenAdapter {
   private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
   private MapHelper mapHelper;
   Player player;
-  Player.State currentState = Player.State.IDLE;
   KeyboardInput INPUT;
-  // CharacterAnimation mage1;
   Rectangle boundary;
   private World world;
   private Box2DDebugRenderer box2DDebugRenderer;
