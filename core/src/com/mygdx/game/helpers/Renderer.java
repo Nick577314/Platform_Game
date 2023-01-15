@@ -25,8 +25,9 @@ public class Renderer extends ScreenAdapter {
   private final OrthogonalTiledMapRenderer mapRenderer;
   private final Box2DDebugRenderer box2DDebugRenderer;
 
-  public Renderer(OrthographicCamera camera, Level level) {
-    this.camera = camera;
+  public Renderer(Level level) {
+    this.camera = new OrthographicCamera();
+    this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     this.level = level;
     this.stage = new Stage();
     this.batch = new SpriteBatch();
