@@ -22,10 +22,10 @@ import com.mygdx.game.levels.Level;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class MapHelper {
+public class MapLoader {
   private final Level level;
 
-  public MapHelper(Level level) {
+  public MapLoader(Level level) {
     this.level = level;
   }
 

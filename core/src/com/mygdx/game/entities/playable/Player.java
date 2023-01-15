@@ -21,6 +21,10 @@ public abstract class Player extends Entity {
     Gdx.input.setInputProcessor(input);
   }
 
+  public void checkMovement() {
+    input.update();
+  }
+
   @Override
   public void takeDamage(int damage) {
     currentHp -= damage;

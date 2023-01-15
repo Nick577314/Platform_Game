@@ -32,9 +32,7 @@ public class Platformer extends Game {
     this.heightScreen = Gdx.graphics.getHeight();
     this.orthographicCamera = new OrthographicCamera();
     this.orthographicCamera.setToOrtho(false, widthScreen, heightScreen);
-    setScreen(new Level_1(orthographicCamera)); // supposed to pass in camera instead of 'this'
-    //    screen = new CharacterSelectionScreen(this);
-    //    this.setScreen(screen);
+    setScreen(new Level_1(orthographicCamera));
   }
 
   @Override

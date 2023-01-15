@@ -20,7 +20,7 @@ import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.Platformer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
-import com.mygdx.game.helpers.MapHelper;
+import com.mygdx.game.helpers.MapLoader;
 import com.mygdx.game.hud.Hud;
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public abstract class Level extends ScreenAdapter {
 
   private TiledMap map;
   private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-  private MapHelper mapHelper;
+  private MapLoader mapLoader;
   Player player;
   KeyboardInput INPUT;
   Rectangle boundary;
@@ -48,23 +48,16 @@ public abstract class Level extends ScreenAdapter {
   private final ArrayList<Entity> entities = new ArrayList<>();
 
   public Level(OrthographicCamera camera, String mapFile) {
-
     this.camera = camera;
     this.batch = new SpriteBatch();
     this.mapFile = mapFile;
-    // part of the YouTube Tutorial
     this.world = new World(new Vector2(0, -50f), false);
     this.box2DDebugRenderer = new Box2DDebugRenderer();
-    this.mapHelper = new MapHelper(this);
-    this.orthogonalTiledMapRenderer = mapHelper.setupMap();
-    // calls the hud
-    hud = new Hud(batch, player);
-    // Create a SpriteBatch object
-    stage = new Stage();
-    Gdx.input.setInputProcessor(stage);
-    boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
-
-    INPUT = new KeyboardInput(player);
+    this.mapLoader = new MapLoader(this);
+    this.orthogonalTiledMapRenderer = mapLoader.setupMap();
+    this.hud = new Hud(batch, player);
+    this.stage = new Stage();
+    this.boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
   }
 
   public String getMapFile() {
@@ -92,7 +85,6 @@ public abstract class Level extends ScreenAdapter {
     cameraUpdate();
     batch.setProjectionMatrix(camera.combined);
     orthogonalTiledMapRenderer.setView(camera);
-    // player.updatePosition();
     for (Entity entity : entities) {
       entity.updatePosition();
     }
@@ -112,7 +104,7 @@ public abstract class Level extends ScreenAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     orthogonalTiledMapRenderer.render();
     // calls movement for character
-    INPUT.keyboardMovement();
+    player.checkMovement();
     batch.begin();
     for (Entity entity : entities) {
       batch.draw(

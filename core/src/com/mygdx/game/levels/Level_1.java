@@ -4,6 +4,6 @@ import com.badlogic.gdx.graphics.*;
 
 public class Level_1 extends Level {
   public Level_1(OrthographicCamera camera) {
-    super(camera, "assets/maps/map1.tmx");
+    super(camera, "maps/level_1.tmx");
   }
 }

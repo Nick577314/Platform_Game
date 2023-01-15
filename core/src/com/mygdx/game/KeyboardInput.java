@@ -11,11 +11,11 @@ public class KeyboardInput implements InputProcessor {
 
   private final Player player;
 
-  public KeyboardInput(Player characterClass) {
-    this.player = characterClass;
+  public KeyboardInput(Player player) {
+    this.player = player;
   }
 
-  public void keyboardMovement() {
+  public void update() {
 
     player.setVelX(0);
     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.getJumpsRemaining() > 0) {
