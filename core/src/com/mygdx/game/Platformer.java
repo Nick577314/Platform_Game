@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.hud.Hud;
+import com.mygdx.game.levels.Level_1;
 
 public class Platformer extends Game {
 

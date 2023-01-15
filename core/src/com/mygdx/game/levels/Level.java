@@ -1,4 +1,4 @@
-package com.mygdx.game.helpers;
+package com.mygdx.game.levels;
 
 import static com.mygdx.game.helpers.Constants.PPM;
 
@@ -20,6 +20,7 @@ import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.Platformer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
+import com.mygdx.game.helpers.MapHelper;
 import com.mygdx.game.hud.Hud;
 import java.util.ArrayList;
 

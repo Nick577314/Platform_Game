@@ -1,7 +1,6 @@
-package com.mygdx.game;
+package com.mygdx.game.levels;
 
 import com.badlogic.gdx.graphics.*;
-import com.mygdx.game.helpers.Level;
 
 public class Level_1 extends Level {
   public Level_1(OrthographicCamera camera) {

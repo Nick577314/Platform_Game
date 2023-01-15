@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.EvilWizard;
 import com.mygdx.game.entities.playable.Mage;
+import com.mygdx.game.levels.Level;
 
 public class MapHelper {
   private TiledMap tiledMap;
