@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Player;
 import com.mygdx.game.helpers.MapLoader;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public abstract class Level {
     player.updateMovement();
     for (Entity entity : entities) {
       entity.updatePosition();
+      if (entity instanceof Enemy) ((Enemy) entity).facePlayer(player);
     }
   }
 
