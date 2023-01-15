@@ -16,10 +16,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.enemies.EvilWizard;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.entities.playable.Player;
 import com.mygdx.game.levels.Level;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class MapHelper {
   private final Level level;
@@ -44,33 +45,50 @@ public class MapHelper {
       if (mapObject instanceof RectangleMapObject) {
         Rectangle rectangle = (((RectangleMapObject) mapObject).getRectangle());
         String rectangleName = mapObject.getName();
+
+        Body body =
+            BodyBuilder.createBody(
+                rectangle.getX() + rectangle.getWidth() / 2,
+                rectangle.getY() + rectangle.getHeight() / 2,
+                rectangle.getWidth(),
+                rectangle.getHeight(),
+                false,
+                level.getWorld());
+
         if (rectangleName.equals("player")) {
-
-          Body body =
-              BodyBuilder.createBody(
-                  rectangle.getX() + rectangle.getWidth() / 2,
-                  rectangle.getY() + rectangle.getHeight() / 2,
-                  rectangle.getWidth(),
-                  rectangle.getHeight(),
-                  false,
-                  level.getWorld());
-
           Player player = new Mage(Entity.Direction.RIGHT, body);
           level.addEntity(player);
           level.setPlayer(player);
-        }
-        // TODO: create generic way to initialize enemies
-        if (rectangleName.equals("EvilWizard")) {
+        } else {
+          // Locate appropriate class based on polygon name in .tmx file
+          Class<?> entityClass;
+          try {
+            // Full path to class required
+            entityClass = Class.forName("com.mygdx.game.entities.enemies." + rectangleName);
+          } catch (ClassNotFoundException e) {
+            throw new RuntimeException(
+                "The current object from the .tmx file doesn't match any valid entity class", e);
+          }
 
-          Body body =
-              BodyBuilder.createBody(
-                  rectangle.getX() + rectangle.getWidth() / 2,
-                  rectangle.getY() + rectangle.getHeight() / 2,
-                  rectangle.getWidth(),
-                  rectangle.getHeight(),
-                  false,
-                  level.getWorld());
-          level.addEntity(new EvilWizard(Entity.Direction.LEFT, body));
+          // Get the constructor of the class that matches the given parameter types
+          Constructor<?> entityConstructor;
+          try {
+            entityConstructor = entityClass.getConstructor(Entity.Direction.class, Body.class);
+          } catch (NoSuchMethodException e) {
+            throw new RuntimeException(
+                "An error occurred when trying to find the constructor of a map entity", e);
+          }
+
+          // Instantiate the desired object
+          Object entity;
+          try {
+            entity = entityConstructor.newInstance(Entity.Direction.LEFT, body);
+          } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(
+                "An error occurred when trying to instantiate a map entity", e);
+          }
+
+          level.addEntity((Entity) entity);
         }
       }
     }
