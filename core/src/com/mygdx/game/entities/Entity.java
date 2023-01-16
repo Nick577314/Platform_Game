@@ -18,7 +18,6 @@ public abstract class Entity {
     RIGHT
   }
 
-  // Must be overridden by child classes
   public enum State {
     IDLE,
     RUN,
@@ -33,8 +32,8 @@ public abstract class Entity {
   protected float x;
   protected float y;
 
-  protected float VelX;
-  protected float VelY;
+  protected float velX;
+  protected float velY;
   protected float speed;
   protected int spriteWidth, spriteHeight;
   protected float scaleFactor = 1f;
@@ -48,8 +47,8 @@ public abstract class Entity {
     this.y = body.getPosition().y;
     this.facing = facing;
     this.body = body;
-    this.VelX = 0f;
-    this.VelY = 0f;
+    this.velX = 0f;
+    this.velY = 0f;
     this.speed = 0;
   }
 
@@ -74,22 +73,27 @@ public abstract class Entity {
 
   public TextureRegion getCurrentFrame() {
     stateTime += Gdx.graphics.getDeltaTime();
-    final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, true);
+    boolean looping =
+        !(state == State.ATTACK_A
+            || state == State.ATTACK_B
+            || state == State.DAMAGE
+            || state == State.DEATH);
+    final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, looping);
 
     if (facing == Direction.LEFT) currentFrame.flip(true, false);
 
     return currentFrame;
   }
 
-  public void updateCharacterAnimation() {
+  public void updateCharacterState() {
 
     if (body.getLinearVelocity().y == 0) {
-      if (VelX > 0) {
+      if (velX > 0) {
         setFacing(Direction.RIGHT);
         setState(State.RUN);
         return;
       }
-      if (VelX < 0) {
+      if (velX < 0) {
         setFacing(Direction.LEFT);
         setState(State.RUN);
         return;
@@ -113,6 +117,12 @@ public abstract class Entity {
     currentHp -= damage;
   }
 
+  public void updatePosition() {
+    x = body.getPosition().x * PPM;
+    y = body.getPosition().y * PPM;
+    updateCharacterState();
+  }
+
   public float getX() {
     return x;
   }
@@ -127,12 +137,6 @@ public abstract class Entity {
 
   public float getSpeed() {
     return speed;
-  }
-
-  public void updatePosition() {
-    x = body.getPosition().x * PPM;
-    y = body.getPosition().y * PPM;
-    updateCharacterAnimation();
   }
 
   public int getCurrentHp() {
@@ -168,19 +172,19 @@ public abstract class Entity {
   }
 
   public float getVelX() {
-    return VelX;
+    return velX;
   }
 
   public void setVelX(float velX) {
-    VelX = velX;
+    this.velX = velX;
   }
 
   public float getVelY() {
-    return VelY;
+    return velY;
   }
 
   public void setVelY(float velY) {
-    VelY = velY;
+    this.velY = velY;
   }
 
   public Direction getFacing() {
@@ -203,8 +207,11 @@ public abstract class Entity {
     return scaleFactor;
   }
 
-  public void setState(State setState) {
-    this.state = setState;
+  public void setState(State state) {
+    // Guard clause prevents stateTime from constantly being reset to 0
+    if (this.state == state) return;
+    this.state = state;
+    stateTime = 0f;
   }
 
   public State getState() {
