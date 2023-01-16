@@ -38,9 +38,11 @@ public abstract class Entity {
   protected int spriteWidth, spriteHeight;
   protected float scaleFactor = 1f;
   protected float stateTime = 0f;
+  protected float animationFrameDuration = 1 / 10f;
   protected State state;
   protected Direction facing;
   protected Body body;
+  protected boolean movementDisabled = false;
 
   public Entity(Direction facing, Body body) {
     this.x = body.getPosition().x;
@@ -52,8 +54,7 @@ public abstract class Entity {
     this.speed = 0;
   }
 
-  public Animation<TextureRegion> CreateAnimation(
-      String fileName, int numFrames, float frameDuration) {
+  public Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
     Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
     // split() returns a 2D array even if the sprite sheet is 1D
     TextureRegion[][] tmp =
@@ -66,7 +67,7 @@ public abstract class Entity {
     spriteWidth = spriteTextureRegion[0].getRegionWidth();
     spriteHeight = spriteTextureRegion[0].getRegionHeight();
 
-    return new Animation<>(frameDuration, spriteTextureRegion);
+    return new Animation<>(animationFrameDuration, spriteTextureRegion);
   }
 
   public abstract Animation<TextureRegion> animationFactory(State characterState);
@@ -86,6 +87,7 @@ public abstract class Entity {
   }
 
   public void updateCharacterState() {
+    if (movementDisabled) return;
 
     if (body.getLinearVelocity().y == 0) {
       if (velX > 0) {
@@ -207,6 +209,10 @@ public abstract class Entity {
     return scaleFactor;
   }
 
+  public float getAnimationFrameDuration() {
+    return animationFrameDuration;
+  }
+
   public void setState(State state) {
     // Guard clause prevents stateTime from constantly being reset to 0
     if (this.state == state) return;
@@ -216,5 +222,13 @@ public abstract class Entity {
 
   public State getState() {
     return this.state;
+  }
+
+  public boolean isMovementDisabled() {
+    return movementDisabled;
+  }
+
+  public void setMovementDisabled(boolean movementDisabled) {
+    this.movementDisabled = movementDisabled;
   }
 }

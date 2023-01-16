@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
 
@@ -16,8 +17,9 @@ public class KeyboardInput implements InputProcessor {
   }
 
   public void update() {
-
     player.setVelX(0);
+    if (player.isMovementDisabled()) return;
+
     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.getJumpsRemaining() > 0) {
       float force = player.getBody().getMass() * 20;
       player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
@@ -37,13 +39,27 @@ public class KeyboardInput implements InputProcessor {
     if (player.getBody().getLinearVelocity().y == 0) {
       player.resetJumpCounter();
     }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+      player.setVelX(0);
+      player.setState(Entity.State.ATTACK_A);
+      player.setMovementDisabled(true);
+      // Disable player movement until the animation finishes
+      Timer.schedule(
+          new Timer.Task() {
+            @Override
+            public void run() {
+              player.setMovementDisabled(false);
+            }
+          },
+          8 * player.getAnimationFrameDuration()); // formula: numFrames * (1 / frameDuration) / 60
+    }
     player
         .getBody()
         .setLinearVelocity(
             player.getVelX() * player.getSpeed(),
             player.getBody().getLinearVelocity().y < 25
                 ? player.getBody().getLinearVelocity().y
-                : 25);
+                : 25); // Cap the player's y-velocity at 25 units
   }
 
   @Override
