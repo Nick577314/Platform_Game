@@ -25,6 +25,13 @@ public abstract class Level {
     this.entities = new ArrayList<>();
   }
 
+  public void dispose() {
+    world.dispose();
+    for (Entity entity : entities) {
+      entity.dispose();
+    }
+  }
+
   public String getMapFile() {
     return mapFile;
   }

@@ -79,4 +79,13 @@ public class Renderer extends ScreenAdapter {
     stage.act();
     stage.draw();
   }
+
+  @Override
+  public void dispose() {
+    batch.dispose();
+    stage.dispose();
+    hud.dispose();
+    mapRenderer.dispose();
+    box2DDebugRenderer.dispose();
+  }
 }

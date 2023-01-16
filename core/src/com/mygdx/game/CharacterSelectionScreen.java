@@ -29,6 +29,8 @@ public class CharacterSelectionScreen implements Screen {
   Mage mage;
   Archer archer;
   Warrior warrior;
+  private Array<Texture> textures;
+  private ParallaxBackground parallaxBackground;
 
   //  boolean visible1,visible2,visible3;
 
@@ -52,14 +54,14 @@ public class CharacterSelectionScreen implements Screen {
   void prepareUI() {
 
     // this prepares the background
-    Array<Texture> textures = new Array<Texture>();
+    textures = new Array<>();
     for (int i = 1; i <= 8; i++) {
       textures.add(new Texture(Gdx.files.internal("layers/" + i + ".png")));
       textures
           .get(textures.size - 1)
           .setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
     }
-    ParallaxBackground parallaxBackground = new ParallaxBackground(textures);
+    parallaxBackground = new ParallaxBackground(textures);
     parallaxBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     parallaxBackground.setSpeed(1);
 
@@ -182,6 +184,10 @@ public class CharacterSelectionScreen implements Screen {
   public void dispose() {
     // Gdx.input.setInputProcessor(null);
     stage.dispose();
+    for (Texture texture : textures) {
+      texture.dispose();
+    }
+    parallaxBackground.dispose();
   }
 
   @Override

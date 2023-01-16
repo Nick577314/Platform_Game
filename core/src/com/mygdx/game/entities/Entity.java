@@ -13,6 +13,7 @@ import java.util.HashMap;
 public abstract class Entity {
   // Combat stats
   protected int currentHp, maxHp, attackPower;
+  private Texture spriteSheet;
 
   // Position & movement stats
   public enum Direction {
@@ -59,8 +60,12 @@ public abstract class Entity {
     this.animationMap = new HashMap<>();
   }
 
+  public void dispose() {
+    spriteSheet.dispose();
+  }
+
   public Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
-    Texture spriteSheet = new Texture(Gdx.files.internal(fileName));
+    spriteSheet = new Texture(Gdx.files.internal(fileName));
     // split() returns a 2D array even if the sprite sheet is 1D
     TextureRegion[][] tmp =
         TextureRegion.split(

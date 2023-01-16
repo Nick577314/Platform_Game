@@ -63,4 +63,10 @@ public class ParallaxBackground extends Actor {
           flipY);
     }
   }
+
+  public void dispose() {
+    for (Texture layer : layers) {
+      layer.dispose();
+    }
+  }
 }

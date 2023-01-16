@@ -27,4 +27,10 @@ public class Platformer extends Game {
     // Draw objects to the screen
     renderer.render(Gdx.graphics.getDeltaTime());
   }
+
+  @Override
+  public void dispose() {
+    level.dispose();
+    super.dispose();
+  }
 }
