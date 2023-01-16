@@ -75,7 +75,7 @@ public abstract class Entity {
     return new Animation<>(animationFrameDuration, spriteTextureRegion);
   }
 
-  public Animation<TextureRegion> getCurrentAnimation(State state) {
+  public Animation<TextureRegion> getAnimation(State state) {
     Pair<String, Integer> animationData = animationMap.get(state);
     if (animationData == null) return CreateAnimation("sprites/missing_texture.png", 1);
     return CreateAnimation(animationData.fst, animationData.snd);
@@ -88,7 +88,7 @@ public abstract class Entity {
             || state == State.ATTACK_B
             || state == State.DAMAGE
             || state == State.DEATH);
-    final TextureRegion currentFrame = getCurrentAnimation(state).getKeyFrame(stateTime, looping);
+    final TextureRegion currentFrame = getAnimation(state).getKeyFrame(stateTime, looping);
 
     if (facing == Direction.LEFT) currentFrame.flip(true, false);
 
@@ -220,6 +220,10 @@ public abstract class Entity {
 
   public float getAnimationFrameDuration() {
     return animationFrameDuration;
+  }
+
+  public int getNumAnimationFrames() {
+    return animationMap.get(state).snd;
   }
 
   public void setState(State state) {
