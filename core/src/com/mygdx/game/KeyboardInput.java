@@ -51,7 +51,7 @@ public class KeyboardInput implements InputProcessor {
               player.setMovementDisabled(false);
             }
           },
-          8 * player.getAnimationFrameDuration()); // formula: numFrames * (1 / frameDuration) / 60
+          8 * player.getAnimationFrameDuration());
     }
     player
         .getBody()

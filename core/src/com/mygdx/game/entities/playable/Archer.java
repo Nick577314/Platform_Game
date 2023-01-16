@@ -1,8 +1,8 @@
 package com.mygdx.game.entities.playable;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.entities.Entity;
+import com.sun.tools.javac.util.Pair;
 
 public class Archer extends Player {
 
@@ -12,29 +12,13 @@ public class Archer extends Player {
     currentHp = maxHp;
     // Placeholder values
     attackPower = 0;
-  }
 
-  public Animation<TextureRegion> animationFactory(State characterState) {
-    switch (characterState) {
-      case IDLE:
-        return CreateAnimation("sprites/players/archer/idle.png", 10);
-      case RUN:
-        return CreateAnimation("sprites/players/archer/run.png", 8);
-      case JUMP:
-        return CreateAnimation("sprites/players/archer/jump.png", 2);
-      case FALL:
-        return CreateAnimation("sprites/players/archer/fall.png", 2);
-      case ATTACK_A:
-        return CreateAnimation("sprites/players/archer/attack1.png", 8);
-      case ATTACK_B:
-        // May be removed in the future if it is decided that Archer will have only one attack
-        return CreateAnimation("TODO", 8);
-      case DAMAGE:
-        return CreateAnimation("sprites/players/archer/damage.png", 3);
-      case DEATH:
-        return CreateAnimation("sprites/players/archer/death.png", 7);
-      default:
-        return CreateAnimation("sprites/missing_texture.png", 1);
-    }
+    animationMap.put(Entity.State.IDLE, new Pair<>("sprites/players/archer/idle.png", 10));
+    animationMap.put(Entity.State.RUN, new Pair<>("sprites/players/archer/run.png", 8));
+    animationMap.put(Entity.State.JUMP, new Pair<>("sprites/players/archer/jump.png", 2));
+    animationMap.put(Entity.State.FALL, new Pair<>("sprites/players/archer/fall.png", 2));
+    animationMap.put(Entity.State.ATTACK_A, new Pair<>("sprites/players/archer/attack1.png", 8));
+    animationMap.put(Entity.State.DAMAGE, new Pair<>("sprites/players/archer/damage.png", 3));
+    animationMap.put(Entity.State.DEATH, new Pair<>("sprites/players/archer/death.png", 7));
   }
 }

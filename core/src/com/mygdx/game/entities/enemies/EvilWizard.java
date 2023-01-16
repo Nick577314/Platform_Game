@@ -1,8 +1,8 @@
 package com.mygdx.game.entities.enemies;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.entities.Entity;
+import com.sun.tools.javac.util.Pair;
 
 public class EvilWizard extends Enemy {
 
@@ -10,23 +10,12 @@ public class EvilWizard extends Enemy {
     super(facing, body);
     state = State.IDLE;
     scaleFactor = 1.25f;
-  }
 
-  @Override
-  public Animation<TextureRegion> animationFactory(State characterState) {
-    switch (characterState) {
-      case IDLE:
-        return CreateAnimation("sprites/enemies/evil_wizard/idle.png", 8);
-      case RUN:
-        return CreateAnimation("sprites/enemies/evil_wizard/run.png", 8);
-      case ATTACK_A:
-        return CreateAnimation("sprites/enemies/evil_wizard/mage/attack1.png", 8);
-      case DAMAGE:
-        return CreateAnimation("sprites/enemies/evil_wizard/mage/damage.png", 4);
-      case DEATH:
-        return CreateAnimation("sprites/enemies/evil_wizard/mage/death.png", 5);
-      default:
-        return CreateAnimation("sprites/missing_texture.png", 1);
-    }
+    animationMap.put(Entity.State.IDLE, new Pair<>("sprites/enemies/evil_wizard/idle.png", 8));
+    animationMap.put(Entity.State.RUN, new Pair<>("sprites/enemies/evil_wizard/run.png", 8));
+    animationMap.put(
+        Entity.State.ATTACK_A, new Pair<>("sprites/enemies/evil_wizard/attack1.png", 8));
+    animationMap.put(Entity.State.DAMAGE, new Pair<>("sprites/enemies/evil_wizard/damage.png", 4));
+    animationMap.put(Entity.State.DEATH, new Pair<>("sprites/enemies/evil_wizard/death.png", 5));
   }
 }

@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.sun.tools.javac.util.Pair;
+import java.util.HashMap;
 
 public abstract class Entity {
   // Combat stats
@@ -28,6 +30,8 @@ public abstract class Entity {
     DAMAGE,
     DEATH
   }
+
+  protected HashMap<State, Pair<String, Integer>> animationMap;
 
   protected float x;
   protected float y;
@@ -52,6 +56,7 @@ public abstract class Entity {
     this.velX = 0f;
     this.velY = 0f;
     this.speed = 0;
+    this.animationMap = new HashMap<>();
   }
 
   public Animation<TextureRegion> CreateAnimation(String fileName, int numFrames) {
@@ -70,7 +75,11 @@ public abstract class Entity {
     return new Animation<>(animationFrameDuration, spriteTextureRegion);
   }
 
-  public abstract Animation<TextureRegion> animationFactory(State characterState);
+  public Animation<TextureRegion> getCurrentAnimation(State state) {
+    Pair<String, Integer> animationData = animationMap.get(state);
+    if (animationData == null) return CreateAnimation("sprites/missing_texture.png", 1);
+    return CreateAnimation(animationData.fst, animationData.snd);
+  }
 
   public TextureRegion getCurrentFrame() {
     stateTime += Gdx.graphics.getDeltaTime();
@@ -79,7 +88,7 @@ public abstract class Entity {
             || state == State.ATTACK_B
             || state == State.DAMAGE
             || state == State.DEATH);
-    final TextureRegion currentFrame = animationFactory(state).getKeyFrame(stateTime, looping);
+    final TextureRegion currentFrame = getCurrentAnimation(state).getKeyFrame(stateTime, looping);
 
     if (facing == Direction.LEFT) currentFrame.flip(true, false);
 
