@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -54,18 +55,26 @@ public class Renderer extends ScreenAdapter {
     mapRenderer.setView(camera);
     mapRenderer.render();
 
+    BitmapFont font = new BitmapFont();
     // Draw player & enemy sprites
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for (Entity entity : level.getEntities()) {
       batch.draw(
           entity.getCurrentFrame(),
-          entity.getX() - entity.getSpriteWidth() / 2f * entity.getScaleFactor(),
-          entity.getY() - entity.getSpriteHeight() / 2f * entity.getScaleFactor(),
-          entity.getSpriteWidth() * entity.getScaleFactor(),
-          entity.getSpriteHeight() * entity.getScaleFactor());
+          entity.getX() - entity.getSpriteWidth() / 2f * entity.getSpriteScaleFactor(),
+          entity.getY() - entity.getSpriteHeight() / 2f * entity.getSpriteScaleFactor(),
+          entity.getSpriteWidth() * entity.getSpriteScaleFactor(),
+          entity.getSpriteHeight() * entity.getSpriteScaleFactor());
+      font.draw(
+          batch,
+          String.valueOf(entity.getCurrentHp()),
+          entity.getX(),
+          entity.getY() + entity.getSpriteHeight() / 2f);
     }
     batch.end();
+
+    font.dispose();
 
     // Draw debug bounding boxes
     box2DDebugRenderer.render(level.getWorld(), camera.combined.scl(PPM));

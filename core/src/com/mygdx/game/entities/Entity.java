@@ -41,7 +41,7 @@ public abstract class Entity {
   protected float velY;
   protected float speed;
   protected int spriteWidth, spriteHeight;
-  protected float scaleFactor = 1f;
+  protected float spriteScaleFactor = 1f;
   protected float stateTime = 0f;
   protected float animationFrameDuration = 1 / 10f;
   protected State state;
@@ -211,16 +211,16 @@ public abstract class Entity {
     this.facing = facing;
   }
 
-  public int getSpriteWidth() {
-    return spriteWidth;
+  public float getSpriteWidth() {
+    return spriteWidth * spriteScaleFactor;
   }
 
-  public int getSpriteHeight() {
-    return spriteHeight;
+  public float getSpriteHeight() {
+    return spriteHeight * spriteScaleFactor;
   }
 
-  public float getScaleFactor() {
-    return scaleFactor;
+  public float getSpriteScaleFactor() {
+    return spriteScaleFactor;
   }
 
   public float getAnimationFrameDuration() {

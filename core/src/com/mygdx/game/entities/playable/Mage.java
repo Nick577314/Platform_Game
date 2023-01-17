@@ -10,8 +10,8 @@ public class Mage extends Player {
     maxHp = 3;
     currentHp = maxHp;
     // Placeholder values
-    attackPower = 0;
-    scaleFactor = 0.85f;
+    attackPower = 1;
+    spriteScaleFactor = 0.85f;
 
     animationMap.put(Entity.State.IDLE, new Pair<>("sprites/players/mage/idle.png", 6));
     animationMap.put(Entity.State.RUN, new Pair<>("sprites/players/mage/run.png", 8));

@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.KeyboardInput;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.hud.Hud;
+import java.util.ArrayList;
 
 public abstract class Player extends Entity {
   KeyboardInput input;
@@ -17,13 +18,15 @@ public abstract class Player extends Entity {
     this.state = State.IDLE;
     this.maxJumps = 2;
     this.jumpsRemaining = maxJumps;
-    input = new KeyboardInput(this);
-    Gdx.input.setInputProcessor(input);
+    this.input = new KeyboardInput(this);
+    Gdx.input.setInputProcessor(this.input);
   }
 
   public void updateMovement() {
     input.update();
   }
+
+  public void tryAttack(ArrayList<Entity> allEntities) {}
 
   @Override
   public void takeDamage(int damage) {

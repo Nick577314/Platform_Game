@@ -8,8 +8,10 @@ public class EvilWizard extends Enemy {
 
   public EvilWizard(Direction facing, Body body) {
     super(facing, body);
-    state = State.IDLE;
-    scaleFactor = 1.25f;
+    this.state = State.IDLE;
+    this.spriteScaleFactor = 1.25f;
+    this.maxHp = 3;
+    this.currentHp = this.maxHp;
 
     animationMap.put(Entity.State.IDLE, new Pair<>("sprites/enemies/evil_wizard/idle.png", 8));
     animationMap.put(Entity.State.RUN, new Pair<>("sprites/enemies/evil_wizard/run.png", 8));

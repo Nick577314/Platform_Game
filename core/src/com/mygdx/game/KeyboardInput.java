@@ -52,14 +52,13 @@ public class KeyboardInput implements InputProcessor {
             }
           },
           player.getNumAnimationFrames() * player.getAnimationFrameDuration());
+      // player.tryAttack();
     }
     player
         .getBody()
         .setLinearVelocity(
             player.getVelX() * player.getSpeed(),
-            player.getBody().getLinearVelocity().y < 25
-                ? player.getBody().getLinearVelocity().y
-                : 25); // Cap the player's y-velocity at 25 units
+            Math.min(player.getBody().getLinearVelocity().y, 25));
   }
 
   @Override
