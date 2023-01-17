@@ -2,12 +2,13 @@ package com.mygdx.game.entities.playable;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.levels.Level;
 import com.sun.tools.javac.util.Pair;
 
 public class Warrior extends Player {
 
-  public Warrior(Direction facing, Body body) {
-    super(facing, body);
+  public Warrior(Direction facing, Body body, Level level) {
+    super(facing, body, level);
     maxHp = 4;
     currentHp = maxHp;
     // Placeholder values

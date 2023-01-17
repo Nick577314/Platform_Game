@@ -11,10 +11,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.entities.playable.Player;
@@ -52,12 +49,12 @@ public class MapLoader {
                 rectangle.getY() + rectangle.getHeight() / 2,
                 rectangle.getWidth(),
                 rectangle.getHeight(),
-                BodyDef.BodyType.KinematicBody,
+                BodyDef.BodyType.DynamicBody,
                 level.getWorld());
 
         if (rectangleName.equals("player")) {
-          body.setType(BodyDef.BodyType.DynamicBody);
-          Player player = new Mage(Entity.Direction.RIGHT, body);
+          Player player = new Mage(Entity.Direction.RIGHT, body, level);
+          body.setUserData(player);
           level.addEntity(player);
           level.setPlayer(player);
         } else {
@@ -74,22 +71,32 @@ public class MapLoader {
           // Get the constructor of the class that matches the given parameter types
           Constructor<?> entityConstructor;
           try {
-            entityConstructor = entityClass.getConstructor(Entity.Direction.class, Body.class);
+            entityConstructor =
+                entityClass.getConstructor(Entity.Direction.class, Body.class, Level.class);
           } catch (NoSuchMethodException e) {
             throw new RuntimeException(
                 "An error occurred when trying to find the constructor of a map entity", e);
           }
 
           // Instantiate the desired object
-          Object entity;
+          Object entityObject;
           try {
-            entity = entityConstructor.newInstance(Entity.Direction.LEFT, body);
+            entityObject = entityConstructor.newInstance(Entity.Direction.LEFT, body, level);
           } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(
                 "An error occurred when trying to instantiate a map entity", e);
           }
 
-          level.addEntity((Entity) entity);
+          Entity entity = (Entity) entityObject;
+          entity.getBody().setUserData(entity);
+          // Prevents player from pushing enemies around but causes both entities to slightly
+          // "bounce" when the player lands on an enemy's head
+          MassData massData = new MassData();
+          massData.mass = 10000;
+          entity.getBody().setMassData(massData);
+          // Might cause issues when trying to get enemies to move on their own
+          entity.getBody().getFixtureList().get(0).setFriction(10000);
+          level.addEntity(entity);
         }
       }
     }

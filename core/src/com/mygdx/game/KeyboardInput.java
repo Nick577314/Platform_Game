@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
 
@@ -41,18 +40,7 @@ public class KeyboardInput implements InputProcessor {
     }
     if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
       player.setVelX(0);
-      player.setState(Entity.State.ATTACK_A);
-      player.setMovementDisabled(true);
-      // Disable player movement until the animation finishes
-      Timer.schedule(
-          new Timer.Task() {
-            @Override
-            public void run() {
-              player.setMovementDisabled(false);
-            }
-          },
-          player.getNumAnimationFrames() * player.getAnimationFrameDuration());
-      // player.tryAttack();
+      player.tryAttack();
     }
     player
         .getBody()

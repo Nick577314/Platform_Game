@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.levels.Level;
 import com.sun.tools.javac.util.Pair;
 import java.util.HashMap;
 
 public abstract class Entity {
+  protected Level level;
   // Combat stats
   protected int currentHp, maxHp, attackPower;
   private Texture spriteSheet;
@@ -48,8 +51,9 @@ public abstract class Entity {
   protected Direction facing;
   protected Body body;
   protected boolean movementDisabled = false;
+  protected boolean hidden = false;
 
-  public Entity(Direction facing, Body body) {
+  public Entity(Direction facing, Body body, Level level) {
     this.x = body.getPosition().x;
     this.y = body.getPosition().y;
     this.facing = facing;
@@ -58,6 +62,7 @@ public abstract class Entity {
     this.velY = 0f;
     this.speed = 0;
     this.animationMap = new HashMap<>();
+    this.level = level;
   }
 
   public void dispose() {
@@ -96,6 +101,7 @@ public abstract class Entity {
     final TextureRegion currentFrame = getAnimation(state).getKeyFrame(stateTime, looping);
 
     if (facing == Direction.LEFT) currentFrame.flip(true, false);
+    if (hidden) currentFrame.setRegionHeight(0);
 
     return currentFrame;
   }
@@ -129,14 +135,51 @@ public abstract class Entity {
     target.takeDamage(this.attackPower);
   }
 
+  // public abstract void tryAttack();
+
   public void takeDamage(int damage) {
+    final Entity entity = this;
+    setState(State.DAMAGE);
+    setMovementDisabled(true);
+
     currentHp -= damage;
+    if (currentHp <= 0) {
+      die();
+      return;
+    }
+
+    Timer.schedule(
+        new Timer.Task() {
+          @Override
+          public void run() {
+            entity.setState(State.IDLE);
+            setMovementDisabled(false);
+          }
+        },
+        this.getNumAnimationFrames() * this.getAnimationFrameDuration());
   }
 
   public void updatePosition() {
     x = body.getPosition().x * PPM;
     y = body.getPosition().y * PPM;
     updateCharacterState();
+  }
+
+  private void die() {
+    setMovementDisabled(true);
+    setState(State.DEATH);
+
+    final Entity entity = this;
+    Timer.schedule(
+        new Timer.Task() {
+          @Override
+          public void run() {
+            level.getWorld().destroyBody(body);
+            dispose();
+            level.getEntities().remove(entity);
+          }
+        },
+        1f);
   }
 
   public float getX() {
