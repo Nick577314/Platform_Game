@@ -2,8 +2,8 @@ package com.mygdx.game.entities.playable;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.helpers.Pair;
 import com.mygdx.game.levels.Level;
-import com.sun.tools.javac.util.Pair;
 
 public class Archer extends Player {
 
