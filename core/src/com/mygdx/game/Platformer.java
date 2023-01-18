@@ -15,7 +15,7 @@ public class Platformer extends Game {
   private static Hud hud;
   public OrthographicCamera orthographicCamera;
   public static Platformer INSTANCE;
-  private int widthScreen, heightScreen;
+  private float widthScreen, heightScreen;
 
   KeyboardInput INPUT;
   Mage testcharacter;
@@ -27,8 +27,8 @@ public class Platformer extends Game {
   @Override
   public void create() {
     // From tutorial by Small Pixel Games on YouTube
-    this.widthScreen = Gdx.graphics.getWidth();
-    this.heightScreen = Gdx.graphics.getHeight();
+    this.widthScreen = Gdx.graphics.getWidth() * 0.95f;
+    this.heightScreen = Gdx.graphics.getHeight() * 0.95f;
     this.orthographicCamera = new OrthographicCamera();
     this.orthographicCamera.setToOrtho(false, widthScreen, heightScreen);
     setScreen(new Level_1(orthographicCamera)); // supposed to pass in camera instead of 'this'
