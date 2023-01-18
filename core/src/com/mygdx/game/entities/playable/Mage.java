@@ -1,45 +1,26 @@
 package com.mygdx.game.entities.playable;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.game.entities.Entity;
+import com.mygdx.game.levels.Level;
+import com.sun.tools.javac.util.Pair;
 
 public class Mage extends Player {
-  public Mage(Direction facing, Body body) {
-    super(facing, body);
+  public Mage(Direction facing, Body body, Level level) {
+    super(facing, body, level);
     maxHp = 3;
     currentHp = maxHp;
     // Placeholder values
-    attackPower = 0;
-  }
+    attackPower = 1;
+    spriteScaleFactor = 0.85f;
 
-  @Override
-  public void render(SpriteBatch batch) {}
-
-  public Animation<TextureRegion> animationFactory(State characterState) {
-    switch (characterState) {
-      case IDLE:
-        return CreateAnimation("assets/sprites/mage/idle.png", 6, 0.075f);
-      case RUN:
-        return CreateAnimation("assets/sprites/mage/run.png", 8, 0.075f);
-      case JUMP:
-        return CreateAnimation("assets/sprites/mage/jump.png", 2, 0.075f);
-      case FALL:
-        return CreateAnimation("assets/sprites/mage/fall.png", 2, 0.075f);
-      case ATTACK_A:
-        return CreateAnimation("assets/sprite/mage/attack1.png", 8, 0.075f);
-      case ATTACK_B:
-        return CreateAnimation("assets/sprite/mage/attack2.png", 8, 0.075f);
-      case DAMAGE:
-        return CreateAnimation("assets/sprite/mage/damage.png", 4, 0.075f);
-      case DEATH:
-        return CreateAnimation("assets/sprite/mage/death.png", 7, 0.075f);
-      default:
-        throw new RuntimeException(
-            String.format(
-                "Animation %s does not exist on class %s",
-                characterState, this.getClass().toString()));
-    }
+    animationMap.put(Entity.State.IDLE, new Pair<>("sprites/players/mage/idle.png", 6));
+    animationMap.put(Entity.State.RUN, new Pair<>("sprites/players/mage/run.png", 8));
+    animationMap.put(Entity.State.JUMP, new Pair<>("sprites/players/mage/jump.png", 2));
+    animationMap.put(Entity.State.FALL, new Pair<>("sprites/players/mage/fall.png", 2));
+    animationMap.put(Entity.State.ATTACK_A, new Pair<>("sprites/players/mage/attack1.png", 8));
+    animationMap.put(Entity.State.ATTACK_B, new Pair<>("sprites/players/mage/attack2.png", 8));
+    animationMap.put(Entity.State.DAMAGE, new Pair<>("sprites/players/mage/damage.png", 4));
+    animationMap.put(Entity.State.DEATH, new Pair<>("sprites/players/mage/death.png", 7));
   }
 }

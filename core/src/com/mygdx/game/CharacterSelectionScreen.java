@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.entities.playable.*;
+import com.mygdx.game.levels.Level_1;
 
 public class CharacterSelectionScreen implements Screen {
   public SpriteBatch batch;
@@ -29,6 +29,8 @@ public class CharacterSelectionScreen implements Screen {
   Mage mage;
   Archer archer;
   Warrior warrior;
+  private Array<Texture> textures;
+  private ParallaxBackground parallaxBackground;
 
   //  boolean visible1,visible2,visible3;
 
@@ -52,14 +54,14 @@ public class CharacterSelectionScreen implements Screen {
   void prepareUI() {
 
     // this prepares the background
-    Array<Texture> textures = new Array<Texture>();
+    textures = new Array<>();
     for (int i = 1; i <= 8; i++) {
       textures.add(new Texture(Gdx.files.internal("layers/" + i + ".png")));
       textures
           .get(textures.size - 1)
           .setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
     }
-    ParallaxBackground parallaxBackground = new ParallaxBackground(textures);
+    parallaxBackground = new ParallaxBackground(textures);
     parallaxBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     parallaxBackground.setSpeed(1);
 
@@ -144,8 +146,9 @@ public class CharacterSelectionScreen implements Screen {
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             dispose();
-            Level_1 level1Screen = new Level_1(new OrthographicCamera());
-            app.setScreen(level1Screen);
+            // TODO: fix this code that is broken after the restructuring of Level
+            // Level_1 level1Screen = new Level_1(new OrthographicCamera());
+            // app.setScreen(level1Screen);
             return super.touchDown(event, x, y, pointer, button);
           }
         });
@@ -181,6 +184,10 @@ public class CharacterSelectionScreen implements Screen {
   public void dispose() {
     // Gdx.input.setInputProcessor(null);
     stage.dispose();
+    for (Texture texture : textures) {
+      texture.dispose();
+    }
+    parallaxBackground.dispose();
   }
 
   @Override

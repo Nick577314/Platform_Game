@@ -3,7 +3,7 @@ package com.mygdx.game.entities.enemies;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.levels.Level;
-import jdk.internal.net.http.common.Pair;
+import com.sun.tools.javac.util.Pair;
 
 public class EvilWizard extends Enemy {
 

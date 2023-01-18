@@ -11,13 +11,14 @@ public class KeyboardInput implements InputProcessor {
 
   private final Player player;
 
-  public KeyboardInput(Player characterClass) {
-    this.player = characterClass;
+  public KeyboardInput(Player player) {
+    this.player = player;
   }
 
-  public void keyboardMovement() {
-
+  public void update() {
     player.setVelX(0);
+    if (player.isMovementDisabled()) return;
+
     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && player.getJumpsRemaining() > 0) {
       float force = player.getBody().getMass() * 20;
       player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 0);
@@ -37,13 +38,15 @@ public class KeyboardInput implements InputProcessor {
     if (player.getBody().getLinearVelocity().y == 0) {
       player.resetJumpCounter();
     }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+      player.setVelX(0);
+      player.tryAttack();
+    }
     player
         .getBody()
         .setLinearVelocity(
             player.getVelX() * player.getSpeed(),
-            player.getBody().getLinearVelocity().y < 25
-                ? player.getBody().getLinearVelocity().y
-                : 25);
+            Math.min(player.getBody().getLinearVelocity().y, 25));
   }
 
   @Override
