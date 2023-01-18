@@ -40,7 +40,9 @@ public abstract class Player extends Entity {
         new Timer.Task() {
           @Override
           public void run() {
-            sensor[0] = BodyBuilder.createSensor(x + 35, y + 25, 50, 50, level.getWorld());
+            sensor[0] =
+                BodyBuilder.createSensor(
+                    facing == Direction.RIGHT ? x + 35 : x - 35, y + 25, 50, 50, level.getWorld());
             sensor[0].setUserData(player);
           }
         },
