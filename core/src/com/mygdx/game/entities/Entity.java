@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.helpers.Pair;
 import com.mygdx.game.levels.Level;
-import com.sun.tools.javac.util.Pair;
 import java.util.HashMap;
 
 public abstract class Entity {
@@ -36,6 +36,7 @@ public abstract class Entity {
   }
 
   protected HashMap<State, Pair<String, Integer>> animationMap;
+  // private Pair
 
   protected float x;
   protected float y;
@@ -88,7 +89,7 @@ public abstract class Entity {
   public Animation<TextureRegion> getAnimation(State state) {
     Pair<String, Integer> animationData = animationMap.get(state);
     if (animationData == null) return CreateAnimation("sprites/missing_texture.png", 1);
-    return CreateAnimation(animationData.fst, animationData.snd);
+    return CreateAnimation(animationData.first, animationData.second);
   }
 
   public TextureRegion getCurrentFrame() {
@@ -271,7 +272,7 @@ public abstract class Entity {
   }
 
   public int getNumAnimationFrames() {
-    return animationMap.get(state).snd;
+    return animationMap.get(state).second;
   }
 
   public void setState(State state) {
