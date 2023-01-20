@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -40,32 +39,10 @@ public class CharacterSelectionScreen implements Screen {
     batch = new SpriteBatch();
     stage = new Stage();
     prepareUI();
-
-    //      stage.addListener(new ClickListener() {
-    //
-    //          public void clicked(InputEvent event, float x, float y) {
-    //              System.out.println("I HOPE THIS WORKS ");
-    //          }
-    //
-    //      });
-
   }
 
   void prepareUI() {
 
-    // this prepares the background
-    textures = new Array<>();
-    for (int i = 1; i <= 8; i++) {
-      textures.add(new Texture(Gdx.files.internal("layers/" + i + ".png")));
-      textures
-          .get(textures.size - 1)
-          .setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
-    }
-    parallaxBackground = new ParallaxBackground(textures);
-    parallaxBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    parallaxBackground.setSpeed(1);
-
-    // this establishes the buttons
     skin = new Skin(Gdx.files.internal("assets/shadeui/uiskin.json"));
     MageB = new TextButton("Mage", skin, "default");
     ArcherB = new TextButton("Archer", skin, "default");
@@ -95,8 +72,6 @@ public class CharacterSelectionScreen implements Screen {
     stage.addActor(ArcherB);
     stage.addActor(WarriorB);
 
-    Vector2 position = new Vector2(100, 100);
-    Vector2 speed = new Vector2(50, 0);
     //    mage = new Mage(new Vector2(0,0), Entity.Direction.RIGHT);
     //    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
     //    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
@@ -209,7 +184,7 @@ public class CharacterSelectionScreen implements Screen {
     //    batch.begin();
     stage.act(delta);
     stage.draw();
-    //      System.out.println("HI I'M HERE ");
+
     //    batch.begin();
     //    batch.draw(mage.getCurrentFrame(), 150, 250);
     //    batch.draw(archer.getCurrentFrame(), 350, 250);

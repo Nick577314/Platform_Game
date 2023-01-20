@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
+import com.mygdx.game.entities.enemies.Skeleton;
 import com.mygdx.game.entities.playable.Player;
 import com.mygdx.game.helpers.MapLoader;
 import com.mygdx.game.helpers.SensorListener;
@@ -58,6 +59,9 @@ public abstract class Level {
     for (Entity entity : entities) {
       entity.updatePosition();
       if (entity instanceof Enemy) ((Enemy) entity).facePlayer(player);
+      if (entity instanceof Skeleton) {
+        ((Skeleton) entity).followPlayer(player);
+      }
     }
   }
 
