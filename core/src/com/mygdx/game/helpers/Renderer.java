@@ -33,7 +33,7 @@ public class Renderer extends ScreenAdapter {
     this.stage = new Stage();
     this.batch = new SpriteBatch();
     this.mapRenderer = level.loadMap();
-    this.hud = new Hud(batch, level.getPlayer());
+    this.hud = new Hud(batch);
     this.box2DDebugRenderer = new Box2DDebugRenderer();
   }
 
@@ -80,6 +80,7 @@ public class Renderer extends ScreenAdapter {
     box2DDebugRenderer.render(level.getWorld(), camera.combined.scl(PPM));
 
     // Draw HUD
+    hud.update(player);
     batch.setProjectionMatrix(hud.getStage().getCamera().combined);
     hud.getStage().act(dt);
     hud.getStage().draw();

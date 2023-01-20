@@ -61,7 +61,7 @@ public abstract class Entity {
     this.body = body;
     this.velX = 0f;
     this.velY = 0f;
-    this.speed = 0;
+    this.speed = 3f;
     this.animationMap = new HashMap<>();
     this.level = level;
   }

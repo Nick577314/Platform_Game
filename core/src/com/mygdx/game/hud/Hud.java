@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.entities.playable.Player;
 import java.util.ArrayList;
@@ -23,12 +20,10 @@ public class Hud {
       new BitmapFont(Gdx.files.internal("fonts/thaleahfat/thaleahfat.fnt"), false);
   private final Label.LabelStyle labelStyle = new Label.LabelStyle(thaleahFont, Color.WHITE);
   private final Cell<Label> collectedKeys, allKeys;
-  private Player player;
 
-  public Hud(SpriteBatch spriteBatch, Player player) {
+  public Hud(SpriteBatch spriteBatch) {
     FitViewport stageViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     hudStage = new Stage(stageViewport, spriteBatch);
-    this.player = player;
 
     hudTable = new Table();
     hudTable.top().left();
@@ -37,11 +32,18 @@ public class Hud {
     //        table.setDebug(true);
 
     // Draw health bar
-    int health = player.getCurrentHp();
+    HorizontalGroup healthBarGroup = new HorizontalGroup();
+    int health = 3;
     for (int i = 0; i < health; i++) {
       Image heart = new Image(heartTexture);
-      healthBar.add(hudTable.add(heart).size(30).pad(2));
+      heart.scaleBy(3);
+      healthBarGroup.addActor(heart);
     }
+
+    // Gives the hearts some overlap
+    healthBarGroup.space(healthBarGroup.getChild(0).getWidth() + 5);
+
+    hudTable.add(healthBarGroup);
 
     // Draw key icon
     Texture keyTexture =
@@ -79,17 +81,18 @@ public class Hud {
   }
 
   public void incrementKeyCounter() {
-    int val = Integer.parseInt(collectedKeys.getActor().getText().toString());
-    val++;
+    int val = Integer.parseInt(collectedKeys.getActor().getText().toString()) + 1;
     collectedKeys.setActor(new Label(new StringBuilder(String.valueOf(val)), labelStyle));
   }
 
-  public void updateHealth(int health) {
-    healthBar.clear();
+  public void update(Player player) {
+    HorizontalGroup healthBarGroup = (HorizontalGroup) hudTable.getChild(0);
+    healthBarGroup.clear();
 
-    for (int i = 0; i < health; i++) {
+    for (int i = 0; i < player.getCurrentHp(); i++) {
       Image heart = new Image(heartTexture);
-      healthBar.add(hudTable.add(heart).size(30).pad(2));
+      heart.scaleBy(3);
+      healthBarGroup.addActor(heart);
     }
   }
 }

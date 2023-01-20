@@ -16,7 +16,6 @@ public abstract class Player extends Entity {
 
   public Player(Direction facing, Body body, Level level) {
     super(facing, body, level);
-    this.speed = 5f;
     this.state = State.IDLE;
     this.maxJumps = 2;
     this.jumpsRemaining = maxJumps;
@@ -70,8 +69,6 @@ public abstract class Player extends Entity {
   @Override
   public void takeDamage(int damage) {
     currentHp -= damage;
-    // TODO: throw exception if hud not set
-    hud.updateHealth(currentHp);
   }
 
   public void setHud(Hud newHud) {

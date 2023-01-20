@@ -29,11 +29,11 @@ public class KeyboardInput implements InputProcessor {
     }
     if (Gdx.input.isKeyPressed(Input.Keys.A)) {
       player.setFacing(Entity.Direction.LEFT);
-      player.setVelX(-1.5f);
+      player.setVelX(-player.getSpeed());
     }
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
       player.setFacing(Entity.Direction.RIGHT);
-      player.setVelX(1.5f);
+      player.setVelX(player.getSpeed());
     }
     if (player.getBody().getLinearVelocity().y == 0) {
       player.resetJumpCounter();
