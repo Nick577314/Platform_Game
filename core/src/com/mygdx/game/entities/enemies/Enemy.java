@@ -17,20 +17,12 @@ public abstract class Enemy extends Entity {
   }
 
   public void moveLeft() {
-    // if (movementDisabled) {
-    //   body.setLinearVelocity(0, 0);
-    //   return;
-    // }
-
+    setState(State.RUN);
     body.setLinearVelocity(-speed, body.getLinearVelocity().y);
   }
 
   public void moveRight() {
-    // if (movementDisabled) {
-    //   body.setLinearVelocity(0, 0);
-    //   return;
-    // }
-
+    setState(State.RUN);
     body.setLinearVelocity(speed, body.getLinearVelocity().y);
   }
 }

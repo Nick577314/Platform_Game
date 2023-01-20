@@ -6,14 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.ParallaxBackground;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
@@ -30,7 +28,6 @@ public class Renderer extends ScreenAdapter {
   private final Box2DDebugRenderer box2DDebugRenderer;
 
   private final ParallaxBackground parallaxBackground;
-  Array<Texture> textures;
 
   public Renderer(Level level) {
     this.camera = new OrthographicCamera();
@@ -42,8 +39,6 @@ public class Renderer extends ScreenAdapter {
     this.hud = new Hud(batch);
     this.box2DDebugRenderer = new Box2DDebugRenderer();
     this.parallaxBackground = new ParallaxBackground();
-
-    // stage.addActor(parallaxBackground);
   }
 
   @Override
@@ -60,6 +55,7 @@ public class Renderer extends ScreenAdapter {
     camera.position.set(position);
     camera.update();
     batch.setProjectionMatrix(camera.combined);
+
     // Draw background
     batch.begin();
     parallaxBackground.setPosition(
@@ -69,13 +65,14 @@ public class Renderer extends ScreenAdapter {
     parallaxBackground.draw(batch, 1);
     batch.end();
     batch.begin();
+
     // Draw map
     mapRenderer.setView(camera);
     mapRenderer.render();
 
     BitmapFont font = new BitmapFont();
-    // Draw player & enemy sprites
 
+    // Draw player & enemy sprites
     for (Entity entity : level.getEntities()) {
       batch.draw(
           entity.getCurrentFrame(),
@@ -88,6 +85,8 @@ public class Renderer extends ScreenAdapter {
           String.valueOf(entity.getCurrentHp()),
           entity.getX(),
           entity.getY() + entity.getSpriteHeight() / 2f);
+      // THIS LINE PREVENTS MEMORY LEAKS: MUST BE CALLED EVERY FRAME!
+      entity.dispose();
     }
     batch.end();
 

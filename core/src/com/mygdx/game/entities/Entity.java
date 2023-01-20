@@ -150,9 +150,8 @@ public abstract class Entity {
   // public abstract void tryAttack();
 
   public void takeDamage(int damage) {
-    final Entity entity = this;
-    setState(State.DAMAGE);
     setMovementDisabled(true);
+    setState(State.DAMAGE);
 
     currentHp -= damage;
     if (currentHp <= 0) {
@@ -164,11 +163,10 @@ public abstract class Entity {
         new Timer.Task() {
           @Override
           public void run() {
-            entity.setState(State.IDLE);
             setMovementDisabled(false);
           }
         },
-        this.getNumAnimationFrames() * this.getAnimationFrameDuration());
+        this.getAnimationDuration());
   }
 
   public void updatePosition() {
@@ -282,16 +280,8 @@ public abstract class Entity {
     return spriteScaleFactor;
   }
 
-  private float getAnimationFrameDuration() {
-    return animationFrameDuration;
-  }
-
-  private int getNumAnimationFrames() {
-    return animationMap.get(state).second;
-  }
-
   public float getAnimationDuration() {
-    return getNumAnimationFrames() * getAnimationFrameDuration();
+    return animationFrameDuration * animationMap.get(state).second;
   }
 
   public void setState(State state) {
