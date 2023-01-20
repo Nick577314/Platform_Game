@@ -1,8 +1,10 @@
 package com.mygdx.game.entities;
 
+import static com.badlogic.gdx.Gdx.input;
 import static com.mygdx.game.helpers.Constants.PPM;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -53,6 +55,8 @@ public abstract class Entity {
   protected Body body;
   protected boolean movementDisabled = false;
   protected boolean hidden = false;
+
+  protected int delay;
 
   public Entity(Direction facing, Body body, Level level) {
     this.x = body.getPosition().x;
@@ -111,6 +115,7 @@ public abstract class Entity {
     if (movementDisabled) return;
 
     if (body.getLinearVelocity().y == 0) {
+      delay = 0;
       if (velX > 0) {
         setFacing(Direction.RIGHT);
         setState(State.RUN);
@@ -124,11 +129,15 @@ public abstract class Entity {
       setState(State.IDLE);
       return;
     }
-    if (body.getLinearVelocity().y > 0) {
+    if (body.getLinearVelocity().y > 0 && input.isKeyPressed(Input.Keys.SPACE)) {
       setState(State.JUMP);
     }
     if (body.getLinearVelocity().y < 0) {
-      setState(State.FALL);
+      delay += 1;
+      if (delay >= 20) {
+
+        setState(State.FALL);
+      }
     }
   }
 

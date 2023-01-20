@@ -16,7 +16,9 @@
 
 package com.mygdx.game;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,7 +28,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class ParallaxTest extends GdxTest {
+public class ParallaxTest extends InputAdapter implements ApplicationListener {
   class ParallaxCamera extends OrthographicCamera {
     Matrix4 parallaxView = new Matrix4();
     Matrix4 parallaxCombined = new Matrix4();
@@ -42,7 +44,6 @@ public class ParallaxTest extends GdxTest {
       tmp.set(position);
       tmp.x *= parallaxX;
       tmp.y *= parallaxY;
-
       parallaxView.setToLookAt(tmp, tmp2.set(tmp).add(direction), up);
       parallaxCombined.set(projection);
       Matrix4.mul(parallaxCombined.val, parallaxView.val);
@@ -52,7 +53,7 @@ public class ParallaxTest extends GdxTest {
 
   TextureRegion[] layers;
   ParallaxCamera camera;
-  OrthoCamController controller;
+
   SpriteBatch batch;
   BitmapFont font;
 
@@ -65,11 +66,12 @@ public class ParallaxTest extends GdxTest {
     layers[1] = new TextureRegion(texture1, 0, 363, 288, 180);
     layers[2] = new TextureRegion(texture2, 547, 0, 288, 180);
     camera = new ParallaxCamera(480, 320);
-    controller = new OrthoCamController(camera);
-    Gdx.input.setInputProcessor(controller);
     batch = new SpriteBatch();
     // font = new BitmapFont(Gdx.files.internal("data/lsans-15.fnt"), false);
   }
+
+  @Override
+  public void resize(int width, int height) {}
 
   @Override
   public void dispose() {
@@ -139,4 +141,10 @@ public class ParallaxTest extends GdxTest {
     font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), 0, 30);
     batch.end();
   }
+
+  @Override
+  public void pause() {}
+
+  @Override
+  public void resume() {}
 }

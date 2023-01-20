@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Mage;
 import com.mygdx.game.entities.playable.Player;
 import com.mygdx.game.levels.Level;
@@ -21,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MapLoader {
   private final Level level;
+  protected Player player;
 
   public MapLoader(Level level) {
     this.level = level;
@@ -53,7 +55,7 @@ public class MapLoader {
                 level.getWorld());
 
         if (rectangleName.equals("player")) {
-          Player player = new Mage(Entity.Direction.RIGHT, body, level);
+          player = new Mage(Entity.Direction.RIGHT, body, level);
           body.setUserData(player);
           level.addEntity(player);
           level.setPlayer(player);
@@ -87,16 +89,17 @@ public class MapLoader {
                 "An error occurred when trying to instantiate a map entity", e);
           }
 
-          Entity entity = (Entity) entityObject;
-          entity.getBody().setUserData(entity);
+          Enemy enemy = (Enemy) entityObject;
+          enemy.getBody().setUserData(enemy);
           // Prevents player from pushing enemies around but causes both entities to slightly
           // "bounce" when the player lands on an enemy's head
-          MassData massData = new MassData();
-          massData.mass = 10000;
-          entity.getBody().setMassData(massData);
+          //          MassData massData = new MassData();
+          //          massData.mass = 10000;
+          //
+          //          enemy.getBody().setMassData(massData);
           // Might cause issues when trying to get enemies to move on their own
-          entity.getBody().getFixtureList().get(0).setFriction(10000);
-          level.addEntity(entity);
+          enemy.getBody().getFixtureList().get(0).setFriction(10000);
+          level.addEntity(enemy);
         }
       }
     }
