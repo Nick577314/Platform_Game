@@ -9,22 +9,22 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.enemies.Skeleton;
 import com.mygdx.game.entities.playable.Player;
+import com.mygdx.game.helpers.CollisionHandler;
 import com.mygdx.game.helpers.MapLoader;
-import com.mygdx.game.helpers.SensorListener;
 import java.util.ArrayList;
 
 public abstract class Level {
   protected Player player;
   protected Rectangle boundary;
   protected World world;
-  protected SensorListener sensorListener;
+  protected CollisionHandler sensorListener;
   protected String mapFile;
   protected ArrayList<Entity> entities;
 
   public Level(String mapFile) {
     this.mapFile = mapFile;
     this.world = new World(new Vector2(0, -50f), false);
-    this.sensorListener = new SensorListener();
+    this.sensorListener = new CollisionHandler();
     this.world.setContactListener(sensorListener);
     this.boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
     this.entities = new ArrayList<>();

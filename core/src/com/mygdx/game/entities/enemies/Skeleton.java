@@ -1,7 +1,5 @@
 package com.mygdx.game.entities.enemies;
 
-import static com.mygdx.game.helpers.Constants.PPM;
-
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.mygdx.game.entities.Entity;
@@ -37,19 +35,15 @@ public class Skeleton extends Enemy {
     this.getBody().setMassData(massData);
     this.getBody().getFixtureList().get(0).setFriction(8);
 
-    if (this.getBody().getPosition().x - player.getBody().getPosition().x <= -5 * PPM
-        || this.getBody().getPosition().x - player.getBody().getPosition().x >= 5 * PPM) {
-      System.out.println("TRYING TO GET SKELETON TO STOP MOVING");
-      this.stopMoving();
+    if (movementDisabled) {
+      setState(State.IDLE);
       return;
     }
+
     if (this.getBody().getPosition().x >= player.getBody().getPosition().x) {
-      System.out.println("TRYING TO GET SKELETON TO MOVE LEFT");
       this.setState(State.RUN);
       this.moveLeft();
-
-    } else if (this.getBody().getPosition().x <= player.getBody().getPosition().x) {
-      System.out.println("TRYING TO GET SKELETON TO MOVE RIGHT");
+    } else {
       this.setState(State.RUN);
       this.moveRight();
     }

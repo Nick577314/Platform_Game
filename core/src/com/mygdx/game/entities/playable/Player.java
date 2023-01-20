@@ -54,7 +54,7 @@ public abstract class Player extends Entity {
             player.setMovementDisabled(false);
           }
         },
-        this.getNumAnimationFrames() * this.getAnimationFrameDuration());
+        getAnimationDuration());
 
     Timer.schedule(
         new Timer.Task() {

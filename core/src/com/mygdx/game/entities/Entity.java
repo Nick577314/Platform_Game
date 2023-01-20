@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.helpers.Pair;
@@ -66,6 +67,7 @@ public abstract class Entity {
     this.velX = 0f;
     this.velY = 0f;
     this.speed = 3f;
+    this.attackPower = 1;
     this.animationMap = new HashMap<>();
     this.level = level;
   }
@@ -175,6 +177,10 @@ public abstract class Entity {
     updateCharacterState();
   }
 
+  public Vector2 getDistance(Entity other) {
+    return this.getBody().getPosition().sub(other.getBody().getPosition());
+  }
+
   private void die() {
     setMovementDisabled(true);
     setState(State.DEATH);
@@ -276,12 +282,16 @@ public abstract class Entity {
     return spriteScaleFactor;
   }
 
-  public float getAnimationFrameDuration() {
+  private float getAnimationFrameDuration() {
     return animationFrameDuration;
   }
 
-  public int getNumAnimationFrames() {
+  private int getNumAnimationFrames() {
     return animationMap.get(state).second;
+  }
+
+  public float getAnimationDuration() {
+    return getNumAnimationFrames() * getAnimationFrameDuration();
   }
 
   public void setState(State state) {

@@ -17,22 +17,20 @@ public abstract class Enemy extends Entity {
   }
 
   public void moveLeft() {
-    //    Vector2 force = new Vector2(-speed,0);
-    //    body.applyForce(force,body.getWorldCenter(),true);
-    body.setLinearVelocity(-speed, body.getLinearVelocity().y);
-    //    body.setAngularVelocity(0);
+    // if (movementDisabled) {
+    //   body.setLinearVelocity(0, 0);
+    //   return;
+    // }
 
+    body.setLinearVelocity(-speed, body.getLinearVelocity().y);
   }
 
   public void moveRight() {
-    //    Vector2 force = new Vector2(speed,0);
-    //    body.applyForce(force,body.getWorldCenter(),true);
+    // if (movementDisabled) {
+    //   body.setLinearVelocity(0, 0);
+    //   return;
+    // }
+
     body.setLinearVelocity(speed, body.getLinearVelocity().y);
-    //    body.setAngularVelocity(0);
-
-  }
-
-  public void stopMoving() {
-    body.setLinearVelocity(0, 0);
   }
 }
