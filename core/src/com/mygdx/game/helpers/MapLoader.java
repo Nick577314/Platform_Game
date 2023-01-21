@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.game.Items.Items;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Mage;
@@ -32,6 +33,7 @@ public class MapLoader {
     TiledMap tiledMap = new TmxMapLoader().load(level.getMapFile());
     parseMapObjects(tiledMap.getLayers().get("platforms").getObjects());
     parseMapObjects(tiledMap.getLayers().get("entities").getObjects());
+    parseMapItems(tiledMap.getLayers().get("Items").getObjects());
     return new OrthogonalTiledMapRenderer(tiledMap);
   }
 
@@ -91,16 +93,60 @@ public class MapLoader {
 
           Enemy enemy = (Enemy) entityObject;
           enemy.getBody().setUserData(enemy);
-          // Prevents player from pushing enemies around but causes both entities to slightly
-          // "bounce" when the player lands on an enemy's head
-          //          MassData massData = new MassData();
-          //          massData.mass = 10000;
-          //
-          //          enemy.getBody().setMassData(massData);
+
           // Might cause issues when trying to get enemies to move on their own
           enemy.getBody().getFixtureList().get(0).setFriction(10000);
           level.addEntity(enemy);
         }
+      }
+    }
+  }
+
+  private void parseMapItems(MapObjects mapObjects) {
+
+    for (MapObject mapObject : mapObjects) {
+      if (mapObject instanceof PolygonMapObject) {
+        createStaticBody((PolygonMapObject) mapObject);
+        continue;
+      }
+      if (mapObject instanceof RectangleMapObject) {
+        Rectangle rectangle = (((RectangleMapObject) mapObject).getRectangle());
+        String rectangleName = mapObject.getName();
+
+        Body body =
+            BodyBuilder.createBody(
+                rectangle.getX() + rectangle.getWidth() / 2,
+                rectangle.getY() + rectangle.getHeight() / 2,
+                rectangle.getWidth(),
+                rectangle.getHeight(),
+                BodyDef.BodyType.DynamicBody,
+                level.getWorld());
+
+        Class<?> itemClass;
+        try {
+          // Full path to class required
+          itemClass = Class.forName("com.mygdx.game.Items." + rectangleName);
+        } catch (ClassNotFoundException e) {
+          throw new RuntimeException(
+              "The current object from the .tmx file doesn't match any valid entity class", e);
+        }
+        Constructor<?> itemConstructor;
+        try {
+          itemConstructor = itemClass.getConstructor(Body.class, Level.class);
+        } catch (NoSuchMethodException e) {
+          throw new RuntimeException(
+              "An error occurred when trying to find the constructor of a map entity", e);
+        }
+        Object itemObject;
+        try {
+          itemObject = itemConstructor.newInstance(body, level);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+          throw new RuntimeException(
+              "An error occurred when trying to instantiate a map entity", e);
+        }
+        Items item = (Items) itemObject;
+        item.getBody().setUserData(item);
+        level.addItem(item);
       }
     }
   }

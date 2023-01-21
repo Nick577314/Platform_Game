@@ -65,7 +65,6 @@ public class Renderer extends ScreenAdapter {
     parallaxBackground.draw(batch, 1);
     batch.end();
     batch.begin();
-
     // Draw map
     mapRenderer.setView(camera);
     mapRenderer.render();
