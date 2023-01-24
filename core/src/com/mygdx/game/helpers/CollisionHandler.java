@@ -3,6 +3,7 @@ package com.mygdx.game.helpers;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.Items.Items;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Player;
@@ -33,6 +34,15 @@ public class CollisionHandler implements ContactListener {
 
     if (entityA instanceof Enemy && entityB instanceof Player) {
       playerTouchesEnemy((Player) entityB, (Enemy) entityA);
+      return;
+    }
+    // creating the logic for if a player interacts with an item
+    if (entityA instanceof Items && entityB instanceof Player) {
+      playerTouchesItem((Player) entityB, (Items) entityA);
+      return;
+    }
+    if (entityB instanceof Items && entityA instanceof Player) {
+      playerTouchesItem((Player) entityA, (Items) entityB);
       return;
     }
   }
@@ -79,5 +89,10 @@ public class CollisionHandler implements ContactListener {
           }
         },
         1f);
+  }
+
+  private void playerTouchesItem(final Player player, Items items) {
+
+    items.doWhenCollected(player);
   }
 }

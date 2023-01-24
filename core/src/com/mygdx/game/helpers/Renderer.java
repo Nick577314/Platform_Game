@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.Items.*;
 import com.mygdx.game.ParallaxBackground;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
@@ -26,7 +27,6 @@ public class Renderer extends ScreenAdapter {
   private final Hud hud;
   private final OrthogonalTiledMapRenderer mapRenderer;
   private final Box2DDebugRenderer box2DDebugRenderer;
-
   private final ParallaxBackground parallaxBackground;
 
   public Renderer(Level level) {
@@ -87,6 +87,20 @@ public class Renderer extends ScreenAdapter {
       // THIS LINE PREVENTS MEMORY LEAKS: MUST BE CALLED EVERY FRAME!
       entity.dispose();
     }
+    // drawing the potion to the screen
+    // setting the potion png to the body
+    for (Items items : level.getItemsArrayList()) {
+
+      batch.draw(
+          items.createItem(),
+          items.getBody().getPosition().x * PPM,
+          items.getBody().getPosition().y * PPM,
+          items.createItem().getWidth(),
+          items.createItem().getHeight());
+      // isn't getting disposed
+      items.createItem().dispose();
+    }
+
     batch.end();
 
     font.dispose();

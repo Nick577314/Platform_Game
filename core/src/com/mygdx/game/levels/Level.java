@@ -22,6 +22,7 @@ public abstract class Level {
   protected String mapFile;
   protected ArrayList<Entity> entities;
   protected ArrayList<Items> itemsArrayList;
+  protected ArrayList<Items> itemsTobeRemove;
 
   public Level(String mapFile) {
     this.mapFile = mapFile;
@@ -30,6 +31,8 @@ public abstract class Level {
     this.world.setContactListener(sensorListener);
     this.boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
     this.entities = new ArrayList<>();
+    this.itemsArrayList = new ArrayList<>();
+    this.itemsTobeRemove = new ArrayList<>();
   }
 
   public void dispose() {
@@ -65,6 +68,11 @@ public abstract class Level {
         ((Skeleton) entity).followPlayer(player);
       }
     }
+    for (Items items : itemsTobeRemove) {
+
+      items.eraseItem();
+    }
+    itemsTobeRemove.clear();
   }
 
   public ArrayList<Entity> getEntities() {
@@ -77,6 +85,10 @@ public abstract class Level {
 
   public ArrayList<Items> getItemsArrayList() {
     return itemsArrayList;
+  }
+
+  public ArrayList<Items> getItemsToRemove() {
+    return itemsTobeRemove;
   }
 
   public void addItem(Items items) {
