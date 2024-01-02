@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="95" height="51" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="97">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="95" height="51" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="99">
  <tileset firstgid="1" source="tileset.tsx"/>
  <tileset firstgid="43" source="[32x32]_Dungeon_Bricks_Plain.tsx"/>
  <tileset firstgid="99" source="forest1.tsx"/>
@@ -264,5 +264,6 @@
  <objectgroup id="8" name="Items">
   <object id="94" name="Potions" x="846.131" y="1031.82" width="25.0928" height="23.0854"/>
   <object id="96" name="Heart" x="337.248" y="835.09" width="29.1077" height="26.0966"/>
+  <object id="97" name="Keys" x="583.158" y="1050.89" width="25.0928" height="33.1226"/>
  </objectgroup>
 </map>

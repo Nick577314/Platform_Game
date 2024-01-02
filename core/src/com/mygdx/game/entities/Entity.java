@@ -11,14 +11,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Timer;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.helpers.Pair;
 import com.mygdx.game.levels.Level;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Entity {
   protected Level level;
   // Combat stats
   protected int currentHp, maxHp, attackPower;
+
+  // story items;
+  protected int keyCount;
   private Texture spriteSheet;
 
   // Position & movement stats
@@ -54,9 +59,11 @@ public abstract class Entity {
   protected State state;
   protected Direction facing;
   protected Body body;
+
+  protected int quantity;
+  protected ArrayList<Pair<Item, Integer>> storage;
   protected boolean movementDisabled = false;
   protected boolean hidden = false;
-
   protected int delay;
 
   public Entity(Direction facing, Body body, Level level) {
@@ -70,6 +77,13 @@ public abstract class Entity {
     this.attackPower = 1;
     this.animationMap = new HashMap<>();
     this.level = level;
+    this.quantity = 3;
+    this.storage =
+        new ArrayList<
+            Pair<
+                Item,
+                Integer>>(); // initial storage capacity per item is going to be limited to 3. Since
+    // ArrayList's are dynamic we can have as many items as we'd like
   }
 
   public void dispose() {
@@ -222,6 +236,22 @@ public abstract class Entity {
 
   public int getMaxHp() {
     return maxHp;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
+  public ArrayList<Pair<Item, Integer>> getStorage() {
+    return storage;
+  }
+
+  public void setStorage(ArrayList<Pair<Item, Integer>> storage) {
+    this.storage = storage;
   }
 
   public void setMaxHp(int maxHp) {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Items.Items;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.enemies.Skeleton;
@@ -21,8 +21,8 @@ public abstract class Level {
   protected CollisionHandler sensorListener;
   protected String mapFile;
   protected ArrayList<Entity> entities;
-  protected ArrayList<Items> itemsArrayList;
-  protected ArrayList<Items> itemsTobeRemove;
+  protected ArrayList<Item> itemArrayList;
+  protected ArrayList<Item> itemToBeRemove;
 
   public Level(String mapFile) {
     this.mapFile = mapFile;
@@ -31,8 +31,8 @@ public abstract class Level {
     this.world.setContactListener(sensorListener);
     this.boundary = new Rectangle(0, 0, Gdx.graphics.getWidth(), 50);
     this.entities = new ArrayList<>();
-    this.itemsArrayList = new ArrayList<>();
-    this.itemsTobeRemove = new ArrayList<>();
+    this.itemArrayList = new ArrayList<>();
+    this.itemToBeRemove = new ArrayList<>();
   }
 
   public void dispose() {
@@ -68,11 +68,11 @@ public abstract class Level {
         ((Skeleton) entity).followPlayer(player);
       }
     }
-    for (Items items : itemsTobeRemove) {
-
-      items.eraseItem();
+    for (Item item : itemToBeRemove) {
+      itemArrayList.remove(item);
+      item.eraseItem();
     }
-    itemsTobeRemove.clear();
+    itemToBeRemove.clear();
   }
 
   public ArrayList<Entity> getEntities() {
@@ -83,16 +83,16 @@ public abstract class Level {
     entities.add(entity);
   }
 
-  public ArrayList<Items> getItemsArrayList() {
-    return itemsArrayList;
+  public ArrayList<Item> getItemsArrayList() {
+    return itemArrayList;
   }
 
-  public ArrayList<Items> getItemsToRemove() {
-    return itemsTobeRemove;
+  public ArrayList<Item> getItemsToBeRemove() {
+    return itemToBeRemove;
   }
 
-  public void addItem(Items items) {
-    itemsArrayList.add(items);
+  public void addItem(Item item) {
+    itemArrayList.add(item);
   }
 
   public OrthogonalTiledMapRenderer loadMap() {

@@ -66,6 +66,18 @@ public abstract class Player extends Entity {
         45 / 60f);
   }
 
+  public int getKeyCount() {
+    return keyCount;
+  }
+
+  public void setKeyCount(int keyCount) {
+    this.keyCount = keyCount;
+  }
+
+  public void addKey() {
+    keyCount++;
+  }
+
   @Override
   public void takeDamage(int damage) {
     currentHp -= damage;

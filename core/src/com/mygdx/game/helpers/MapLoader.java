@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.Items.Items;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Mage;
@@ -144,7 +144,7 @@ public class MapLoader {
           throw new RuntimeException(
               "An error occurred when trying to instantiate a map entity", e);
         }
-        Items item = (Items) itemObject;
+        Item item = (Item) itemObject;
         item.getBody().setUserData(item);
         level.addItem(item);
       }

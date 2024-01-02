@@ -3,7 +3,7 @@ package com.mygdx.game.helpers;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Timer;
-import com.mygdx.game.Items.Items;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.enemies.Enemy;
 import com.mygdx.game.entities.playable.Player;
@@ -37,12 +37,12 @@ public class CollisionHandler implements ContactListener {
       return;
     }
     // creating the logic for if a player interacts with an item
-    if (entityA instanceof Items && entityB instanceof Player) {
-      playerTouchesItem((Player) entityB, (Items) entityA);
+    if (entityA instanceof Item && entityB instanceof Player) {
+      playerTouchesItem((Player) entityB, (Item) entityA);
       return;
     }
-    if (entityB instanceof Items && entityA instanceof Player) {
-      playerTouchesItem((Player) entityA, (Items) entityB);
+    if (entityB instanceof Item && entityA instanceof Player) {
+      playerTouchesItem((Player) entityA, (Item) entityB);
       return;
     }
   }
@@ -91,8 +91,12 @@ public class CollisionHandler implements ContactListener {
         1f);
   }
 
-  private void playerTouchesItem(final Player player, Items items) {
+  private void playerTouchesItem(final Player player, Item item) {
 
-    items.doWhenCollected(player);
+    if (item.getLevel().getItemsToBeRemove().contains(item)) {
+      return;
+    }
+    item.getLevel().getItemsToBeRemove().add(item);
+    item.doWhenCollected(player);
   }
 }

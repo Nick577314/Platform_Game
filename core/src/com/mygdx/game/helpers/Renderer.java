@@ -89,16 +89,16 @@ public class Renderer extends ScreenAdapter {
     }
     // drawing the potion to the screen
     // setting the potion png to the body
-    for (Items items : level.getItemsArrayList()) {
+    for (Item item : level.getItemsArrayList()) {
 
       batch.draw(
-          items.createItem(),
-          items.getBody().getPosition().x * PPM,
-          items.getBody().getPosition().y * PPM,
-          items.createItem().getWidth(),
-          items.createItem().getHeight());
-      // isn't getting disposed
-      items.createItem().dispose();
+          item.getSprite(),
+          item.getX() - item.getWidth() / 2f,
+          item.getY() - item.getHeight() / 2f,
+          item.getWidth(),
+          item.getHeight());
+      // this line caused the item pngs to appear as black boxes
+      //      item.dispose();
     }
 
     batch.end();

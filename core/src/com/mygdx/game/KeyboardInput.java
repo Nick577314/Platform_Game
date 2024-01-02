@@ -4,8 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Items.Item;
+import com.mygdx.game.Items.Potions;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.playable.Player;
+import com.mygdx.game.helpers.Pair;
+import java.util.ArrayList;
 
 public class KeyboardInput implements InputProcessor {
 
@@ -41,6 +45,22 @@ public class KeyboardInput implements InputProcessor {
     if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
       player.setVelX(0);
       player.tryAttack();
+    }
+    if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+      if (player.getCurrentHp() < player.getMaxHp()) {
+        ArrayList<Pair<Item, Integer>> storage = player.getStorage();
+        Pair<Item, Integer> item = storage.get(0);
+        if (item.second > 0) { // Check if storage is not empty
+
+          if (item.first instanceof Potions) { // Check if it's a Potions object
+            // Use the potion object as a Potions object
+
+            player.setCurrentHp(player.getMaxHp());
+
+            item.second = 0;
+          }
+        }
+      }
     }
     player
         .getBody()

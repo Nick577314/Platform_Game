@@ -80,14 +80,16 @@ public class Hud {
     heartTexture.dispose();
   }
 
-  public void incrementKeyCounter() {
-    int val = Integer.parseInt(collectedKeys.getActor().getText().toString()) + 1;
-    collectedKeys.setActor(new Label(new StringBuilder(String.valueOf(val)), labelStyle));
+  public void incrementKeyCounter(int keyCount) {
+    //    int val = Integer.parseInt(collectedKeys.getActor().getText().toString()) + 1;
+    collectedKeys.setActor(new Label(new StringBuilder(String.valueOf(keyCount)), labelStyle));
   }
 
   public void update(Player player) {
     HorizontalGroup healthBarGroup = (HorizontalGroup) hudTable.getChild(0);
     healthBarGroup.clear();
+
+    incrementKeyCounter(player.getKeyCount());
 
     for (int i = 0; i < player.getCurrentHp(); i++) {
       Image heart = new Image(heartTexture);
