@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="95" height="51" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="99">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="95" height="51" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="117">
  <tileset firstgid="1" source="tileset.tsx"/>
  <tileset firstgid="43" source="[32x32]_Dungeon_Bricks_Plain.tsx"/>
  <tileset firstgid="99" source="forest1.tsx"/>
@@ -259,6 +259,30 @@
   </object>
   <object id="92" x="250.981" y="290.007">
    <polygon points="0,0 -32,32 96,32 64,0"/>
+  </object>
+  <object id="109" x="2530.54" y="257.567">
+   <polygon points="0,0 218.813,0 218.813,89.2372 0,89.2372"/>
+  </object>
+  <object id="110" x="2816.73" y="224.546">
+   <polygon points="0,0 30.5911,0 30.5911,125.561 0,125.561"/>
+  </object>
+  <object id="111" x="2718.77" y="221.244">
+   <polygon points="0,0 31.6918,0 31.6918,128.863 0,128.863"/>
+  </object>
+  <object id="112" x="2816.73" y="256.467">
+   <polygon points="0,0 218.813,0 218.813,89.2372 0,89.2372"/>
+  </object>
+  <object id="113" x="2528.34" y="351.128">
+   <polygon points="0,0 32.7921,0 32.7921,1276.91 0,1276.91"/>
+  </object>
+  <object id="114" x="2562.47" y="1182.17">
+   <polygon points="0,0 125.252,0 125.252,66.1222 0,66.1222"/>
+  </object>
+  <object id="115" x="2881.67" y="1183.27">
+   <polygon points="0,0 128.554,0 128.554,61.7193 0,61.7193"/>
+  </object>
+  <object id="116" x="2560.26" y="1601.54">
+   <polygon points="0,0 445.56,0 445.56,29.7986 0,29.7986"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="Items">

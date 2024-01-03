@@ -76,7 +76,6 @@ public class CharacterSelectionScreen implements Screen {
     //    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
     //    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
 
-    //      System.out.println("HI I'M HERE before addlistener ");
     MageB.addListener(
         new ClickListener() {
 
@@ -185,11 +184,26 @@ public class CharacterSelectionScreen implements Screen {
     stage.act(delta);
     stage.draw();
 
-    //    batch.begin();
-    //    batch.draw(mage.getCurrentFrame(), 150, 250);
-    //    batch.draw(archer.getCurrentFrame(), 350, 250);
-    //    batch.draw(warrior.getCurrentFrame(), 650, 250);
-    //    batch.end();
+    batch.begin();
+    batch.draw(mage.getCurrentFrame(), 150, 250);
+    batch.draw(archer.getCurrentFrame(), 350, 250);
+    batch.draw(warrior.getCurrentFrame(), 650, 250);
+    batch.end();
+
+    batch.begin();
+    batch.draw(mage.getCurrentFrame(), 150, 250);
+    batch.end();
+
+    batch.begin();
+    batch.draw(archer.getCurrentFrame(), 350, 250);
+    batch.end();
+
+    batch.begin();
+    batch.draw(warrior.getCurrentFrame(), 650, 250);
+    batch.end();
+
+    // drawCharacter();
+    batch.end();
   }
 
   @Override
