@@ -1,38 +1,41 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.helpers.Renderer;
 import com.mygdx.game.levels.Level;
-import com.mygdx.game.levels.Level_1;
 
 public class Platformer extends Game {
 
   private Level level;
+  private CharacterSelectionScreen characterSelect;
+
   private Renderer renderer;
-  private Level characterSelectionScreen;
 
   public Platformer() {}
 
   @Override
   public void create() {
+    characterSelect = new CharacterSelectionScreen(this);
 
-    this.level = new Level_1();
-    this.renderer = new Renderer(level);
-    setScreen(renderer);
+    //    this.level = new Level_1();
+    //    this.renderer = new Renderer(level);
+    //    setScreen(renderer);
+
+    setScreen(characterSelect);
   }
 
   @Override
   public void render() {
     // Update physics/movement
-    level.update();
+    // level.update();
     // Draw objects to the screen
-    renderer.render(Gdx.graphics.getDeltaTime());
+    // renderer.render(Gdx.graphics.getDeltaTime());
+    super.render();
   }
 
   @Override
   public void dispose() {
-    level.dispose();
+    // level.dispose();
     super.dispose();
   }
 }

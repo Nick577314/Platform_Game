@@ -11,8 +11,8 @@ public class DesktopLauncher {
     config.setForegroundFPS(60);
     config.setResizable(false);
     config.setTitle("Platformer");
-
+    Platformer game = new Platformer();
     config.setWindowedMode(1600, 900);
-    new Lwjgl3Application(new Platformer(), config);
+    new Lwjgl3Application(game, config);
   }
 }

@@ -13,18 +13,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.entities.playable.*;
+import com.mygdx.game.helpers.Renderer;
+import com.mygdx.game.levels.Level;
 import com.mygdx.game.levels.Level_1;
 
 public class CharacterSelectionScreen implements Screen {
   public SpriteBatch batch;
   Stage stage;
-  ScreenViewport viewport;
-  private Table characterSelect;
+
   Skin skin;
   ScrollPane scroll;
   TextButton MageB, ArcherB, WarriorB, ConfirmB;
   private Platformer app;
-  private Level_1 level1Screen;
+  private CharacterSelectionScreen characterSelect;
   Mage mage;
   Archer archer;
   Warrior warrior;
@@ -34,10 +35,13 @@ public class CharacterSelectionScreen implements Screen {
   //  boolean visible1,visible2,visible3;
 
   public CharacterSelectionScreen(Platformer app) {
-    // super(app);
     this.app = app;
-    batch = new SpriteBatch();
-    stage = new Stage();
+    batch = new SpriteBatch(); // Initialize SpriteBatch
+
+    // Initialize Stage with ScreenViewport
+    stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
+
     prepareUI();
   }
 
@@ -66,15 +70,11 @@ public class CharacterSelectionScreen implements Screen {
     ArcherB.setSize(125, 50);
     WarriorB.setSize(125, 50);
 
-    stage.addActor(parallaxBackground);
+    // stage.addActor(parallaxBackground);
     stage.addActor(ConfirmB);
     stage.addActor(MageB);
     stage.addActor(ArcherB);
     stage.addActor(WarriorB);
-
-    //    mage = new Mage(new Vector2(0,0), Entity.Direction.RIGHT);
-    //    archer = new Archer(new Vector2(0,0), Entity.Direction.RIGHT);
-    //    warrior = new Warrior(new Vector2(0,0), Entity.Direction.RIGHT);
 
     MageB.addListener(
         new ClickListener() {
@@ -107,9 +107,6 @@ public class CharacterSelectionScreen implements Screen {
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-            batch.begin();
-            batch.draw(warrior.getCurrentFrame(), 350, 250);
-            batch.end();
             return super.touchDown(event, x, y, pointer, button);
           }
         });
@@ -119,10 +116,11 @@ public class CharacterSelectionScreen implements Screen {
 
           @Override
           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            dispose();
+
             // TODO: fix this code that is broken after the restructuring of Level
-            // Level_1 level1Screen = new Level_1(new OrthographicCamera());
-            // app.setScreen(level1Screen);
+            Level level = new Level_1();
+            Renderer renderer = new Renderer(level);
+            app.setScreen(renderer);
             return super.touchDown(event, x, y, pointer, button);
           }
         });
@@ -161,11 +159,8 @@ public class CharacterSelectionScreen implements Screen {
     for (Texture texture : textures) {
       texture.dispose();
     }
-    parallaxBackground.dispose();
+    // parallaxBackground.dispose();
   }
-
-  @Override
-  public void hide() {}
 
   @Override
   public void resize(int width, int height) {}
@@ -177,55 +172,29 @@ public class CharacterSelectionScreen implements Screen {
 
   @Override
   public void render(float delta) {
-
-    Gdx.gl.glClearColor(0, 0, 0, 1);
+    Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    //    batch.begin();
+
     stage.act(delta);
     stage.draw();
 
-    batch.begin();
-    batch.draw(mage.getCurrentFrame(), 150, 250);
-    batch.draw(archer.getCurrentFrame(), 350, 250);
-    batch.draw(warrior.getCurrentFrame(), 650, 250);
-    batch.end();
-
-    batch.begin();
-    batch.draw(mage.getCurrentFrame(), 150, 250);
-    batch.end();
-
-    batch.begin();
-    batch.draw(archer.getCurrentFrame(), 350, 250);
-    batch.end();
-
-    batch.begin();
-    batch.draw(warrior.getCurrentFrame(), 650, 250);
-    batch.end();
-
-    // drawCharacter();
-    batch.end();
+    //  batch.begin();
+    //    batch.draw(mage.getCurrentFrame(), 150, 250);
+    //    batch.draw(archer.getCurrentFrame(), 350, 250);
+    //    batch.draw(warrior.getCurrentFrame(), 650, 250);
+    // batch.end();
   }
 
   @Override
   public void resume() {}
 
   @Override
+  public void hide() {}
+
   public void show() {
 
     Gdx.input.setInputProcessor(stage);
   }
 
   private void setScreen(Game game_level1) {}
-
-  //  public void drawCharacter() {
-  //
-  //    for ( Animation<TextureRegion> character : characterArray) {
-  //      if (character.equals(characterArray)) {
-  //        character.animationFactory(character.fileName, character.numSprites);
-  //        stage.addActor(character);
-  //        continue;
-  //      }
-  //      character.remove();
-  //    }
-  //  }
 }
